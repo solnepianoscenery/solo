@@ -1,4 +1,5 @@
 import ParticleBackground from './components/ParticleBackground';
+import CherryBlossom from './components/CherryBlossom';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Twitter, Youtube, Music2, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
@@ -68,12 +69,23 @@ export default function App() {
       <main className="pt-32 pb-20 flex flex-col items-center relative z-10">
         
         {/* Hero Section */}
-        <section className="min-h-[85vh] flex flex-col items-center justify-center relative w-full px-6">
+        <section className="w-full flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden">
+          {/* Hero Background Watermark */}
+          <div 
+            className="absolute inset-0 opacity-[0.25] mix-blend-multiply bg-cover bg-center pointer-events-none z-0"
+            style={{ backgroundImage: `url('https://i.imgur.com/WiN6nWz.jpg')` }}
+          ></div>
+          
+          {/* Cherry Blossoms Effect for the whole top area */}
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <CherryBlossom />
+          </div>
+
           <motion.div
             initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 2.5, ease: "easeOut" }}
-            className="relative flex items-center justify-center"
+            className="relative flex items-center justify-center mb-16"
           >
             {/* Shadow effect behind the logo (Hidden theme: "Shadow") */}
             <div className="absolute inset-0 bg-solne-dark opacity-[0.03] blur-3xl rounded-full transform translate-y-12 scale-110"></div>
@@ -115,22 +127,79 @@ export default function App() {
             <img 
               src={LOGO_URL} 
               alt="Solne Logo" 
-              className="w-[85vw] md:w-[600px] lg:w-[800px] object-contain relative z-10 drop-shadow-2xl mix-blend-multiply"
+              className="w-[85vw] md:w-[500px] lg:w-[600px] object-contain relative z-10 drop-shadow-2xl mix-blend-multiply"
             />
           </motion.div>
+
+          {/* New Song Promo Banner */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
-            className="mt-16 flex flex-col items-center"
+            transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }}
+            className="w-full max-w-5xl relative rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] bg-white/40 backdrop-blur-md border border-white/60"
           >
-            <motion.div 
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
-              className="w-[1px] h-24 bg-gradient-to-b from-solne-gold/60 to-transparent mb-8 origin-top"
-            ></motion.div>
-            <p className="tracking-[0.4em] text-xs md:text-sm text-solne-gold uppercase">Piano Scenery</p>
+            {/* Watermark Background (Placeholder for the attached image) */}
+            <div 
+              className="absolute inset-0 opacity-30 mix-blend-overlay bg-cover bg-center"
+              style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=2000&auto=format&fit=crop')` }}
+            ></div>
+
+            <div className="relative z-20 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-12 lg:p-16">
+              {/* Text Content */}
+              <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                <motion.span 
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/60 backdrop-blur-sm text-solne-dark text-xs md:text-sm tracking-widest mb-8 border border-solne-gold/30 shadow-sm"
+                >
+                  <span className="text-lg">🌸</span> 新曲予告公開
+                </motion.span>
+                
+                <h3 className="text-lg md:text-xl tracking-[0.2em] text-solne-dark/80 font-light mb-3">
+                  1st Original Piano Solo
+                </h3>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm">
+                  「桜色の夢」
+                </h2>
+                
+                <div className="space-y-2 mb-10">
+                  <p className="text-sm md:text-base tracking-[0.15em] text-solne-dark/80 leading-relaxed">
+                    フルMVは
+                  </p>
+                  <p className="text-lg md:text-xl tracking-[0.2em] text-solne-dark font-medium border-b border-solne-gold/50 pb-2 inline-block">
+                    4月11日 20時 公開予定
+                  </p>
+                </div>
+                
+                <a 
+                  href="https://www.youtube.com/@SolnePianoScenery?sub_confirmation=1" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-solne-dark text-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-solne-gold/80 to-solne-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <Youtube className="w-5 h-5 relative z-10 group-hover:text-white transition-colors" />
+                  <span className="relative z-10 text-xs md:text-sm tracking-widest font-light">チャンネル登録よろしくお願いします</span>
+                </a>
+              </div>
+
+              {/* YouTube Shorts Embed */}
+              <div className="w-full md:w-auto shrink-0 relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-4 border-white/80 bg-white">
+                <div className="absolute inset-0 flex items-center justify-center bg-solne-light">
+                  <div className="w-8 h-8 border-2 border-solne-gold border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                <iframe 
+                  width="315" 
+                  height="560" 
+                  src="https://www.youtube.com/embed/kJ90Ysqpq74" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                  className="relative z-10 block max-w-full"
+                ></iframe>
+              </div>
+            </div>
           </motion.div>
         </section>
 
@@ -144,7 +213,17 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-8">
-              {/* Example News Item */}
+              {/* News Item: Teaser Video */}
+              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.07</time>
+                <div className="flex-1">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                    1st. Original 作品「桜色の夢」予告動画公開しました。
+                  </p>
+                </div>
+              </div>
+
+              {/* News Item: Website Launch */}
               <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.05</time>
                 <div className="flex-1">
@@ -153,7 +232,6 @@ export default function App() {
                   </p>
                 </div>
               </div>
-              {/* Future news items can be added here easily */}
             </div>
           </div>
         </Section>
