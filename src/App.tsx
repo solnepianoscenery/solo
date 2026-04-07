@@ -70,23 +70,28 @@ export default function App() {
         
         {/* Hero Section */}
         <section className="w-full flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden">
-          {/* Hero Background Watermark */}
-          <div 
-            className="absolute inset-0 opacity-[0.25] mix-blend-multiply bg-cover bg-center pointer-events-none z-0"
-            style={{ backgroundImage: `url('https://i.imgur.com/WiN6nWz.jpg')` }}
-          ></div>
           
           {/* Cherry Blossoms Effect for the whole top area */}
           <div className="absolute inset-0 pointer-events-none z-0">
             <CherryBlossom />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 2.5, ease: "easeOut" }}
-            className="relative flex items-center justify-center mb-16"
-          >
+          {/* Logo & Background Wrapper */}
+          <div className="relative w-full flex items-center justify-center mb-16 mt-8 md:mt-16">
+            {/* Hero Background Watermark - Centered exactly behind the logo */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[80vh] md:h-[120vh] pointer-events-none z-0 flex items-center justify-center">
+              <div 
+                className="w-full h-full opacity-[0.25] mix-blend-multiply bg-contain bg-no-repeat bg-center"
+                style={{ backgroundImage: `url('https://i.imgur.com/WiN6nWz.jpg')` }}
+              ></div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              transition={{ duration: 2.5, ease: "easeOut" }}
+              className="relative flex items-center justify-center"
+            >
             {/* Shadow effect behind the logo (Hidden theme: "Shadow") */}
             <div className="absolute inset-0 bg-solne-dark opacity-[0.03] blur-3xl rounded-full transform translate-y-12 scale-110"></div>
             
@@ -129,7 +134,8 @@ export default function App() {
               alt="Solne Logo" 
               className="w-[85vw] md:w-[500px] lg:w-[600px] object-contain relative z-10 drop-shadow-2xl mix-blend-multiply"
             />
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* New Song Promo Banner */}
           <motion.div 
@@ -156,7 +162,7 @@ export default function App() {
                 </motion.span>
                 
                 <h3 className="text-lg md:text-xl tracking-[0.2em] text-solne-dark/80 font-light mb-3">
-                  1st Original Piano Solo
+                  <span className="font-sans">1</span>st. Original Piano Solo
                 </h3>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm">
                   「桜色の夢」
@@ -218,7 +224,7 @@ export default function App() {
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.07</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
-                    1st. Original 作品「桜色の夢」予告動画公開しました。
+                    <span className="font-sans">1</span>st. Original 作品「桜色の夢」予告動画公開しました。
                   </p>
                 </div>
               </div>
