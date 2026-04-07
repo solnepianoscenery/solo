@@ -1,0 +1,298 @@
+import ParticleBackground from './components/ParticleBackground';
+import { Section } from './components/Section';
+import { motion } from 'motion/react';
+import { Instagram, Twitter, Youtube, Music2, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
+
+// Uploaded images
+const LOGO_URL = "https://i.imgur.com/dz0xkjV.png";
+const CHAR_URL = "https://i.imgur.com/0ipCuQk.png";
+
+export default function App() {
+  return (
+    <div className="min-h-screen text-solne-dark font-serif selection:bg-solne-gold selection:text-white relative">
+      <ParticleBackground />
+      
+      {/* Character - Fixed Bottom Left (Scroll to Top) */}
+      <div className="fixed bottom-0 left-0 p-2 md:p-8 z-50">
+        <motion.button 
+          initial={{ opacity: 0, x: -20, filter: "blur(10px)" }}
+          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+          transition={{ duration: 2, delay: 0.8, ease: "easeOut" }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="relative group cursor-pointer focus:outline-none text-left"
+          aria-label="ページトップへ戻る"
+        >
+          {/* Guide Design */}
+          <div className="absolute -top-10 md:-top-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
+            <motion.div 
+              animate={{ y: [0, -4, 0] }} 
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowUp className="w-3 h-3 md:w-4 md:h-4 text-solne-dark" strokeWidth={1} />
+            </motion.div>
+            <span className="text-[8px] md:text-[10px] tracking-[0.3em] text-solne-dark font-light ml-1">
+              TOP
+            </span>
+          </div>
+
+          <img 
+            src={CHAR_URL} 
+            alt="Solne Character" 
+            className="h-20 sm:h-24 md:h-48 lg:h-56 object-contain drop-shadow-2xl opacity-80 md:opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.03] origin-bottom-left"
+          />
+        </motion.button>
+      </div>
+
+      {/* Navigation Menu - Fixed Top Right */}
+      <motion.nav 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.5, delay: 1, ease: "easeOut" }}
+        className="fixed top-6 right-6 md:top-10 md:right-12 z-50"
+      >
+        <ul className="flex flex-col md:flex-row items-end gap-4 md:gap-8 text-xs md:text-sm tracking-[0.2em] font-light">
+          {['News', 'About', 'Music', 'Sheet', 'Link'].map((item) => (
+            <li key={item}>
+              <a 
+                href={`#${item.toLowerCase()}`}
+                className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2"
+              >
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">{item}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </motion.nav>
+
+      <main className="pt-32 pb-20 flex flex-col items-center relative z-10">
+        
+        {/* Hero Section */}
+        <section className="min-h-[85vh] flex flex-col items-center justify-center relative w-full px-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
+            className="relative flex items-center justify-center"
+          >
+            {/* Shadow effect behind the logo (Hidden theme: "Shadow") */}
+            <div className="absolute inset-0 bg-solne-dark opacity-[0.03] blur-3xl rounded-full transform translate-y-12 scale-110"></div>
+            
+            {/* Orbit Track & Elements */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 3, delay: 1, ease: "easeOut" }}
+                className="w-[72%] md:w-[68%] aspect-square rounded-full border-[0.5px] border-solne-gold/15 absolute"
+              />
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, rotate: 360 }}
+                transition={{ 
+                  opacity: { duration: 3, delay: 1, ease: "easeOut" },
+                  rotate: { duration: 45, repeat: Infinity, ease: "linear" }
+                }}
+                className="w-[72%] md:w-[68%] aspect-square rounded-full relative"
+              >
+                {/* Sun */}
+                <div className="absolute -top-3 md:-top-4 left-1/2 -translate-x-1/2 flex items-center justify-center">
+                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 45, repeat: Infinity, ease: "linear" }} className="relative flex items-center justify-center">
+                    <div className="absolute inset-0 bg-solne-gold/20 blur-md rounded-full scale-[2]"></div>
+                    <Sun className="w-5 h-5 md:w-6 md:h-6 text-solne-gold drop-shadow-[0_0_8px_rgba(184,153,117,0.6)]" strokeWidth={0.75} />
+                  </motion.div>
+                </div>
+                {/* Moon */}
+                <div className="absolute -bottom-3 md:-bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center">
+                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 45, repeat: Infinity, ease: "linear" }} className="relative flex items-center justify-center">
+                    <div className="absolute inset-0 bg-solne-dark/10 blur-md rounded-full scale-[2]"></div>
+                    <Moon className="w-5 h-5 md:w-6 md:h-6 text-solne-dark drop-shadow-[0_0_8px_rgba(58,38,40,0.3)]" strokeWidth={0.75} />
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+
+            <img 
+              src={LOGO_URL} 
+              alt="Solne Logo" 
+              className="w-[85vw] md:w-[600px] lg:w-[800px] object-contain relative z-10 drop-shadow-2xl mix-blend-multiply"
+            />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
+            className="mt-16 flex flex-col items-center"
+          >
+            <motion.div 
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
+              className="w-[1px] h-24 bg-gradient-to-b from-solne-gold/60 to-transparent mb-8 origin-top"
+            ></motion.div>
+            <p className="tracking-[0.4em] text-xs md:text-sm text-solne-gold uppercase">Piano Scenery</p>
+          </motion.div>
+        </section>
+
+        {/* News Section */}
+        <Section id="news" className="bg-white/30 backdrop-blur-md w-full max-w-none py-32 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+          <div className="max-w-3xl mx-auto w-full px-6 flex flex-col items-center">
+            <h2 className="text-3xl md:text-4xl mb-20 tracking-[0.2em] text-solne-dark flex items-center gap-6">
+              <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+              News
+              <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+            </h2>
+            
+            <div className="w-full text-left space-y-8">
+              {/* Example News Item */}
+              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.05</time>
+                <div className="flex-1">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                    公式サイトを公開しました。今後の新曲情報などはこちらでお知らせいたします。
+                  </p>
+                </div>
+              </div>
+              {/* Future news items can be added here easily */}
+            </div>
+          </div>
+        </Section>
+
+        {/* About Section */}
+        <Section id="about">
+          <h2 className="text-3xl md:text-4xl mb-12 md:mb-16 tracking-[0.2em] text-solne-dark flex items-center gap-6">
+            <span className="w-8 md:w-12 h-[1px] bg-solne-gold/50"></span>
+            About
+            <span className="w-8 md:w-12 h-[1px] bg-solne-gold/50"></span>
+          </h2>
+          <div className="space-y-8 md:space-y-10 text-[13px] sm:text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark/80 font-light flex flex-col items-center text-center">
+            <p>情景作曲家＆独学ピアニスト。</p>
+            <p>
+              情景が浮かぶオリジナルピアノソロ曲、<br />
+              投稿してます。
+            </p>
+            <p className="text-[11px] sm:text-sm md:text-lg tracking-[0.1em] md:tracking-[0.15em] whitespace-nowrap w-full overflow-visible">
+              全風景・季節・記憶・感情から生まれた曲達。
+            </p>
+            
+            {/* Poetic Block */}
+            <div className="relative py-8 md:py-10 my-4 flex flex-col items-center gap-4 w-full max-w-md">
+              <div className="w-[1px] h-8 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent absolute top-0"></div>
+              <p className="text-solne-dark tracking-[0.2em] font-medium">完璧な演奏じゃなくていい。</p>
+              <p className="text-solne-dark tracking-[0.2em] font-medium flex items-center justify-center gap-3">
+                心に届けばいい
+                <span className="text-solne-gold/70 text-sm md:text-base font-normal tracking-normal">𓊩𓂃 𓈒𓏸</span>
+              </p>
+              <div className="w-[1px] h-8 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent absolute bottom-0"></div>
+            </div>
+
+            <p className="pt-4 md:pt-8 text-[11px] sm:text-xs md:text-base text-solne-dark/60">
+              このサイトでは、活動紹介、新曲の紹介、<br className="hidden md:block" />
+              そしてSolneの音楽の世界への入り口をご提供します。
+            </p>
+          </div>
+        </Section>
+
+        {/* Music Section */}
+        <Section id="music">
+          <h2 className="text-3xl md:text-4xl mb-16 tracking-[0.2em] text-solne-dark flex items-center gap-6">
+            <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+            Music
+            <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+          </h2>
+          
+          <div className="w-full max-w-4xl aspect-[21/9] bg-white/40 backdrop-blur-lg border border-white/60 rounded-3xl flex flex-col items-center justify-center shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden group transition-transform duration-700 hover:scale-[1.02]">
+            <div className="absolute inset-0 bg-gradient-to-br from-solne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(255,255,255,0.5)] pointer-events-none"></div>
+            
+            <motion.div 
+              animate={{ y: [0, -10, 0] }} 
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Music2 className="w-12 h-12 text-solne-gold/30 mb-8" strokeWidth={1} />
+            </motion.div>
+            <p className="text-xl md:text-2xl tracking-[0.3em] text-solne-dark/50 font-light">お楽しみに！</p>
+          </div>
+        </Section>
+
+        {/* Sheet Section */}
+        <Section id="sheet" className="bg-white/30 backdrop-blur-md w-full max-w-none py-32 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+          <div className="max-w-4xl mx-auto w-full px-6 flex flex-col items-center">
+            <h2 className="text-3xl md:text-4xl mb-16 tracking-[0.2em] text-solne-dark flex items-center gap-6">
+              <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+              Sheet
+              <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+            </h2>
+            
+            <div className="w-full max-w-4xl aspect-[21/9] bg-white/40 backdrop-blur-lg border border-white/60 rounded-3xl flex flex-col items-center justify-center shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden group transition-transform duration-700 hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-gradient-to-br from-solne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(255,255,255,0.5)] pointer-events-none"></div>
+              
+              <motion.div 
+                animate={{ y: [0, -10, 0] }} 
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <FileText className="w-12 h-12 text-solne-gold/30 mb-8" strokeWidth={1} />
+              </motion.div>
+              <p className="text-xl md:text-2xl tracking-[0.3em] text-solne-dark/50 font-light mb-4">準備中</p>
+              <p className="text-xs md:text-sm tracking-widest text-solne-dark/40">オリジナル曲の楽譜を販売予定です</p>
+            </div>
+          </div>
+        </Section>
+
+        {/* Link Section */}
+        <Section id="link" className="pb-40">
+          <h2 className="text-3xl md:text-4xl mb-20 tracking-[0.2em] text-solne-dark flex items-center gap-6">
+            <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+            Link
+            <span className="w-12 h-[1px] bg-solne-gold/50"></span>
+          </h2>
+          
+          <div className="flex flex-wrap justify-center gap-10 md:gap-20">
+            <a href="https://www.youtube.com/@SolnePianoScenery" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
+                <Youtube className="w-7 h-7" strokeWidth={1.5} />
+              </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">YouTube</span>
+            </a>
+            
+            <a href="https://x.com/solnepiano" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
+                <Twitter className="w-7 h-7" strokeWidth={1.5} />
+              </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">X</span>
+            </a>
+            
+            <a href="https://www.instagram.com/solne_piano_scenery/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
+                <Instagram className="w-7 h-7" strokeWidth={1.5} />
+              </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">Instagram</span>
+            </a>
+            
+            <div className="flex flex-col items-center gap-6 group cursor-not-allowed opacity-50">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/40 transition-all duration-500 relative overflow-hidden">
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                </svg>
+                {/* Diagonal line for under construction */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-full h-[1px] bg-solne-dark/20 -rotate-45"></div>
+                </div>
+              </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/40 flex flex-col items-center gap-2">
+                TikTok
+                <span className="text-[9px] tracking-widest bg-solne-dark/5 px-2 py-1 rounded-full">工事中</span>
+              </span>
+            </div>
+          </div>
+        </Section>
+
+      </main>
+
+      <footer className="py-12 text-center text-solne-dark/30 text-xs tracking-[0.2em] relative z-10 font-light">
+        <p>&copy; {new Date().getFullYear()} Solne Piano Scenery. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}

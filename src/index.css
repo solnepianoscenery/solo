@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", "Noto Serif JP", serif;
+  --color-solne-dark: #3A2628;
+  --color-solne-gold: #B89975;
+  --color-solne-light: #FAFAFA;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-solne-light);
+  color: var(--color-solne-dark);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+}
