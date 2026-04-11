@@ -2,7 +2,7 @@ import ParticleBackground from './components/ParticleBackground';
 import CherryBlossom from './components/CherryBlossom';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
-import { Instagram, Twitter, Youtube, Music2, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
+import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/dz0xkjV.png";
@@ -219,6 +219,16 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-8">
+              {/* News Item: TikTok Launch */}
+              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.09</time>
+                <div className="flex-1">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                    TikTokアカウントを開設しました。
+                  </p>
+                </div>
+              </div>
+
               {/* News Item: Teaser Video */}
               <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.07</time>
@@ -332,19 +342,21 @@ export default function App() {
             <span className="w-12 h-[1px] bg-solne-gold/50"></span>
           </h2>
           
-          <div className="flex flex-wrap justify-center gap-10 md:gap-20">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-x-4 gap-y-12 md:gap-20 max-w-sm md:max-w-none mx-auto">
+            <a href="https://x.com/solnepiano" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">X</span>
+            </a>
+
             <a href="https://www.youtube.com/@SolnePianoScenery" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <Youtube className="w-7 h-7" strokeWidth={1.5} />
               </div>
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">YouTube</span>
-            </a>
-            
-            <a href="https://x.com/solnepiano" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
-              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
-                <Twitter className="w-7 h-7" strokeWidth={1.5} />
-              </div>
-              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">X</span>
             </a>
             
             <a href="https://www.instagram.com/solne_piano_scenery/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
@@ -354,21 +366,14 @@ export default function App() {
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">Instagram</span>
             </a>
             
-            <div className="flex flex-col items-center gap-6 group cursor-not-allowed opacity-50">
-              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/40 transition-all duration-500 relative overflow-hidden">
+            <a href="https://www.tiktok.com/@solne.piano.scenery?_r=1&_t=ZS-95R4K7BwjHs" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
                 </svg>
-                {/* Diagonal line for under construction */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-full h-[1px] bg-solne-dark/20 -rotate-45"></div>
-                </div>
               </div>
-              <span className="tracking-[0.2em] text-xs text-solne-dark/40 flex flex-col items-center gap-2">
-                TikTok
-                <span className="text-[9px] tracking-widest bg-solne-dark/5 px-2 py-1 rounded-full">工事中</span>
-              </span>
-            </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">TikTok</span>
+            </a>
           </div>
         </Section>
 
