@@ -150,59 +150,38 @@ export default function App() {
               style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=2000&auto=format&fit=crop')` }}
             ></div>
 
-            <div className="relative z-20 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-12 lg:p-16">
+            <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center">
               {/* Text Content */}
-              <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+              <div className="flex flex-col items-center">
                 <motion.span 
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/60 backdrop-blur-sm text-solne-dark text-xs md:text-sm tracking-widest mb-8 border border-solne-gold/30 shadow-sm"
+                  className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm text-solne-dark text-sm md:text-base tracking-widest mb-6 border border-solne-gold/50 shadow-md font-medium"
                 >
-                  <span className="text-lg">🌸</span> 新曲予告公開
+                  <span className="text-lg">🌸</span> ついにフルMV公開
                 </motion.span>
                 
-                <h3 className="text-lg md:text-xl tracking-[0.2em] text-solne-dark/80 font-light mb-3">
+                <h3 className="text-xl md:text-2xl tracking-[0.2em] text-solne-dark/90 font-light mb-4">
                   <span className="font-sans">1</span>st. Original Piano Solo
                 </h3>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm">
                   「桜色の夢」
                 </h2>
-                
-                <div className="space-y-2 mb-10">
-                  <p className="text-sm md:text-base tracking-[0.15em] text-solne-dark/80 leading-relaxed">
-                    フルMVは
-                  </p>
-                  <p className="text-lg md:text-xl tracking-[0.2em] text-solne-dark font-medium border-b border-solne-gold/50 pb-2 inline-block">
-                    4月11日 20時 公開予定
-                  </p>
-                </div>
-                
-                <a 
-                  href="https://www.youtube.com/@SolnePianoScenery?sub_confirmation=1" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-solne-dark text-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-xl"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-solne-gold/80 to-solne-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <Youtube className="w-5 h-5 relative z-10 group-hover:text-white transition-colors" />
-                  <span className="relative z-10 text-xs md:text-sm tracking-widest font-light">チャンネル登録よろしくお願いします</span>
-                </a>
               </div>
 
-              {/* YouTube Shorts Embed */}
-              <div className="w-full md:w-auto shrink-0 relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-4 border-white/80 bg-white">
+              {/* YouTube Full Video Embed */}
+              <div className="w-full max-w-4xl relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-4 border-white/80 bg-white aspect-video">
                 <div className="absolute inset-0 flex items-center justify-center bg-solne-light">
                   <div className="w-8 h-8 border-2 border-solne-gold border-t-transparent rounded-full animate-spin"></div>
                 </div>
                 <iframe 
-                  width="315" 
-                  height="560" 
-                  src="https://www.youtube.com/embed/kJ90Ysqpq74" 
+                  src="https://www.youtube.com/embed/Zrr9Yxb_VXc?si=DouH43Yi-YLslbDK" 
                   title="YouTube video player" 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
-                  className="relative z-10 block max-w-full"
+                  className="absolute top-0 left-0 w-full h-full z-10"
                 ></iframe>
               </div>
             </div>
@@ -219,6 +198,16 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-8">
+              {/* News Item: Full MV Release */}
+              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.11</time>
+                <div className="flex-1">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                    <span className="font-sans">1</span>st. Original 作品「桜色の夢」のフルMVを公開しました。
+                  </p>
+                </div>
+              </div>
+
               {/* News Item: TikTok Launch */}
               <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.09</time>
