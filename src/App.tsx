@@ -2,7 +2,7 @@ import ParticleBackground from './components/ParticleBackground';
 import CherryBlossom from './components/CherryBlossom';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
-import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
+import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink } from 'lucide-react';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
@@ -325,25 +325,52 @@ export default function App() {
 
         {/* Sheet Section */}
         <Section id="sheet" className="bg-white/30 backdrop-blur-md w-full max-w-none py-32 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
-          <div className="max-w-4xl mx-auto w-full px-6 flex flex-col items-center">
+          <div className="max-w-5xl mx-auto w-full px-4 flex flex-col items-center">
             <h2 className="text-3xl md:text-4xl mb-16 tracking-[0.2em] text-solne-dark flex items-center gap-6">
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
               Sheet
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            <div className="w-full max-w-4xl aspect-[21/9] bg-white/40 backdrop-blur-lg border border-white/60 rounded-3xl flex flex-col items-center justify-center shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden group transition-transform duration-700 hover:scale-[1.02]">
-              <div className="absolute inset-0 bg-gradient-to-br from-solne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(255,255,255,0.5)] pointer-events-none"></div>
-              
-              <motion.div 
-                animate={{ y: [0, -10, 0] }} 
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Sheet Music Card: 桜色の夢 */}
+              <a 
+                href="https://store.piascore.com/scores/408615" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
               >
-                <FileText className="w-12 h-12 text-solne-gold/30 mb-8" strokeWidth={1} />
-              </motion.div>
-              <p className="text-xl md:text-2xl tracking-[0.3em] text-solne-dark/50 font-light mb-4">準備中</p>
-              <p className="text-xs md:text-sm tracking-widest text-solne-dark/40">オリジナル曲の楽譜を販売予定です</p>
+                <div className="relative aspect-video overflow-hidden bg-solne-light">
+                  <img 
+                    src="https://i.imgur.com/3dYK3s9.jpeg" 
+                    alt="桜色の夢 楽譜" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-solne-dark/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                  
+                  {/* Link Icon Overlay */}
+                  <div className="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-solne-dark shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                    <ExternalLink className="w-4 h-4" />
+                  </div>
+                </div>
+                
+                <div className="p-6 flex flex-col items-center text-center">
+                  <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full">
+                    Piano Solo Sheet
+                  </span>
+                  <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium mb-4">桜色の夢</h3>
+                  <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
+                    Piascoreで購入 <ExternalLink className="w-3 h-3" />
+                  </span>
+                </div>
+              </a>
+              
+              {/* Placeholder for future sheets */}
+              <div className="hidden sm:flex flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
+                <FileText className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
+                <p className="text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
+              </div>
             </div>
           </div>
         </Section>
