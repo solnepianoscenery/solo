@@ -35,7 +35,7 @@ const setFavicon = () => {
       link.href = canvas.toDataURL('image/png');
     }
   };
-  img.src = 'https://i.imgur.com/dz0xkjV.png';
+  img.src = 'https://i.imgur.com/3gkwo9v.png';
 };
 
 setFavicon();

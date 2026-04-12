@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
 
 // Uploaded images
-const LOGO_URL = "https://i.imgur.com/dz0xkjV.png";
+const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
 const CHAR_URL = "https://i.imgur.com/0ipCuQk.png";
 
 export default function App() {
