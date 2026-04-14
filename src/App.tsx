@@ -198,6 +198,16 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-8">
+              {/* News Item: Sheet Music Release */}
+              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.12</time>
+                <div className="flex-1">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                    <span className="font-sans">1</span>st. Original 作品「桜色の夢」の楽譜を公開しました。
+                  </p>
+                </div>
+              </div>
+
               {/* News Item: Full MV Release */}
               <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.11</time>
@@ -299,11 +309,11 @@ export default function App() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-solne-dark/10 group-hover:bg-transparent transition-colors duration-500"></div>
-                
-                {/* Play Icon Overlay */}
-                <div className="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-solne-dark shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                  <Youtube className="w-5 h-5" />
+                <div className="absolute inset-0 bg-solne-dark/20 group-hover:bg-solne-dark/10 transition-colors duration-500 flex items-center justify-center">
+                  {/* Central Play Button */}
+                  <div className="w-12 h-12 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-all duration-300">
+                    <Youtube className="w-6 h-6 ml-1" />
+                  </div>
                 </div>
               </div>
               
@@ -312,6 +322,10 @@ export default function App() {
                   <span className="font-sans">1</span>st. Original
                 </span>
                 <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium">桜色の夢</h3>
+                <p className="text-xs tracking-widest text-solne-dark/50 mt-2 font-light">Dream in Cherry Blossom</p>
+                <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-red-600 transition-colors flex items-center gap-2 mt-4">
+                  <Youtube className="w-4 h-4" /> Watch on YouTube
+                </span>
               </div>
             </a>
             
@@ -347,11 +361,11 @@ export default function App() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-solne-dark/10 group-hover:bg-transparent transition-colors duration-500"></div>
-                  
-                  {/* Link Icon Overlay */}
-                  <div className="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-solne-dark shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                    <ExternalLink className="w-4 h-4" />
+                  <div className="absolute inset-0 bg-solne-dark/10 group-hover:bg-solne-dark/30 transition-colors duration-500 flex items-center justify-center">
+                    {/* Central Sheet Icon */}
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-solne-dark shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <FileText className="w-5 h-5" />
+                    </div>
                   </div>
                 </div>
                 
@@ -359,9 +373,10 @@ export default function App() {
                   <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full">
                     Piano Solo Sheet
                   </span>
-                  <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium mb-4">桜色の夢</h3>
+                  <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium">桜色の夢</h3>
+                  <p className="text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4">Dream in Cherry Blossom</p>
                   <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
-                    Piascoreで購入 <ExternalLink className="w-3 h-3" />
+                    <FileText className="w-3 h-3" /> Piascoreで購入 <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
               </a>
