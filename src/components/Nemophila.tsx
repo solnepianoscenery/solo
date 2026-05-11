@@ -2,48 +2,51 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 const Nemophila = () => {
-  const [petals, setPetals] = useState<Array<{ id: number; x: number; delay: number; duration: number; size: number; rotation: number; opacity: number }>>([]);
+  const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number; delay: number; duration: number; size: number; color: string }>>([]);
 
   useEffect(() => {
-    // Generate random Nemophila petals (blue flowers)
-    const newPetals = Array.from({ length: 25 }).map((_, i) => ({
+    // Generate sparkling lights to reflect sunset on Nemophila
+    const newSparkles = Array.from({ length: 100 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100, // starting x position (%)
-      delay: Math.random() * 15, // animation delay
-      duration: Math.random() * 12 + 12, // fall duration (12-24s)
-      size: Math.random() * 8 + 10, // size (10-18px)
-      rotation: Math.random() * 360, // initial rotation
-      opacity: Math.random() * 0.4 + 0.3, // opacity (0.3-0.7)
+      y: Math.random() * 100, // cover the entire screen
+      delay: Math.random() * 5, // animation delay
+      duration: Math.random() * 4 + 3, // twinkle duration (3-7s)
+      size: Math.random() * 4 + 1, // size (1-5px)
+      // Colors: Gold, Warm Orange, White/Sky shimmer
+      color: Math.random() > 0.7 ? '#FFD700' : (Math.random() > 0.5 ? '#FFA500' : (Math.random() > 0.5 ? '#FFFFFF' : '#87CEEB')),
     }));
-    setPetals(newPetals);
+    setSparkles(newSparkles);
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-      {petals.map((petal) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
+      {/* Sunset glow effect along the bottom edge */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-orange-400/10 via-yellow-200/5 to-transparent blur-3xl mix-blend-overlay"></div>
+      
+      {sparkles.map((sparkle) => (
         <motion.div
-          key={petal.id}
-          className="absolute top-[-5%]"
+          key={sparkle.id}
+          className="absolute rounded-full"
           style={{
-            left: `${petal.x}%`,
-            width: petal.size,
-            height: petal.size,
-            backgroundColor: '#4A90E2', // Nemophila Blue
-            borderRadius: '50% 50% 50% 50%',
-            opacity: petal.opacity,
-            boxShadow: '0 0 15px rgba(74, 144, 226, 0.4)',
-            border: '2px solid rgba(255, 255, 255, 0.2)',
+            left: `${sparkle.x}%`,
+            top: `${sparkle.y}%`,
+            width: sparkle.size,
+            height: sparkle.size,
+            backgroundColor: sparkle.color,
+            boxShadow: `0 0 ${sparkle.size * 3}px ${sparkle.color}`,
           }}
           animate={{
-            y: ['-10vh', '150vh'],
-            x: [`${petal.x}%`, `${petal.x + (Math.random() * 15 - 7.5)}%`],
-            rotate: [petal.rotation, petal.rotation + 720],
+            opacity: [0, Math.random() * 0.9 + 0.5, 0],
+            scale: [0.3, 1.5, 0.3],
+            y: [0, -40], // Slight upward drift
+            x: [0, Math.random() * 20 - 10], // Slight side drift
           }}
           transition={{
-            duration: petal.duration,
+            duration: sparkle.duration,
             repeat: Infinity,
-            ease: "linear",
-            delay: petal.delay,
+            ease: "easeInOut",
+            delay: sparkle.delay,
           }}
         />
       ))}

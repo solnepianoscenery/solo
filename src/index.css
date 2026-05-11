@@ -2,9 +2,9 @@
 
 @theme {
   --font-serif: "Cormorant Garamond", "Noto Serif JP", serif;
-  --color-solne-dark: #3A2628;
-  --color-solne-gold: #B89975;
-  --color-solne-light: #FAFAFA;
+  --color-solne-dark: #202D46;
+  --color-solne-gold: #DB9D64;
+  --color-solne-light: #F6F3F5;
 }
 
 html {

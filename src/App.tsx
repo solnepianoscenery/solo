@@ -1,6 +1,7 @@
 import ParticleBackground from './components/ParticleBackground';
 import CherryBlossom from './components/CherryBlossom';
 import Nemophila from './components/Nemophila';
+import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink } from 'lucide-react';
@@ -80,12 +81,12 @@ export default function App() {
           {/* Logo & Background Wrapper */}
           <div className="relative w-full flex items-center justify-center mb-16 mt-8 md:mt-16">
             {/* Hero Background Watermark */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[80vh] md:h-[120vh] pointer-events-none z-0 flex items-center justify-center">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[80vh] md:h-[120vh] pointer-events-none z-0 flex items-center justify-center flex-col">
               <div 
-                className="w-full h-full opacity-[0.35] mix-blend-multiply bg-contain bg-no-repeat bg-center"
-                style={{ backgroundImage: `url('https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg')` }}
+                className="w-full h-full opacity-90 bg-cover bg-center object-cover mix-blend-normal"
+                style={{ backgroundImage: `url('https://i.imgur.com/J5oQejK.jpeg')` }}
               ></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-solne-light/50"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-solne-light/95"></div>
             </div>
 
             <motion.div
@@ -94,8 +95,8 @@ export default function App() {
               transition={{ duration: 2.5, ease: "easeOut" }}
               className="relative flex items-center justify-center"
             >
-            {/* Shadow effect behind the logo */}
-            <div className="absolute inset-0 bg-blue-900 opacity-[0.03] blur-3xl rounded-full transform translate-y-12 scale-110"></div>
+            {/* Glow effect behind the logo to ensure readability */}
+            <div className="absolute inset-0 bg-white/80 blur-[60px] rounded-full transform translate-y-6 scale-[1.6] -z-10"></div>
             
             {/* Orbit Track & Elements */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
@@ -149,7 +150,7 @@ export default function App() {
             {/* Watermark Background */}
             <div 
               className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
-              style={{ backgroundImage: `url('https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg')` }}
+              style={{ backgroundImage: `url('https://i.imgur.com/J5oQejK.jpeg')` }}
             ></div>
 
             <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center">
@@ -163,15 +164,12 @@ export default function App() {
                   <span className="text-lg">🌿</span> 2nd. 作品公開
                 </motion.span>
                 
-                <h3 className="text-xl md:text-2xl tracking-[0.2em] text-solne-dark/90 font-light mb-4">
+                <h3 className="text-lg md:text-2xl tracking-[0.2em] text-solne-dark/90 font-light mb-4 whitespace-nowrap">
                   <span className="font-sans">2</span>nd. Original Piano Solo
                 </h3>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm whitespace-nowrap">
                   「碧に包まれて」
                 </h2>
-                <p className="text-sm md:text-lg tracking-[0.3em] text-solne-dark/60 font-light -mt-6 mb-10">
-                  — 夕暮れのネモフィラ —
-                </p>
               </div>
 
               {/* YouTube Full Video Embed */}
@@ -190,71 +188,86 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* News Section */}
-        <Section id="news" className="bg-white/30 backdrop-blur-md w-full max-w-none py-32 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+        {/* TikTok Section */}
+        <Section id="tiktok" className="bg-white/30 backdrop-blur-md w-full max-w-none pt-32 pb-0 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
           <div className="max-w-3xl mx-auto w-full px-6 flex flex-col items-center">
-            <h2 className="text-3xl md:text-4xl mb-20 tracking-[0.2em] text-solne-dark flex items-center gap-6">
+            {/* TikTok Latest Videos Embed */}
+            <div className="w-full bg-white/40 backdrop-blur-md border border-white/60 rounded-3xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <span className="w-4 h-[1px] bg-solne-dark/30"></span>
+                <span className="text-xs tracking-[0.2em] text-solne-dark/60 font-medium">LATEST SHORTS</span>
+                <span className="w-4 h-[1px] bg-solne-dark/30"></span>
+              </div>
+              <TikTokProfileEmbed />
+            </div>
+          </div>
+        </Section>
+
+        {/* News Section */}
+        <Section id="news" className="bg-white/30 backdrop-blur-md w-full max-w-none py-16 md:py-24 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+          <div className="max-w-3xl mx-auto w-full px-6 flex flex-col items-center">
+            <h2 className="text-3xl md:text-4xl mb-8 tracking-[0.2em] text-solne-dark flex items-center gap-6">
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
               News
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            <div className="w-full text-left space-y-8">
+            <div className="w-full text-left space-y-4">
               {/* News Item: 2nd Original Release */}
-              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.05.11</time>
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.11</time>
                 <div className="flex-1">
-                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">2</span>nd. Original 作品「碧に包まれて」フルMV公開しました。
                   </p>
                 </div>
               </div>
 
               {/* News Item: Sheet Music Release */}
-              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.12</time>
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.12</time>
                 <div className="flex-1">
-                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">1</span>st. Original 作品「桜色の夢」の楽譜を公開しました。
                   </p>
                 </div>
               </div>
 
               {/* News Item: Full MV Release */}
-              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.11</time>
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.11</time>
                 <div className="flex-1">
-                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">1</span>st. Original 作品「桜色の夢」のフルMVを公開しました。
                   </p>
                 </div>
               </div>
 
               {/* News Item: TikTok Launch */}
-              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.09</time>
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.09</time>
                 <div className="flex-1">
-                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     TikTokアカウントを開設しました。
                   </p>
                 </div>
               </div>
 
               {/* News Item: Teaser Video */}
-              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.07</time>
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.07</time>
                 <div className="flex-1">
-                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">1</span>st. Original 作品「桜色の夢」予告動画公開しました。
                   </p>
                 </div>
               </div>
 
               {/* News Item: Website Launch */}
-              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.05</time>
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.05</time>
                 <div className="flex-1">
-                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     公式サイトを公開しました。今後の新曲情報などはこちらでお知らせいたします。
                   </p>
                 </div>
@@ -264,37 +277,52 @@ export default function App() {
         </Section>
 
         {/* About Section */}
-        <Section id="about">
-          <h2 className="text-3xl md:text-4xl mb-12 md:mb-16 tracking-[0.2em] text-solne-dark flex items-center gap-6">
-            <span className="w-8 md:w-12 h-[1px] bg-solne-gold/50"></span>
-            About
-            <span className="w-8 md:w-12 h-[1px] bg-solne-gold/50"></span>
-          </h2>
-          <div className="space-y-8 md:space-y-10 text-[13px] sm:text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark/80 font-light flex flex-col items-center text-center">
-            <p>情景作曲家＆独学ピアニスト。</p>
-            <p>
-              情景が浮かぶオリジナルピアノソロ曲、<br />
-              投稿してます。
-            </p>
-            <p className="text-[11px] sm:text-sm md:text-lg tracking-[0.1em] md:tracking-[0.15em] whitespace-nowrap w-full overflow-visible">
-              全風景・季節・記憶・感情から生まれた曲達。
-            </p>
+        <Section id="about" className="relative group w-full max-w-4xl mx-auto">
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-3xl border border-white/60 shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-700 group-hover:shadow-[0_20px_50px_rgba(219,157,100,0.15)] -z-10 mt-16 md:mt-0"></div>
+          
+          <div className="py-12 md:py-20 px-4 md:px-12 w-full flex flex-col items-center">
+            <h2 className="text-3xl md:text-4xl mb-12 md:mb-16 tracking-[0.2em] text-solne-dark flex flex-col items-center gap-4 mt-10 md:mt-0">
+              <span className="text-[10px] md:text-xs tracking-[0.3em] text-solne-gold mb-1 font-medium bg-white/50 px-4 py-1 rounded-full border border-solne-gold/20 shadow-sm">PROFILE</span>
+              <div className="flex items-center gap-6">
+                <span className="w-8 md:w-16 h-[1px] bg-solne-gold/50"></span>
+                About
+                <span className="w-8 md:w-16 h-[1px] bg-solne-gold/50"></span>
+              </div>
+            </h2>
             
-            {/* Poetic Block */}
-            <div className="relative py-8 md:py-10 my-4 flex flex-col items-center gap-4 w-full max-w-md">
-              <div className="w-[1px] h-8 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent absolute top-0"></div>
-              <p className="text-solne-dark tracking-[0.2em] font-medium">完璧な演奏じゃなくていい。</p>
-              <p className="text-solne-dark tracking-[0.2em] font-medium flex items-center justify-center gap-3">
-                心に届けばいい
-                <span className="text-solne-gold/70 text-sm md:text-base font-normal tracking-normal">𓊩𓂃 𓈒𓏸</span>
-              </p>
-              <div className="w-[1px] h-8 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent absolute bottom-0"></div>
-            </div>
+            <div className="space-y-10 md:space-y-12 text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark flex flex-col items-center text-center">
+              
+              <div className="space-y-3 md:space-y-4">
+                <p className="text-xl md:text-3xl font-serif text-solne-dark tracking-[0.2em]">Solne</p>
+                <p className="text-solne-gold font-medium tracking-[0.3em] text-[11px] md:text-sm">— 情景作曲家 ＆ 独学ピアニスト —</p>
+              </div>
 
-            <p className="pt-4 md:pt-8 text-[11px] sm:text-xs md:text-base text-solne-dark/60">
-              このサイトでは、活動紹介、新曲の紹介、<br className="hidden md:block" />
-              そしてSolneの音楽の世界への入り口をご提供します。
-            </p>
+              <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
+
+              <div className="space-y-6 md:space-y-8 font-light text-solne-dark/80 px-2 md:px-0 w-full flex flex-col items-center">
+                <p className="text-[12px] sm:text-[14px] md:text-base leading-relaxed hidden md:block">
+                  情景が浮かぶオリジナルピアノソロ曲や、<br />
+                  様々な曲の「弾いてみた」を投稿しています。<br />
+                </p>
+                <p className="text-[13px] leading-[2.4] block md:hidden">
+                  情景が浮かぶオリジナルピアノソロ曲や、<br />
+                  様々な曲の「弾いてみた」を<br />投稿しています。
+                </p>
+
+                <p className="text-[11px] sm:text-[13px] md:text-[16px] tracking-[0.15em] md:tracking-[0.2em] text-solne-dark/90 font-normal py-4 md:py-6 bg-white/30 rounded-2xl w-full max-w-2xl px-2 md:px-6 border border-white/50 shadow-sm">
+                  <span className="text-solne-gold mr-1 md:mr-2">✦</span>
+                  風景・季節・記憶・感情から生まれた曲たち
+                  <span className="text-solne-gold ml-1 md:ml-2">✦</span>
+                </p>
+              </div>
+              
+              <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
+
+              <p className="text-[11px] sm:text-xs md:text-[14px] text-solne-dark/50 font-light max-w-xl mx-auto px-4 pb-8 md:pb-0">
+                このサイトでは、活動紹介や新曲のご案内など、<br className="hidden sm:block" />
+                Solneの音楽の世界への入り口をお届けします。
+              </p>
+            </div>
           </div>
         </Section>
 
@@ -306,13 +334,13 @@ export default function App() {
             <span className="w-12 h-[1px] bg-solne-gold/50"></span>
           </h2>
           
-          <div className="w-full max-w-5xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="w-full max-w-5xl mx-auto px-4 flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {/* Song Card: 碧に包まれて */}
             <a 
               href="https://youtu.be/_WpV5B3S9dI" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+              className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
             >
               <div className="relative aspect-video overflow-hidden bg-solne-light">
                 <img 
@@ -324,7 +352,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-solne-dark/20 group-hover:bg-solne-dark/10 transition-colors duration-500 flex items-center justify-center">
                   {/* Central Play Button */}
                   <div className="w-12 h-12 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-all duration-300">
-                    <Youtube className="w-6 h-6 ml-1" />
+                    <Youtube className="w-6 h-6" />
                   </div>
                 </div>
               </div>
@@ -346,7 +374,7 @@ export default function App() {
               href="https://youtu.be/Zrr9Yxb_VXc" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2 opacity-80 hover:opacity-100"
+              className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2 opacity-80 hover:opacity-100"
             >
               <div className="relative aspect-video overflow-hidden bg-solne-light">
                 <img 
@@ -358,7 +386,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-solne-dark/20 group-hover:bg-solne-dark/10 transition-colors duration-500 flex items-center justify-center">
                   {/* Central Play Button */}
                   <div className="w-12 h-12 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-all duration-300">
-                    <Youtube className="w-6 h-6 ml-1" />
+                    <Youtube className="w-6 h-6" />
                   </div>
                 </div>
               </div>
@@ -376,7 +404,7 @@ export default function App() {
             </a>
             
             {/* Placeholder for future songs (Optional, keeping it clean for now) */}
-            <div className="hidden sm:flex flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
+            <div className="hidden sm:flex shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
               <Music2 className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
               <p className="text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
             </div>
@@ -392,13 +420,13 @@ export default function App() {
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {/* Sheet Music Card: 桜色の夢 */}
               <a 
                 href="https://store.piascore.com/scores/408615" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+                className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
               >
                 <div className="relative aspect-video overflow-hidden bg-solne-light">
                   <img 
