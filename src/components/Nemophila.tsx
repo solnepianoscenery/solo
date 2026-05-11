@@ -2,51 +2,47 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 const Nemophila = () => {
-  const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number; delay: number; duration: number; size: number; color: string }>>([]);
+  const [beams, setBeams] = useState<Array<{ id: number; x: number; angle: number; width: number; duration: number; delay: number; opacity: number }>>([]);
 
   useEffect(() => {
-    // Generate sparkling lights to reflect sunset on Nemophila
-    const newSparkles = Array.from({ length: 100 }).map((_, i) => ({
+    // Generate soft sunset light beams
+    const newBeams = Array.from({ length: 15 }).map((_, i) => ({
       id: i,
-      x: Math.random() * 100, // starting x position (%)
-      y: Math.random() * 100, // cover the entire screen
+      x: Math.random() * 120 - 10, // starting x position (%)
+      angle: Math.random() * 30 - 15, // tilt angle
+      width: Math.random() * 15 + 5, // width in vw
+      duration: Math.random() * 8 + 5, // pulse duration
       delay: Math.random() * 5, // animation delay
-      duration: Math.random() * 4 + 3, // twinkle duration (3-7s)
-      size: Math.random() * 4 + 1, // size (1-5px)
-      // Colors: Gold, Warm Orange, White/Sky shimmer
-      color: Math.random() > 0.7 ? '#FFD700' : (Math.random() > 0.5 ? '#FFA500' : (Math.random() > 0.5 ? '#FFFFFF' : '#87CEEB')),
+      opacity: Math.random() * 0.15 + 0.05,
     }));
-    setSparkles(newSparkles);
+    setBeams(newBeams);
   }, []);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
-      {/* Sunset glow effect along the bottom edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-orange-400/10 via-yellow-200/5 to-transparent blur-3xl mix-blend-overlay"></div>
+      {/* Sunset glow effect */}
+      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-orange-300/20 via-yellow-100/10 to-transparent blur-3xl mix-blend-overlay"></div>
       
-      {sparkles.map((sparkle) => (
+      {beams.map((beam) => (
         <motion.div
-          key={sparkle.id}
-          className="absolute rounded-full"
+          key={beam.id}
+          className="absolute top-[-20%] h-[140%] transform-origin-top mix-blend-screen"
           style={{
-            left: `${sparkle.x}%`,
-            top: `${sparkle.y}%`,
-            width: sparkle.size,
-            height: sparkle.size,
-            backgroundColor: sparkle.color,
-            boxShadow: `0 0 ${sparkle.size * 3}px ${sparkle.color}`,
+            left: `${beam.x}%`,
+            width: `${beam.width}vw`,
+            background: 'linear-gradient(to bottom, rgba(255, 220, 150, 1), rgba(255, 200, 100, 0.4) 40%, transparent 100%)',
+            rotate: `${beam.angle}deg`,
+            filter: 'blur(30px)',
           }}
           animate={{
-            opacity: [0, Math.random() * 0.9 + 0.5, 0],
-            scale: [0.3, 1.5, 0.3],
-            y: [0, -40], // Slight upward drift
-            x: [0, Math.random() * 20 - 10], // Slight side drift
+            opacity: [beam.opacity * 0.5, beam.opacity, beam.opacity * 0.5],
+            transform: [`translateY(0%) rotate(${beam.angle}deg)`, `translateY(2%) rotate(${beam.angle + 2}deg)`, `translateY(0%) rotate(${beam.angle}deg)`]
           }}
           transition={{
-            duration: sparkle.duration,
+            duration: beam.duration,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: sparkle.delay,
+            delay: beam.delay,
           }}
         />
       ))}

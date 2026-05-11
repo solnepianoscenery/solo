@@ -4,7 +4,7 @@ import Nemophila from './components/Nemophila';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
-import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink } from 'lucide-react';
+import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
@@ -71,24 +71,24 @@ export default function App() {
       <main className="pt-32 pb-20 flex flex-col items-center relative z-10">
         
         {/* Hero Section */}
-        <section className="w-full flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden">
+        <section className="w-full min-h-[90vh] flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden">
           
+          {/* Hero Background Watermark */}
+          <div className="absolute inset-x-0 top-0 h-[120vh] pointer-events-none z-0 -mt-20">
+            <div 
+              className="w-full h-full opacity-60 bg-cover bg-center object-cover mix-blend-normal"
+              style={{ backgroundImage: `url('https://i.imgur.com/J5oQejK.jpeg')` }}
+            ></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/50 to-solne-light"></div>
+          </div>
+
           {/* Floral Effects */}
           <div className="absolute inset-0 pointer-events-none z-0">
             <Nemophila />
           </div>
 
           {/* Logo & Background Wrapper */}
-          <div className="relative w-full flex items-center justify-center mb-16 mt-8 md:mt-16">
-            {/* Hero Background Watermark */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[80vh] md:h-[120vh] pointer-events-none z-0 flex items-center justify-center flex-col">
-              <div 
-                className="w-full h-full opacity-90 bg-cover bg-center object-cover mix-blend-normal"
-                style={{ backgroundImage: `url('https://i.imgur.com/J5oQejK.jpeg')` }}
-              ></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-solne-light/95"></div>
-            </div>
-
+          <div className="relative w-full flex items-center justify-center mb-16 mt-8 md:mt-16 z-10">
             <motion.div
               initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -300,19 +300,13 @@ export default function App() {
               <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
 
               <div className="space-y-6 md:space-y-8 font-light text-solne-dark/80 px-2 md:px-0 w-full flex flex-col items-center">
-                <p className="text-[12px] sm:text-[14px] md:text-base leading-relaxed hidden md:block">
+                <p className="text-[13px] sm:text-[14px] md:text-base leading-relaxed hidden md:block tracking-[0.2em]">
                   情景が浮かぶオリジナルピアノソロ曲や、<br />
                   様々な曲の「弾いてみた」を投稿しています。<br />
                 </p>
-                <p className="text-[13px] leading-[2.4] block md:hidden">
+                <p className="text-[13px] leading-[2.4] block md:hidden tracking-[0.15em]">
                   情景が浮かぶオリジナルピアノソロ曲や、<br />
                   様々な曲の「弾いてみた」を<br />投稿しています。
-                </p>
-
-                <p className="text-[11px] sm:text-[13px] md:text-[16px] tracking-[0.15em] md:tracking-[0.2em] text-solne-dark/90 font-normal py-4 md:py-6 bg-white/30 rounded-2xl w-full max-w-2xl px-2 md:px-6 border border-white/50 shadow-sm">
-                  <span className="text-solne-gold mr-1 md:mr-2">✦</span>
-                  風景・季節・記憶・感情から生まれた曲たち
-                  <span className="text-solne-gold ml-1 md:ml-2">✦</span>
                 </p>
               </div>
               
@@ -334,13 +328,19 @@ export default function App() {
             <span className="w-12 h-[1px] bg-solne-gold/50"></span>
           </h2>
           
-          <div className="w-full max-w-5xl mx-auto px-4 flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {/* Mobile Scroll Indicator */}
+          <div className="flex md:hidden items-center justify-end w-full px-6 mb-3 text-solne-dark/50 text-[10px] tracking-[0.2em] font-medium gap-1.5 opacity-70">
+            <span>SWIPE</span>
+            <ArrowRight className="w-3.5 h-3.5 animate-pulse" />
+          </div>
+
+          <div className="w-full max-w-5xl mx-auto px-4 md:px-4 flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-1 md:after:hidden">
             {/* Song Card: 碧に包まれて */}
             <a 
               href="https://youtu.be/_WpV5B3S9dI" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+              className="group shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
             >
               <div className="relative aspect-video overflow-hidden bg-solne-light">
                 <img 
@@ -374,7 +374,7 @@ export default function App() {
               href="https://youtu.be/Zrr9Yxb_VXc" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2 opacity-80 hover:opacity-100"
+              className="group shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2 opacity-80 hover:opacity-100"
             >
               <div className="relative aspect-video overflow-hidden bg-solne-light">
                 <img 
@@ -404,7 +404,7 @@ export default function App() {
             </a>
             
             {/* Placeholder for future songs (Optional, keeping it clean for now) */}
-            <div className="hidden sm:flex shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
+            <div className="hidden sm:flex shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
               <Music2 className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
               <p className="text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
             </div>
@@ -420,13 +420,19 @@ export default function App() {
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            <div className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {/* Mobile Scroll Indicator */}
+            <div className="flex md:hidden items-center justify-end w-full px-6 mb-3 text-solne-dark/50 text-[10px] tracking-[0.2em] font-medium gap-1.5 opacity-70">
+              <span>SWIPE</span>
+              <ArrowRight className="w-3.5 h-3.5 animate-pulse" />
+            </div>
+
+            <div className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-1 md:after:hidden">
               {/* Sheet Music Card: 桜色の夢 */}
               <a 
                 href="https://store.piascore.com/scores/408615" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+                className="group shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
               >
                 <div className="relative aspect-video overflow-hidden bg-solne-light">
                   <img 
