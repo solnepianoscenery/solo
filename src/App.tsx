@@ -299,20 +299,25 @@ export default function App() {
 
               <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
 
-              <div className="space-y-6 md:space-y-8 font-light text-solne-dark/80 px-2 md:px-0 w-full flex flex-col items-center">
-                <p className="text-[13px] sm:text-[14px] md:text-base leading-relaxed hidden md:block tracking-[0.2em]">
-                  情景が浮かぶオリジナルピアノソロ曲や、<br />
-                  様々な曲の「弾いてみた」を投稿しています。<br />
+              <div className="space-y-6 md:space-y-8 font-light text-solne-dark/80 px-2 md:px-0 w-full flex flex-col items-center bg-white/20 p-8 md:p-12 rounded-[2rem] border border-white/50 shadow-[0_4px_20px_rgba(219,157,100,0.05)] relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-32 h-32 bg-solne-gold/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-solne-gold/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+                
+                <p className="text-[13px] sm:text-[14px] md:text-base leading-loose md:leading-[2.5] hidden md:block tracking-[0.2em] relative z-10 text-center">
+                  情景が浮かぶ<br />
+                  オリジナルピアノソロ曲や、<br />
+                  様々な曲の「弾いてみた」を<br />
+                  投稿しています。
                 </p>
-                <p className="text-[13px] leading-[2.4] block md:hidden tracking-[0.15em]">
-                  情景が浮かぶオリジナルピアノソロ曲や、<br />
+                <p className="text-[13px] leading-[2.4] block md:hidden tracking-[0.15em] relative z-10 text-center">
+                  情景が浮かぶ<br />オリジナルピアノソロ曲や、<br />
                   様々な曲の「弾いてみた」を<br />投稿しています。
                 </p>
               </div>
               
               <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
 
-              <p className="text-[11px] sm:text-xs md:text-[14px] text-solne-dark/50 font-light max-w-xl mx-auto px-4 pb-8 md:pb-0">
+              <p className="text-[11px] sm:text-xs md:text-[14px] text-solne-dark/60 font-light max-w-xl mx-auto px-4 pb-8 md:pb-0 leading-[2] tracking-[0.15em]">
                 このサイトでは、活動紹介や新曲のご案内など、<br className="hidden sm:block" />
                 Solneの音楽の世界への入り口をお届けします。
               </p>
@@ -328,21 +333,15 @@ export default function App() {
             <span className="w-12 h-[1px] bg-solne-gold/50"></span>
           </h2>
           
-          {/* Mobile Scroll Indicator */}
-          <div className="flex md:hidden items-center justify-end w-full px-6 mb-3 text-solne-dark/50 text-[10px] tracking-[0.2em] font-medium gap-1.5 opacity-70">
-            <span>SWIPE</span>
-            <ArrowRight className="w-3.5 h-3.5 animate-pulse" />
-          </div>
-
-          <div className="w-full max-w-5xl mx-auto px-4 md:px-4 flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-1 md:after:hidden">
+          <div className="w-full max-w-5xl mx-auto flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 snap-x snap-mandatory pb-12 md:pb-0 scroll-smooth scroll-pl-6 px-6 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-2 md:after:hidden">
             {/* Song Card: 碧に包まれて */}
             <a 
               href="https://youtu.be/_WpV5B3S9dI" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+              className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
             >
-              <div className="relative aspect-video overflow-hidden bg-solne-light">
+              <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
                 <img 
                   src="https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg" 
                   alt="碧に包まれて" 
@@ -357,13 +356,14 @@ export default function App() {
                 </div>
               </div>
               
-              <div className="p-6 flex flex-col items-center text-center">
-                <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full">
+              <div className="p-6 md:p-8 flex flex-col items-center text-center">
+                <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full bg-white/50 shadow-sm">
                   <span className="font-sans">2</span>nd. Original
                 </span>
-                <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium">碧に包まれて</h3>
-                <p className="text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Wrapped in Blue</p>
-                <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-red-600 transition-colors flex items-center gap-2 mt-4">
+                <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">碧に包まれて</h3>
+                <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Wrapped in Blue</p>
+                <div className="w-6 h-[1px] bg-solne-gold/30 my-4"></div>
+                <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center gap-2">
                   <Youtube className="w-4 h-4" /> Watch on YouTube
                 </span>
               </div>
@@ -374,9 +374,9 @@ export default function App() {
               href="https://youtu.be/Zrr9Yxb_VXc" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2 opacity-80 hover:opacity-100"
+              className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2 opacity-90 hover:opacity-100"
             >
-              <div className="relative aspect-video overflow-hidden bg-solne-light">
+              <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
                 <img 
                   src="https://i.imgur.com/3dYK3s9.jpeg" 
                   alt="桜色の夢" 
@@ -391,22 +391,23 @@ export default function App() {
                 </div>
               </div>
               
-              <div className="p-6 flex flex-col items-center text-center">
-                <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full">
+              <div className="p-6 md:p-8 flex flex-col items-center text-center">
+                <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full bg-white/50 shadow-sm">
                   <span className="font-sans">1</span>st. Original
                 </span>
-                <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium">桜色の夢</h3>
-                <p className="text-xs tracking-widest text-solne-dark/50 mt-2 font-light">Dream in Cherry Blossom</p>
-                <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-red-600 transition-colors flex items-center gap-2 mt-4">
+                <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">桜色の夢</h3>
+                <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light">Dream in Cherry Blossom</p>
+                <div className="w-6 h-[1px] bg-solne-gold/30 my-4"></div>
+                <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center gap-2">
                   <Youtube className="w-4 h-4" /> Watch on YouTube
                 </span>
               </div>
             </a>
             
-            {/* Placeholder for future songs (Optional, keeping it clean for now) */}
-            <div className="hidden sm:flex shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
+            {/* Placeholder for future songs */}
+            <div className="hidden md:flex shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-[24px] overflow-hidden border-dashed items-center justify-center aspect-[16/10] md:aspect-auto opacity-50">
               <Music2 className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
-              <p className="text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
+              <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
             </div>
           </div>
         </Section>
@@ -420,21 +421,15 @@ export default function App() {
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            {/* Mobile Scroll Indicator */}
-            <div className="flex md:hidden items-center justify-end w-full px-6 mb-3 text-solne-dark/50 text-[10px] tracking-[0.2em] font-medium gap-1.5 opacity-70">
-              <span>SWIPE</span>
-              <ArrowRight className="w-3.5 h-3.5 animate-pulse" />
-            </div>
-
-            <div className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-1 md:after:hidden">
+            <div className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 snap-x snap-mandatory pb-12 md:pb-0 scroll-smooth scroll-pl-6 px-6 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-2 md:after:hidden">
               {/* Sheet Music Card: 桜色の夢 */}
               <a 
                 href="https://store.piascore.com/scores/408615" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-center flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+                className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
               >
-                <div className="relative aspect-video overflow-hidden bg-solne-light">
+                <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
                   <img 
                     src="https://i.imgur.com/3dYK3s9.jpeg" 
                     alt="桜色の夢 楽譜" 
@@ -449,23 +444,24 @@ export default function App() {
                   </div>
                 </div>
                 
-                <div className="p-6 flex flex-col items-center text-center">
-                  <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full">
+                <div className="p-6 md:p-8 flex flex-col items-center text-center">
+                  <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full bg-white/50 shadow-sm">
                     Piano Solo Sheet
                   </span>
-                  <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium">桜色の夢</h3>
-                  <p className="text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4">Dream in Cherry Blossom</p>
-                  <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
+                  <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">桜色の夢</h3>
+                  <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4">Dream in Cherry Blossom</p>
+                  <div className="w-6 h-[1px] bg-solne-gold/30 mb-4 hidden md:block"></div>
+                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
                     <FileText className="w-3 h-3" /> Piascoreで購入 <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
               </a>
               
               {/* Placeholder for future sheets */}
-              <div className="flex flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50 p-8 text-center transition-all duration-500 hover:opacity-80">
+              <div className="flex shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-[24px] overflow-hidden border-dashed items-center justify-center aspect-[16/10] sm:aspect-auto opacity-50 p-8 text-center transition-all duration-500 hover:opacity-80">
                 <FileText className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
-                <p className="text-xs tracking-[0.2em] text-solne-dark/60 font-medium mb-1">碧に包まれて</p>
-                <p className="text-[10px] tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
+                <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/60 font-medium mb-1">碧に包まれて</p>
+                <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
               </div>
             </div>
           </div>
