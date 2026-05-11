@@ -1,5 +1,6 @@
 import ParticleBackground from './components/ParticleBackground';
 import CherryBlossom from './components/CherryBlossom';
+import Nemophila from './components/Nemophila';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink } from 'lucide-react';
@@ -71,19 +72,20 @@ export default function App() {
         {/* Hero Section */}
         <section className="w-full flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden">
           
-          {/* Cherry Blossoms Effect for the whole top area */}
+          {/* Floral Effects */}
           <div className="absolute inset-0 pointer-events-none z-0">
-            <CherryBlossom />
+            <Nemophila />
           </div>
 
           {/* Logo & Background Wrapper */}
           <div className="relative w-full flex items-center justify-center mb-16 mt-8 md:mt-16">
-            {/* Hero Background Watermark - Centered exactly behind the logo */}
+            {/* Hero Background Watermark */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[80vh] md:h-[120vh] pointer-events-none z-0 flex items-center justify-center">
               <div 
-                className="w-full h-full opacity-[0.25] mix-blend-multiply bg-contain bg-no-repeat bg-center"
-                style={{ backgroundImage: `url('https://i.imgur.com/WiN6nWz.jpg')` }}
+                className="w-full h-full opacity-[0.35] mix-blend-multiply bg-contain bg-no-repeat bg-center"
+                style={{ backgroundImage: `url('https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg')` }}
               ></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-solne-light/50"></div>
             </div>
 
             <motion.div
@@ -92,8 +94,8 @@ export default function App() {
               transition={{ duration: 2.5, ease: "easeOut" }}
               className="relative flex items-center justify-center"
             >
-            {/* Shadow effect behind the logo (Hidden theme: "Shadow") */}
-            <div className="absolute inset-0 bg-solne-dark opacity-[0.03] blur-3xl rounded-full transform translate-y-12 scale-110"></div>
+            {/* Shadow effect behind the logo */}
+            <div className="absolute inset-0 bg-blue-900 opacity-[0.03] blur-3xl rounded-full transform translate-y-12 scale-110"></div>
             
             {/* Orbit Track & Elements */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
@@ -144,10 +146,10 @@ export default function App() {
             transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }}
             className="w-full max-w-5xl relative rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] bg-white/40 backdrop-blur-md border border-white/60"
           >
-            {/* Watermark Background (Placeholder for the attached image) */}
+            {/* Watermark Background */}
             <div 
-              className="absolute inset-0 opacity-30 mix-blend-overlay bg-cover bg-center"
-              style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=2000&auto=format&fit=crop')` }}
+              className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
+              style={{ backgroundImage: `url('https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg')` }}
             ></div>
 
             <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center">
@@ -156,26 +158,26 @@ export default function App() {
                 <motion.span 
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm text-solne-dark text-sm md:text-base tracking-widest mb-6 border border-solne-gold/50 shadow-md font-medium"
+                  className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm text-solne-dark text-sm md:text-base tracking-widest mb-6 border border-blue-200 shadow-md font-medium"
                 >
-                  <span className="text-lg">🌸</span> ついにフルMV公開
+                  <span className="text-lg">🌿</span> 2nd. 作品公開
                 </motion.span>
                 
                 <h3 className="text-xl md:text-2xl tracking-[0.2em] text-solne-dark/90 font-light mb-4">
-                  <span className="font-sans">1</span>st. Original Piano Solo
+                  <span className="font-sans">2</span>nd. Original Piano Solo
                 </h3>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm">
-                  「桜色の夢」
+                  「碧に包まれて」
                 </h2>
+                <p className="text-sm md:text-lg tracking-[0.3em] text-solne-dark/60 font-light -mt-6 mb-10">
+                  — 夕暮れのネモフィラ —
+                </p>
               </div>
 
               {/* YouTube Full Video Embed */}
               <div className="w-full max-w-4xl relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-4 border-white/80 bg-white aspect-video">
-                <div className="absolute inset-0 flex items-center justify-center bg-solne-light">
-                  <div className="w-8 h-8 border-2 border-solne-gold border-t-transparent rounded-full animate-spin"></div>
-                </div>
                 <iframe 
-                  src="https://www.youtube.com/embed/Zrr9Yxb_VXc?si=DouH43Yi-YLslbDK" 
+                  src="https://www.youtube.com/embed/_WpV5B3S9dI" 
                   title="YouTube video player" 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -198,6 +200,16 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-8">
+              {/* News Item: 2nd Original Release */}
+              <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.05.11</time>
+                <div className="flex-1">
+                  <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light">
+                    <span className="font-sans">2</span>nd. Original 作品「碧に包まれて」フルMV公開しました。
+                  </p>
+                </div>
+              </div>
+
               {/* News Item: Sheet Music Release */}
               <div className="group flex flex-col md:flex-row gap-4 md:gap-12 border-b border-solne-gold/10 pb-8 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light">2026.04.12</time>
@@ -295,12 +307,46 @@ export default function App() {
           </h2>
           
           <div className="w-full max-w-5xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Song Card: 碧に包まれて */}
+            <a 
+              href="https://youtu.be/_WpV5B3S9dI" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+            >
+              <div className="relative aspect-video overflow-hidden bg-solne-light">
+                <img 
+                  src="https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg" 
+                  alt="碧に包まれて" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-solne-dark/20 group-hover:bg-solne-dark/10 transition-colors duration-500 flex items-center justify-center">
+                  {/* Central Play Button */}
+                  <div className="w-12 h-12 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-all duration-300">
+                    <Youtube className="w-6 h-6 ml-1" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="p-6 flex flex-col items-center text-center">
+                <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full">
+                  <span className="font-sans">2</span>nd. Original
+                </span>
+                <h3 className="text-lg tracking-[0.15em] text-solne-dark font-medium">碧に包まれて</h3>
+                <p className="text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Wrapped in Blue</p>
+                <span className="text-xs tracking-widest text-solne-dark/60 group-hover:text-red-600 transition-colors flex items-center gap-2 mt-4">
+                  <Youtube className="w-4 h-4" /> Watch on YouTube
+                </span>
+              </div>
+            </a>
+
             {/* Song Card: 桜色の夢 */}
             <a 
               href="https://youtu.be/Zrr9Yxb_VXc" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2"
+              className="group flex flex-col bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] hover:-translate-y-2 opacity-80 hover:opacity-100"
             >
               <div className="relative aspect-video overflow-hidden bg-solne-light">
                 <img 
@@ -382,9 +428,10 @@ export default function App() {
               </a>
               
               {/* Placeholder for future sheets */}
-              <div className="hidden sm:flex flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50">
+              <div className="flex flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-2xl overflow-hidden border-dashed items-center justify-center aspect-video sm:aspect-auto opacity-50 p-8 text-center transition-all duration-500 hover:opacity-80">
                 <FileText className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
-                <p className="text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
+                <p className="text-xs tracking-[0.2em] text-solne-dark/60 font-medium mb-1">碧に包まれて</p>
+                <p className="text-[10px] tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
               </div>
             </div>
           </div>
