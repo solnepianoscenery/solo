@@ -5,6 +5,7 @@ import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
+import { ScrollCarousel } from './components/ScrollCarousel';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
@@ -333,7 +334,7 @@ export default function App() {
             <span className="w-12 h-[1px] bg-solne-gold/50"></span>
           </h2>
           
-          <div className="w-full max-w-5xl mx-auto flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 snap-x snap-mandatory pb-12 md:pb-0 scroll-smooth scroll-pl-6 px-6 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-2 md:after:hidden">
+          <ScrollCarousel>
             {/* Song Card: 碧に包まれて */}
             <a 
               href="https://youtu.be/_WpV5B3S9dI" 
@@ -409,7 +410,7 @@ export default function App() {
               <Music2 className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
               <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
             </div>
-          </div>
+          </ScrollCarousel>
         </Section>
 
         {/* Sheet Section */}
@@ -421,7 +422,7 @@ export default function App() {
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            <div className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 snap-x snap-mandatory pb-12 md:pb-0 scroll-smooth scroll-pl-6 px-6 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:content-[''] after:shrink-0 after:w-2 md:after:hidden">
+            <ScrollCarousel>
               {/* Sheet Music Card: 桜色の夢 */}
               <a 
                 href="https://store.piascore.com/scores/408615" 
@@ -463,7 +464,7 @@ export default function App() {
                 <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/60 font-medium mb-1">碧に包まれて</p>
                 <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
               </div>
-            </div>
+            </ScrollCarousel>
           </div>
         </Section>
 
