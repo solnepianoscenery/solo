@@ -343,6 +343,18 @@ export default function App() {
               className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
+                {/* New Badge */}
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  className="absolute top-4 left-4 z-20"
+                >
+                  <div className="bg-solne-gold/90 backdrop-blur-sm text-white text-[10px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium flex items-center gap-1.5 animate-pulse">
+                    <span className="w-1 h-1 bg-white rounded-full"></span>
+                    NEW
+                  </div>
+                </motion.div>
+
                 <img 
                   src="https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg" 
                   alt="碧に包まれて" 
@@ -362,7 +374,7 @@ export default function App() {
                   <span className="font-sans">2</span>nd. Original
                 </span>
                 <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">碧に包まれて</h3>
-                <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Wrapped in Blue</p>
+                <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Wrapped in Azure</p>
                 <div className="w-6 h-[1px] bg-solne-gold/30 my-4"></div>
                 <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center gap-2">
                   <Youtube className="w-4 h-4" /> Watch on YouTube

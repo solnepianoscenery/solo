@@ -9,8 +9,10 @@ export const ScrollCarousel: React.FC<{ children: React.ReactNode }> = ({ childr
   const checkScroll = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(Math.ceil(scrollLeft) < scrollWidth - clientWidth - 10 && scrollWidth > clientWidth + 10);
+      // Use a small buffer to handle browser rounding issues
+      const threshold = 5;
+      setCanScrollLeft(scrollLeft > threshold);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - threshold);
     }
   };
 
@@ -46,9 +48,8 @@ export const ScrollCarousel: React.FC<{ children: React.ReactNode }> = ({ childr
       <div 
         className={`md:hidden absolute left-1 top-[40%] -translate-y-1/2 flex items-center justify-center p-2 pointer-events-none transition-opacity duration-700 z-10 ${canScrollLeft ? 'opacity-100' : 'opacity-0'}`}
       >
-        <div className="bg-white/60 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/80 shadow-[0_4px_20px_rgba(219,157,100,0.2)] flex items-center gap-1 animate-swipe-left">
-          <ChevronLeft className="w-3.5 h-3.5 text-solne-gold" />
-          <span className="text-[9px] tracking-[0.2em] text-solne-dark/60 font-medium">SWIPE</span>
+        <div className="bg-white/40 backdrop-blur-md rounded-full w-10 h-10 border border-white/80 shadow-[0_4px_20px_rgba(219,157,100,0.15)] flex items-center justify-center animate-swipe-left">
+          <ChevronLeft className="w-5 h-5 text-solne-gold/80" />
         </div>
       </div>
 
@@ -56,9 +57,8 @@ export const ScrollCarousel: React.FC<{ children: React.ReactNode }> = ({ childr
       <div 
         className={`md:hidden absolute right-1 top-[40%] -translate-y-1/2 flex items-center justify-center p-2 pointer-events-none transition-opacity duration-700 z-10 ${canScrollRight ? 'opacity-100' : 'opacity-0'}`}
       >
-        <div className="bg-white/60 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/80 shadow-[0_4px_20px_rgba(219,157,100,0.2)] flex items-center gap-1 animate-swipe-right">
-          <span className="text-[9px] tracking-[0.2em] text-solne-dark/60 font-medium ml-1">SWIPE</span>
-          <ChevronRight className="w-3.5 h-3.5 text-solne-gold" />
+        <div className="bg-white/40 backdrop-blur-md rounded-full w-10 h-10 border border-white/80 shadow-[0_4px_20px_rgba(219,157,100,0.15)] flex items-center justify-center animate-swipe-right">
+          <ChevronRight className="w-5 h-5 text-solne-gold/80" />
         </div>
       </div>
     </div>
