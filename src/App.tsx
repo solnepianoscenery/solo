@@ -157,13 +157,25 @@ export default function App() {
             <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center">
               {/* Text Content */}
               <div className="flex flex-col items-center">
-                <motion.span 
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm text-solne-dark text-sm md:text-base tracking-widest mb-6 border border-blue-200 shadow-md font-medium"
-                >
-                  <span className="text-lg">🌿</span> 2nd. 作品公開
-                </motion.span>
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  <motion.span 
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm text-solne-dark text-sm md:text-base tracking-widest border border-blue-200 shadow-md font-medium"
+                  >
+                    <span className="text-lg">🌿</span> 2nd. 作品公開
+                  </motion.span>
+                  <motion.a 
+                    href="https://store.piascore.com/scores/417018"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-solne-gold text-white text-sm md:text-base tracking-widest border border-solne-gold shadow-lg font-medium hover:bg-solne-gold/90 transition-colors"
+                  >
+                    <FileText className="w-4 h-4" /> 楽譜 公開中
+                  </motion.a>
+                </div>
                 
                 <h3 className="text-lg md:text-2xl tracking-[0.2em] text-solne-dark/90 font-light mb-4 whitespace-nowrap">
                   <span className="font-sans">2</span>nd. Original Piano Solo
@@ -214,6 +226,24 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-4">
+              {/* News Item: 2nd Original Sheet Release */}
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.19</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    <span className="font-sans">2</span>nd. Original 作品「碧に包まれて」の楽譜を公開しました。
+                  </p>
+                  <a 
+                    href="https://store.piascore.com/scores/417018" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
+                  >
+                    <FileText className="w-3.5 h-3.5" /> Piascoreで購入
+                  </a>
+                </div>
+              </div>
+
               {/* News Item: 2nd Original Release */}
               <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.11</time>
@@ -376,9 +406,19 @@ export default function App() {
                 <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">碧に包まれて</h3>
                 <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Wrapped in Azure</p>
                 <div className="w-6 h-[1px] bg-solne-gold/30 my-4"></div>
-                <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center gap-2">
-                  <Youtube className="w-4 h-4" /> Watch on YouTube
-                </span>
+                <div className="flex flex-col gap-3">
+                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center justify-center gap-2">
+                    <Youtube className="w-4 h-4" /> Watch on YouTube
+                  </span>
+                  <a 
+                    href="https://store.piascore.com/scores/417018"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] md:text-xs tracking-widest text-solne-gold/70 hover:text-solne-gold transition-all flex items-center justify-center gap-2 py-1"
+                  >
+                    <FileText className="w-4 h-4" /> Sheet Music Available
+                  </a>
+                </div>
               </div>
             </a>
 
@@ -435,6 +475,46 @@ export default function App() {
             </h2>
             
             <ScrollCarousel>
+              {/* Sheet Music Card: 碧に包まれて */}
+              <a 
+                href="https://store.piascore.com/scores/417018" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
+                  {/* New Badge */}
+                  <div className="absolute top-4 left-4 z-20">
+                    <div className="bg-solne-gold text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium animate-pulse">
+                      NEW
+                    </div>
+                  </div>
+                  <img 
+                    src="https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg" 
+                    alt="碧に包まれて 楽譜" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-solne-dark/10 group-hover:bg-solne-dark/30 transition-colors duration-500 flex items-center justify-center">
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-solne-dark shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6 md:p-8 flex flex-col items-center text-center">
+                  <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full bg-white/50 shadow-sm">
+                    Piano Solo Sheet
+                  </span>
+                  <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">碧に包まれて</h3>
+                  <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4 italic">Wrapped in Azure</p>
+                  <div className="w-6 h-[1px] bg-solne-gold/30 mb-4 hidden md:block"></div>
+                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
+                    <FileText className="w-3 h-3" /> Piascoreで購入 <ExternalLink className="w-3 h-3" />
+                  </span>
+                </div>
+              </a>
+
               {/* Sheet Music Card: 桜色の夢 */}
               <a 
                 href="https://store.piascore.com/scores/408615" 
@@ -473,7 +553,6 @@ export default function App() {
               {/* Placeholder for future sheets */}
               <div className="flex shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex-col bg-white/20 backdrop-blur-sm border border-white/40 rounded-[24px] overflow-hidden border-dashed items-center justify-center aspect-[16/10] sm:aspect-auto opacity-50 p-8 text-center transition-all duration-500 hover:opacity-80">
                 <FileText className="w-8 h-8 text-solne-gold/30 mb-4" strokeWidth={1} />
-                <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/60 font-medium mb-1">碧に包まれて</p>
                 <p className="text-[10px] md:text-xs tracking-[0.2em] text-solne-dark/40 font-light">Coming Soon</p>
               </div>
             </ScrollCarousel>
