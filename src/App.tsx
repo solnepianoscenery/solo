@@ -55,17 +55,36 @@ export default function App() {
         className="fixed top-6 right-6 md:top-10 md:right-12 z-50"
       >
         <ul className="flex flex-col md:flex-row items-end gap-4 md:gap-8 text-xs md:text-sm tracking-[0.2em] font-light">
-          {['News', 'About', 'Music', 'Sheet', 'Link'].map((item) => (
-            <li key={item}>
-              <a 
-                href={`#${item.toLowerCase()}`}
-                className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2"
-              >
-                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">{item}</span>
-              </a>
-            </li>
-          ))}
+          <li>
+            <a href="#news" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
+              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">News</span>
+            </a>
+          </li>
+          <li>
+            <a href="#about" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
+              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">About</span>
+            </a>
+          </li>
+          <li>
+            <a href="#music-latest" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
+              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Music</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sheet-latest" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
+              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Sheet</span>
+            </a>
+          </li>
+          <li>
+            <a href="#link" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
+              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Link</span>
+            </a>
+          </li>
         </ul>
       </motion.nav>
 
@@ -166,9 +185,7 @@ export default function App() {
                     <span className="text-lg">🌿</span> 2nd. 作品公開
                   </motion.span>
                   <motion.a 
-                    href="https://store.piascore.com/scores/417018"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#sheet-latest"
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-solne-gold text-white text-sm md:text-base tracking-widest border border-solne-gold shadow-lg font-medium hover:bg-solne-gold/90 transition-colors"
@@ -367,6 +384,7 @@ export default function App() {
           <ScrollCarousel>
             {/* Song Card: 碧に包まれて */}
             <a 
+              id="music-latest"
               href="https://youtu.be/_WpV5B3S9dI" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -477,6 +495,7 @@ export default function App() {
             <ScrollCarousel>
               {/* Sheet Music Card: 碧に包まれて */}
               <a 
+                id="sheet-latest"
                 href="https://store.piascore.com/scores/417018" 
                 target="_blank" 
                 rel="noopener noreferrer"

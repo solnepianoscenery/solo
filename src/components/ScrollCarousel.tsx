@@ -18,7 +18,12 @@ export const ScrollCarousel: React.FC<{ children: React.ReactNode }> = ({ childr
 
   useEffect(() => {
     // Initial check (give browser a moment to render children)
-    const timeout = setTimeout(checkScroll, 100);
+    const timeout = setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollLeft = 0;
+        checkScroll();
+      }
+    }, 100);
     
     // Use ResizeObserver for accurate sizing changes
     const resizeObserver = new ResizeObserver(() => checkScroll());
