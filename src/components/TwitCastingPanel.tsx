@@ -18,6 +18,11 @@ export default function TwitCastingPanel() {
   const [isEditing, setIsEditing] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   
+  const notificationsEnabledRef = React.useRef(notificationsEnabled);
+  useEffect(() => {
+    notificationsEnabledRef.current = notificationsEnabled;
+  }, [notificationsEnabled]);
+
   const initialFetchRef = React.useRef(true);
   const prevDataRef = React.useRef<StreamInfo | null>(null);
 
@@ -54,7 +59,7 @@ export default function TwitCastingPanel() {
         // Notify on actual data change from remote 
         // Ignore the very first time we load the data
         if (!initialFetchRef.current && prevDataRef.current) {
-          if ('Notification' in window && Notification.permission === 'granted') {
+          if (notificationsEnabledRef.current && 'Notification' in window && Notification.permission === 'granted') {
             const prev = prevDataRef.current;
             // Avoid duplicate notifications from local writes, only rely on diff
             if (data.status !== prev.status || data.scheduledAt !== prev.scheduledAt) {
@@ -133,7 +138,7 @@ export default function TwitCastingPanel() {
   const prevStreamStatusRef = React.useRef<string>('waiting');
   useEffect(() => {
     if (!loading && prevStreamStatusRef.current === 'scheduled' && streamStatus === 'live') {
-      if ('Notification' in window && Notification.permission === 'granted') {
+      if (notificationsEnabledRef.current && 'Notification' in window && Notification.permission === 'granted') {
         new Notification('ほのぼのピアノ練習部屋', { body: '予定時間が訪れました！配信がスタートしているかもしれません。' });
       }
     }
@@ -176,7 +181,7 @@ export default function TwitCastingPanel() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="mb-4 w-[calc(100vw-3rem)] md:w-96 bg-white/95 backdrop-blur-xl border border-white/80 rounded-[32px] p-6 shadow-[0_20px_50px_rgba(32,45,70,0.15)] relative overflow-hidden group"
+            className="mb-4 w-[280px] sm:w-80 md:w-96 bg-white/95 backdrop-blur-xl border border-white/80 rounded-[24px] md:rounded-[32px] p-5 md:p-6 shadow-[0_20px_50px_rgba(32,45,70,0.15)] relative overflow-hidden group"
           >
             <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#2FDC46]/60 to-[#108AF9]/60 opacity-50"></div>
             
@@ -184,7 +189,7 @@ export default function TwitCastingPanel() {
             {!isAdmin && (
               <button 
                 onClick={handleLogin}
-                className="absolute bottom-4 right-4 w-2 h-2 bg-solne-dark/10 rounded-full hover:bg-solne-gold transition-colors cursor-pointer"
+                className="absolute bottom-3 right-3 w-4 h-4 z-50 bg-solne-dark/10 rounded-full hover:bg-solne-gold transition-colors cursor-pointer flex items-center justify-center opacity-30 hover:opacity-100"
                 aria-label="Admin Login"
               />
             )}
