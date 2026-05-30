@@ -55,7 +55,7 @@ export default function TwitCastingPanel() {
     // Secret Admin URL bypass
     const urlParams = new URLSearchParams(window.location.search);
     const adminMode = urlParams.get('admin');
-    if (adminMode === 'piano') {
+    if (adminMode === 'SolPiano') {
       localStorage.setItem('solne_admin', 'true');
       window.history.replaceState({}, document.title, window.location.pathname);
     }
@@ -126,12 +126,12 @@ export default function TwitCastingPanel() {
   const handleTitleClick = () => {
     if (isAdmin) return;
     clickCountRef.current += 1;
-    if (clickCountRef.current >= 3) {
+    if (clickCountRef.current >= 4) {
       clickCountRef.current = 0;
       if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
       setTimeout(() => {
         const pass = window.prompt("管理パスワードを入力してください: \n(キャンセルで閉じます)");
-        if (pass === "piano") {
+        if (pass === "SolPiano") {
           localStorage.setItem('solne_admin', 'true');
           setIsAdmin(true);
           alert("管理者モードに切り替わりました！");
