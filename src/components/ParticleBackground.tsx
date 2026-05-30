@@ -1,30 +1,60 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  duration: number;
+  delay: number;
+  backgroundColor: string;
+  boxShadow: string;
+  xKeyframes: number[];
+}
+
 const ParticleBackground = () => {
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; size: number; duration: number; delay: number }>>([]);
+  const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    // Generate random particles for the starry/dust effect
-    const newParticles = Array.from({ length: 40 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 20 + 15,
-      delay: Math.random() * 10,
-    }));
+    // Detect mobile to lower particle density
+    const isMobile = window.innerWidth < 768;
+    const count = isMobile ? 12 : 28;
+
+    // Generate stable particles
+    const newParticles = Array.from({ length: count }).map((_, i) => {
+      const size = Math.random() * 3 + 1;
+      const isOrange = Math.random() > 0.5;
+      const color = isOrange ? '#FDBA74' : '#93C5FD';
+      const shadowColor = isOrange ? 'rgba(253, 186, 116, 0.4)' : 'rgba(147, 197, 253, 0.4)';
+      const drift = Math.random() * 40 - 20;
+
+      return {
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size,
+        duration: Math.random() * 15 + 15,
+        delay: Math.random() * -10, // negative delay so they start pre-animated
+        backgroundColor: color,
+        boxShadow: `0 0 ${size * 1.5}px ${shadowColor}`,
+        xKeyframes: [0, drift, 0],
+      };
+    });
     setParticles(newParticles);
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-solne-light">
-      {/* Subtle sunset & dusk glow gradients */}
-      <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-orange-300 opacity-20 blur-[140px]"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-blue-300 opacity-30 blur-[130px]"></div>
-      <div className="absolute top-[40%] left-[30%] w-[50vw] h-[50vw] rounded-full bg-indigo-200 opacity-20 blur-[150px]"></div>
-      <div className="absolute bottom-[10%] right-[20%] w-[40vw] h-[40vw] rounded-full bg-pink-200 opacity-20 blur-[120px]"></div>
-      
+    <div 
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-solne-light"
+      style={{
+        background: `radial-gradient(circle at 85% 10%, rgba(253, 186, 116, 0.12) 0%, transparent 60%),
+                     radial-gradient(circle at 10% 90%, rgba(147, 197, 253, 0.18) 0%, transparent 60%),
+                     radial-gradient(circle at 30% 40%, rgba(199, 210, 254, 0.12) 0%, transparent 60%),
+                     radial-gradient(circle at 80% 85%, rgba(244, 203, 213, 0.12) 0%, transparent 50%),
+                     #FAF9F6`,
+      }}
+    >
       {/* Particles / Stars */}
       {particles.map((p) => (
         <motion.div
@@ -35,13 +65,13 @@ const ParticleBackground = () => {
             height: p.size,
             left: `${p.x}%`,
             top: `${p.y}%`,
-            backgroundColor: Math.random() > 0.5 ? '#FDBA74' : '#93C5FD', // Mix of orange and blue
-            boxShadow: `0 0 ${p.size * 2}px ${Math.random() > 0.5 ? 'rgba(253, 186, 116, 0.5)' : 'rgba(147, 197, 253, 0.5)'}`,
+            backgroundColor: p.backgroundColor,
+            boxShadow: p.boxShadow,
           }}
           animate={{
-            y: [0, -150, 0],
-            x: [0, Math.random() * 60 - 30, 0],
-            opacity: [0.1, 0.6, 0.1],
+            y: [0, -120, 0],
+            x: p.xKeyframes,
+            opacity: [0.1, 0.5, 0.1],
           }}
           transition={{
             duration: p.duration,

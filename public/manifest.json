@@ -1,20 +1,20 @@
 {
-  "name": "ほのぼのピアノ練習部屋",
-  "short_name": "ピアノ配信",
+  "name": "Solne | Piano Scenery",
+  "short_name": "Solne",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#108af9",
+  "background_color": "#FAF9F6",
+  "theme_color": "#FAF9F6",
   "icons": [
     {
-      "src": "/vite.svg",
+      "src": "/solne_icon.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png"
     },
     {
-      "src": "/vite.svg",
+      "src": "/solne_icon.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
     }
   ]
 }

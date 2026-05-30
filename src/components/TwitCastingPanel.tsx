@@ -52,23 +52,6 @@ export default function TwitCastingPanel() {
       setNotificationsEnabled(true);
     }
     
-    // Secret Admin URL bypass
-    const urlParams = new URLSearchParams(window.location.search);
-    const adminMode = urlParams.get('admin');
-    if (adminMode === 'SolPiano') {
-      (window as any).__solne_admin = true;
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-    
-    const unsubAuth = onAuthStateChanged(auth, (user) => {
-      // Check if logged in user is admin
-      if ((user && user.email === 'ziepiano@gmail.com') || (window as any).__solne_admin) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-
     const docRef = doc(db, 'site', 'streamInfo');
     const unsubDB = onSnapshot(docRef, (snap) => {
       if (snap.exists()) {
@@ -106,7 +89,6 @@ export default function TwitCastingPanel() {
     });
 
     return () => {
-      unsubAuth();
       unsubDB();
     };
   }, []);
