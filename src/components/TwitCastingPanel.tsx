@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db, auth } from '../firebase';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, LogIn, Edit2, CheckCircle2, X, ExternalLink } from 'lucide-react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
+import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, Edit2, CheckCircle2, X, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface StreamInfo {
@@ -14,22 +13,17 @@ export default function TwitCastingPanel() {
   const [streamInfo, setStreamInfo] = useState<StreamInfo>({ status: 'finished', scheduledAt: null });
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
   const [isOpen, setIsOpen] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [actualLiveStatus, setActualLiveStatus] = useState<boolean>(false);
-  const [firebaseUser, setFirebaseUser] = useState<any>(null);
 
   useEffect(() => {
-    const unsubAuth = onAuthStateChanged(auth, (user) => {
-      setFirebaseUser(user);
-      if ((user && user.email === 'ziepiano@gmail.com') || (window as any).__solne_admin) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-    return () => unsubAuth();
+    if ((window as any).__solne_admin) {
+      setIsAdmin(true);
+      setAdminPassword((window as any).__solne_admin_pass || 'SolPiano');
+    }
   }, []);
   
   const notificationsEnabledRef = React.useRef(notificationsEnabled);
@@ -99,6 +93,9 @@ export default function TwitCastingPanel() {
       }
       initialFetchRef.current = false;
       setLoading(false);
+    }, (error) => {
+      console.error('Firestore list/get snapshot failed:', error);
+      setLoading(false);
     });
 
     return () => {
@@ -126,6 +123,8 @@ export default function TwitCastingPanel() {
         const pass = window.prompt("管理パスワードを入力してください: \n(キャンセルで閉じます)");
         if (pass === "SolPiano") {
           (window as any).__solne_admin = true;
+          (window as any).__solne_admin_pass = "SolPiano";
+          setAdminPassword("SolPiano");
           setIsAdmin(true);
           alert("管理者モードに切り替わりました！");
         } else if (pass !== null) {
@@ -140,32 +139,12 @@ export default function TwitCastingPanel() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      alert("Googleアカウントでログインに成功しました！");
-    } catch (e) {
-      console.error(e);
-      alert("ログインに失敗しました: " + (e as Error).message);
-    }
-  };
-
-  const handleFirestoreError = (error: unknown, operationType: string, path: string | null) => {
-    const errInfo = {
-      error: error instanceof Error ? error.message : String(error),
-      authInfo: {
-        userId: auth.currentUser?.uid,
-        email: auth.currentUser?.email,
-        emailVerified: auth.currentUser?.emailVerified,
-        isAnonymous: auth.currentUser?.isAnonymous,
-      },
-      operationType,
-      path
-    };
-    console.error('Firestore Error: ', JSON.stringify(errInfo));
-    alert('通知: 配信情報の保存に失敗しました。\nエラー内容: ' + (error instanceof Error ? error.message : String(error)));
-    throw new Error(JSON.stringify(errInfo));
+  const handleSignOutAdmin = () => {
+    setAdminPassword('');
+    (window as any).__solne_admin = false;
+    (window as any).__solne_admin_pass = '';
+    setIsAdmin(false);
+    alert('管理者モードを終了しました。');
   };
 
   const handleSave = async (status: 'scheduled' | 'finished') => {
@@ -178,24 +157,41 @@ export default function TwitCastingPanel() {
         return;
       }
       const newDate = new Date(`${editDate}T${editTime}:00`);
+      if (isNaN(newDate.getTime())) {
+        alert('エラー: 日時に無効な値が指定されました。確認してもう一度やり直してください。');
+        return;
+      }
       scheduledAt = newDate.toISOString();
     }
 
-    if (!auth.currentUser || auth.currentUser.email !== 'ziepiano@gmail.com') {
-      alert('エラー: データベースを更新するには、Googleログインボタンから「ziepiano@gmail.com」でログイン（認証）する必要があります。');
+    const currentPass = adminPassword || (window as any).__solne_admin_pass || 'SolPiano';
+    if (!currentPass) {
+      alert('エラー: 管理者として認証されていません。再度タイトルをクリックしてログインしてください。');
       return;
     }
 
     try {
-      await setDoc(doc(db, 'site', 'streamInfo'), {
-        status,
-        scheduledAt,
-        updatedAt: serverTimestamp()
+      const resp = await fetch('/api/admin/update-stream', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          password: currentPass,
+          status,
+          scheduledAt
+        })
       });
+
+      const data = await resp.json();
+      if (!resp.ok) {
+        throw new Error(data.error || '配信情報の保存に失敗しました。');
+      }
+
       alert('配信情報を保存しました！');
     } catch (e) {
       console.error(e);
-      handleFirestoreError(e, 'write', 'site/streamInfo');
+      alert('エラー: ' + (e as Error).message);
     }
   };
 
@@ -234,7 +230,17 @@ export default function TwitCastingPanel() {
 
   const requestNotification = async () => {
     if (!('Notification' in window)) {
-      alert('【通知設定について】\n\niOSをお使いの場合、現在Appleの制限により「Safari」から「ホーム画面に追加」をした場合のみ通知がサポートされています。Chrome等のアプリからは通知を受け取れません。\n\nお手数ですが、Safariでこのページを開き、共有メニューから「ホーム画面に追加」をお試しください。追加したアプリアイコンから開くと通知が許可できるようになります。');
+      const ua = navigator.userAgent.toLowerCase();
+      const isIOS = /iphone|ipad|ipod/.test(ua);
+      const isAndroid = /android/.test(ua);
+
+      if (isIOS) {
+        alert('【iOSの通知設定について】\n\nAppleの制限により、iOSでは「Safari」からこのページを「ホーム画面に追加」して起動した場合のみ、通知設定がサポートされています。その後の起動で通知許可ダイアログが表示されるようになります。\n\nお手数ですが、Safariでこのページを開き、共有メニューから「ホーム画面に追加」を行ってください。');
+      } else if (isAndroid) {
+        alert('【Androidの通知設定について】\n\nAndroid端末では、ChromeやFirefoxなどの標準ブラウザで通知をご利用いただけます。\n\nもし現在お使いのブラウザや、アプリ内ブラウザ（LINEやTwitter、Yahoo等）が通知を制限している場合は、お手数ですが通常の「Chromeブラウザ」などでこのページを開き直してお試しください。');
+      } else {
+        alert('このブラウザまたは端末は、プッシュ通知機能に対応していません。\n別のブラウザ（Google ChromeやSafariなど）でお試しください。');
+      }
       return;
     }
     try {
@@ -430,36 +436,12 @@ export default function TwitCastingPanel() {
                   animate={{ opacity: 1, height: 'auto' }}
                   className="pt-4 border-t border-solne-dark/10 px-5 pb-5 md:px-6 md:pb-6 relative z-10"
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center justify-between mb-4">
                      <span className="text-[10px] font-semibold tracking-widest text-[#108AF9] bg-[#108AF9]/10 px-2.5 py-1 rounded-full flex items-center gap-1.5">
                        <Edit2 className="w-2.5 h-2.5" /> Admin
                      </span>
-                     {firebaseUser && (
-                       <button onClick={() => auth.signOut()} className="text-[9px] text-gray-400 hover:text-gray-600 underline">Sign Out</button>
-                     )}
+                     <button onClick={handleSignOutAdmin} className="text-[9px] text-gray-400 hover:text-gray-600 underline">Sign Out</button>
                   </div>
-
-                  {/* Google Authentication Status or Portal */}
-                  {!firebaseUser || firebaseUser.email !== 'ziepiano@gmail.com' ? (
-                    <div className="p-3 bg-amber-50 border border-amber-200/60 rounded-xl mb-4 text-center">
-                      <p className="text-[10px] text-amber-700 leading-relaxed mb-2 font-medium">
-                        データベース更新には Googleログインによる本人確認（ziepiano@gmail.com）が必要です。
-                      </p>
-                      <button
-                        onClick={handleGoogleSignIn}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-[10px] tracking-wider transition-colors shadow-sm font-medium"
-                      >
-                        <LogIn className="w-3 h-3" /> Googleログインで認証する
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="p-2.5 bg-green-50 border border-green-200/50 rounded-xl mb-3 flex items-center justify-between">
-                      <span className="text-[10px] text-green-700">
-                        認証済み: <strong>{firebaseUser.email}</strong>
-                      </span>
-                      <span className="text-[9px] bg-green-500 text-white px-2 py-0.5 rounded-full font-bold">OK</span>
-                    </div>
-                  )}
 
                   {!isEditing ? (
                     <div className="flex flex-col gap-2">

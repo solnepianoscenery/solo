@@ -21,9 +21,7 @@ service cloud.firestore {
 
     match /site/streamInfo {
       allow read: if true;
-      allow create: if isAdmin() && isValidStreamInfo(request.resource.data) && request.resource.data.keys().hasOnly(['status', 'scheduledAt', 'updatedAt']);
-      allow update: if isAdmin() && isValidStreamInfo(request.resource.data) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'scheduledAt', 'updatedAt']);
-      allow delete: if isAdmin();
+      allow create, update, delete: if false;
     }
   }
 }
