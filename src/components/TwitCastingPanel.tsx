@@ -18,6 +18,19 @@ export default function TwitCastingPanel() {
   const [isEditing, setIsEditing] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [actualLiveStatus, setActualLiveStatus] = useState<boolean>(false);
+  const [firebaseUser, setFirebaseUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubAuth = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+      if ((user && user.email === 'ziepiano@gmail.com') || (window as any).__solne_admin) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+    return () => unsubAuth();
+  }, []);
   
   const notificationsEnabledRef = React.useRef(notificationsEnabled);
   useEffect(() => {
@@ -127,17 +140,50 @@ export default function TwitCastingPanel() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      alert("Googleアカウントでログインに成功しました！");
+    } catch (e) {
+      console.error(e);
+      alert("ログインに失敗しました: " + (e as Error).message);
+    }
+  };
+
+  const handleFirestoreError = (error: unknown, operationType: string, path: string | null) => {
+    const errInfo = {
+      error: error instanceof Error ? error.message : String(error),
+      authInfo: {
+        userId: auth.currentUser?.uid,
+        email: auth.currentUser?.email,
+        emailVerified: auth.currentUser?.emailVerified,
+        isAnonymous: auth.currentUser?.isAnonymous,
+      },
+      operationType,
+      path
+    };
+    console.error('Firestore Error: ', JSON.stringify(errInfo));
+    alert('通知: 配信情報の保存に失敗しました。\nエラー内容: ' + (error instanceof Error ? error.message : String(error)));
+    throw new Error(JSON.stringify(errInfo));
+  };
+
   const handleSave = async (status: 'scheduled' | 'finished') => {
     setIsEditing(false);
     let scheduledAt = streamInfo.scheduledAt;
     
     if (status === 'scheduled') {
       if (!editDate || !editTime) {
-        alert('Date and Time are required to schedule a stream.');
+        alert('配信スケジュール日時の入力が必要です。');
         return;
       }
       const newDate = new Date(`${editDate}T${editTime}:00`);
       scheduledAt = newDate.toISOString();
+    }
+
+    if (!auth.currentUser || auth.currentUser.email !== 'ziepiano@gmail.com') {
+      alert('エラー: データベースを更新するには、Googleログインボタンから「ziepiano@gmail.com」でログイン（認証）する必要があります。');
+      return;
     }
 
     try {
@@ -146,9 +192,10 @@ export default function TwitCastingPanel() {
         scheduledAt,
         updatedAt: serverTimestamp()
       });
+      alert('配信情報を保存しました！');
     } catch (e) {
       console.error(e);
-      alert('Failed to save stream info. Error: ' + JSON.stringify(e));
+      handleFirestoreError(e, 'write', 'site/streamInfo');
     }
   };
 
@@ -387,8 +434,32 @@ export default function TwitCastingPanel() {
                      <span className="text-[10px] font-semibold tracking-widest text-[#108AF9] bg-[#108AF9]/10 px-2.5 py-1 rounded-full flex items-center gap-1.5">
                        <Edit2 className="w-2.5 h-2.5" /> Admin
                      </span>
-                     <button onClick={() => auth.signOut()} className="text-[9px] text-gray-400 hover:text-gray-600 underline">Sign Out</button>
+                     {firebaseUser && (
+                       <button onClick={() => auth.signOut()} className="text-[9px] text-gray-400 hover:text-gray-600 underline">Sign Out</button>
+                     )}
                   </div>
+
+                  {/* Google Authentication Status or Portal */}
+                  {!firebaseUser || firebaseUser.email !== 'ziepiano@gmail.com' ? (
+                    <div className="p-3 bg-amber-50 border border-amber-200/60 rounded-xl mb-4 text-center">
+                      <p className="text-[10px] text-amber-700 leading-relaxed mb-2 font-medium">
+                        データベース更新には Googleログインによる本人確認（ziepiano@gmail.com）が必要です。
+                      </p>
+                      <button
+                        onClick={handleGoogleSignIn}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-[10px] tracking-wider transition-colors shadow-sm font-medium"
+                      >
+                        <LogIn className="w-3 h-3" /> Googleログインで認証する
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="p-2.5 bg-green-50 border border-green-200/50 rounded-xl mb-3 flex items-center justify-between">
+                      <span className="text-[10px] text-green-700">
+                        認証済み: <strong>{firebaseUser.email}</strong>
+                      </span>
+                      <span className="text-[9px] bg-green-500 text-white px-2 py-0.5 rounded-full font-bold">OK</span>
+                    </div>
+                  )}
 
                   {!isEditing ? (
                     <div className="flex flex-col gap-2">
