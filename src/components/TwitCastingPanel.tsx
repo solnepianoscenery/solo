@@ -56,15 +56,13 @@ export default function TwitCastingPanel() {
     const urlParams = new URLSearchParams(window.location.search);
     const adminMode = urlParams.get('admin');
     if (adminMode === 'SolPiano') {
-      localStorage.setItem('solne_admin', 'true');
+      (window as any).__solne_admin = true;
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-    const isLocalAdmin = localStorage.getItem('solne_admin') === 'true';
-    if (isLocalAdmin) setIsAdmin(true);
     
     const unsubAuth = onAuthStateChanged(auth, (user) => {
       // Check if logged in user is admin
-      if ((user && user.email === 'ziepiano@gmail.com') || isLocalAdmin) {
+      if ((user && user.email === 'ziepiano@gmail.com') || (window as any).__solne_admin) {
         setIsAdmin(true);
       } else {
         setIsAdmin(false);
@@ -132,7 +130,7 @@ export default function TwitCastingPanel() {
       setTimeout(() => {
         const pass = window.prompt("管理パスワードを入力してください: \n(キャンセルで閉じます)");
         if (pass === "SolPiano") {
-          localStorage.setItem('solne_admin', 'true');
+          (window as any).__solne_admin = true;
           setIsAdmin(true);
           alert("管理者モードに切り替わりました！");
         } else if (pass !== null) {
