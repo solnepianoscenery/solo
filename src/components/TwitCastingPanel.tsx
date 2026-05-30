@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, Edit2, CheckCircle2, X, ExternalLink } from 'lucide-react';
+import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, Edit2, CheckCircle2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface StreamInfo {
@@ -165,33 +165,22 @@ export default function TwitCastingPanel() {
     }
 
     const currentPass = adminPassword || (window as any).__solne_admin_pass || 'SolPiano';
-    if (!currentPass) {
-      alert('エラー: 管理者として認証されていません。再度タイトルをクリックしてログインしてください。');
+    if (!currentPass || currentPass !== 'SolPiano') {
+      alert('エラー: パスワードが無効です。');
       return;
     }
 
     try {
-      const resp = await fetch('/api/admin/update-stream', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          password: currentPass,
-          status,
-          scheduledAt
-        })
+      await setDoc(doc(db, 'site', 'streamInfo'), {
+        status,
+        scheduledAt,
+        updatedAt: serverTimestamp()
       });
-
-      const data = await resp.json();
-      if (!resp.ok) {
-        throw new Error(data.error || '配信情報の保存に失敗しました。');
-      }
 
       alert('配信情報を保存しました！');
     } catch (e) {
       console.error(e);
-      alert('エラー: ' + (e as Error).message);
+      alert('エラー: 配信情報の保存に失敗しました。');
     }
   };
 
