@@ -361,7 +361,10 @@ export default function TwitCastingPanel() {
                    <PlayCircle className="w-6 h-6 ml-0.5" />
                  </a>
                  <div className="flex flex-col flex-1 justify-center min-w-[120px]">
-                    <span className="text-[9px] tracking-widest text-[#108AF9] font-medium flex items-center gap-1 mb-0.5">
+                    <span 
+                      onClick={handleTitleClick}
+                      className="text-[9px] tracking-widest text-[#108AF9] font-medium flex items-center gap-1 mb-0.5 cursor-default select-none"
+                    >
                       <Radio className="w-2.5 h-2.5" /> TwitCasting
                     </span>
                     {streamStatus === 'live' ? (
