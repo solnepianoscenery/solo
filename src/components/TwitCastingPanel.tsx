@@ -43,7 +43,6 @@ export default function TwitCastingPanel() {
     return () => clearInterval(timer);
   }, []);
 
-  const [showDirectLinkDialog, setShowDirectLinkDialog] = useState(false);
   // Edit Form State
   const [editDate, setEditDate] = useState('');
   const [editTime, setEditTime] = useState('');
@@ -53,9 +52,19 @@ export default function TwitCastingPanel() {
       setNotificationsEnabled(true);
     }
     
+    // Secret Admin URL bypass
+    const urlParams = new URLSearchParams(window.location.search);
+    const adminMode = urlParams.get('admin');
+    if (adminMode === 'piano') {
+      localStorage.setItem('solne_admin', 'true');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    const isLocalAdmin = localStorage.getItem('solne_admin') === 'true';
+    if (isLocalAdmin) setIsAdmin(true);
+    
     const unsubAuth = onAuthStateChanged(auth, (user) => {
       // Check if logged in user is admin
-      if (user && user.email === 'ziepiano@gmail.com') {
+      if ((user && user.email === 'ziepiano@gmail.com') || isLocalAdmin) {
         setIsAdmin(true);
       } else {
         setIsAdmin(false);
@@ -111,17 +120,31 @@ export default function TwitCastingPanel() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleLogin = () => {
-    if (window.self !== window.top) {
-      // In an iframe preview, popup logic sometimes gets blocked, especially on mobile.
-      setShowDirectLinkDialog(true);
-      return;
+  const clickCountRef = React.useRef(0);
+  const clickTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const handleTitleClick = () => {
+    if (isAdmin) return;
+    clickCountRef.current += 1;
+    if (clickCountRef.current >= 3) {
+      clickCountRef.current = 0;
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+      setTimeout(() => {
+        const pass = window.prompt("管理パスワードを入力してください: \n(キャンセルで閉じます)");
+        if (pass === "piano") {
+          localStorage.setItem('solne_admin', 'true');
+          setIsAdmin(true);
+          alert("管理者モードに切り替わりました！");
+        } else if (pass !== null) {
+          alert("パスワードが違います。");
+        }
+      }, 50);
+    } else {
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+      clickTimerRef.current = setTimeout(() => {
+        clickCountRef.current = 0;
+      }, 1000);
     }
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).catch((error) => {
-      console.error(error);
-      alert('管理者ログインに失敗しました。');
-    });
   };
 
   const handleSave = async (status: 'scheduled' | 'finished') => {
@@ -219,54 +242,6 @@ export default function TwitCastingPanel() {
           >
             <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#2FDC46]/60 to-[#108AF9]/60 opacity-50 z-0"></div>
             
-            {/* Direct Link Required Dialog (For Login inside iframe) */}
-            <AnimatePresence>
-              {showDirectLinkDialog && (
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-[100] bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center shadow-lg rounded-2xl md:rounded-[32px]"
-                >
-                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-[#108AF9]">
-                    <ExternalLink className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-[13px] font-bold text-solne-dark mb-2 tracking-widest leading-relaxed">別タブで開いてください</h4>
-                  <p className="text-[10px] text-gray-500 mb-6 leading-relaxed tracking-wider px-2">
-                    プレビュー画面内ではセキュリティ制限によりログインができません。<br/>管理者として操作するにはアプリを別タブで開いてからお試しください。
-                  </p>
-                  <div className="flex gap-3 w-full max-w-[200px]">
-                    <button 
-                      onClick={() => setShowDirectLinkDialog(false)}
-                      className="flex-1 py-3 text-[10px] font-medium tracking-widest text-gray-500 bg-gray-100 rounded-full transition-colors hover:bg-gray-200"
-                    >
-                      戻る
-                    </button>
-                    <a 
-                      href={window.location.href} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      onClick={() => setShowDirectLinkDialog(false)}
-                      className="flex-1 flex justify-center items-center py-3 text-[10px] font-medium tracking-widest text-white bg-[#108AF9] rounded-full shadow-sm hover:opacity-90 transition-opacity"
-                    >
-                      開く
-                    </a>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Admin Secret Login Button (Small Dot) */}
-            {!isAdmin && (
-              <button 
-                onClick={handleLogin}
-                className="absolute top-0 right-0 w-8 h-8 z-50 bg-transparent cursor-pointer"
-                aria-label="Admin Login"
-              >
-                <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-black/5 hover:bg-solne-gold/50 transition-colors" />
-              </button>
-            )}
-            
             {/* --- DESKTOP VIEW & ADMIN FULL VIEW --- */}
             <div className={`${!isAdmin ? 'hidden md:flex' : 'flex'} flex-col items-center justify-center py-4 px-5 md:py-6 md:px-6 relative z-10 w-full`}>
               
@@ -277,7 +252,10 @@ export default function TwitCastingPanel() {
                 <div className="relative inline-block mt-2">
                   <Coffee className="absolute -left-6 -top-4 w-5 h-5 text-solne-gold/40 -rotate-12" strokeWidth={1.5} />
                   <Music className="absolute -right-5 -top-2 w-4 h-4 text-solne-gold/40 rotate-12" strokeWidth={1.5} />
-                  <h3 className="text-lg md:text-xl tracking-[0.1em] text-solne-dark font-medium relative z-10 px-4">
+                  <h3 
+                    onClick={handleTitleClick}
+                    className="text-lg md:text-xl tracking-[0.1em] text-solne-dark font-medium relative z-10 px-4 cursor-default select-none"
+                  >
                     ほのぼのピアノ練習部屋
                   </h3>
                 </div>
