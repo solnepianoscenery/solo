@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import { onAuthStateChanged, signInWithRedirect, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, LogIn, Edit2, CheckCircle2, X } from 'lucide-react';
+import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, LogIn, Edit2, CheckCircle2, X, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface StreamInfo {
@@ -43,6 +43,7 @@ export default function TwitCastingPanel() {
     return () => clearInterval(timer);
   }, []);
 
+  const [showDirectLinkDialog, setShowDirectLinkDialog] = useState(false);
   // Edit Form State
   const [editDate, setEditDate] = useState('');
   const [editTime, setEditTime] = useState('');
@@ -111,8 +112,13 @@ export default function TwitCastingPanel() {
   }, []);
 
   const handleLogin = () => {
+    if (window.self !== window.top) {
+      // In an iframe preview, popup logic sometimes gets blocked, especially on mobile.
+      setShowDirectLinkDialog(true);
+      return;
+    }
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider).catch((error) => {
+    signInWithPopup(auth, provider).catch((error) => {
       console.error(error);
       alert('管理者ログインに失敗しました。');
     });
@@ -213,6 +219,43 @@ export default function TwitCastingPanel() {
           >
             <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#2FDC46]/60 to-[#108AF9]/60 opacity-50 z-0"></div>
             
+            {/* Direct Link Required Dialog (For Login inside iframe) */}
+            <AnimatePresence>
+              {showDirectLinkDialog && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 z-[100] bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center shadow-lg rounded-2xl md:rounded-[32px]"
+                >
+                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-[#108AF9]">
+                    <ExternalLink className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-[13px] font-bold text-solne-dark mb-2 tracking-widest leading-relaxed">別タブで開いてください</h4>
+                  <p className="text-[10px] text-gray-500 mb-6 leading-relaxed tracking-wider px-2">
+                    プレビュー画面内ではセキュリティ制限によりログインができません。<br/>管理者として操作するにはアプリを別タブで開いてからお試しください。
+                  </p>
+                  <div className="flex gap-3 w-full max-w-[200px]">
+                    <button 
+                      onClick={() => setShowDirectLinkDialog(false)}
+                      className="flex-1 py-3 text-[10px] font-medium tracking-widest text-gray-500 bg-gray-100 rounded-full transition-colors hover:bg-gray-200"
+                    >
+                      戻る
+                    </button>
+                    <a 
+                      href={window.location.href} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      onClick={() => setShowDirectLinkDialog(false)}
+                      className="flex-1 flex justify-center items-center py-3 text-[10px] font-medium tracking-widest text-white bg-[#108AF9] rounded-full shadow-sm hover:opacity-90 transition-opacity"
+                    >
+                      開く
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Admin Secret Login Button (Small Dot) */}
             {!isAdmin && (
               <button 
