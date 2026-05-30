@@ -95,7 +95,10 @@ export default function TwitCastingPanel() {
 
   const handleLogin = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).catch(console.error);
+    signInWithPopup(auth, provider).catch((error) => {
+      console.error(error);
+      alert('管理者ログインに失敗しました。\n\nプレビュー環境ではポップアップがブロックされる場合があります。右上の「新しいタブで開く」アイコンから別タブを開き、そこで再度お試しください。');
+    });
   };
 
   const handleSave = async (status: 'scheduled' | 'finished') => {
@@ -181,20 +184,22 @@ export default function TwitCastingPanel() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="mb-4 w-[280px] sm:w-80 md:w-96 bg-white/95 backdrop-blur-xl border border-white/80 rounded-[24px] md:rounded-[32px] p-5 md:p-6 shadow-[0_20px_50px_rgba(32,45,70,0.15)] relative overflow-hidden group"
+            className={`mb-4 relative overflow-hidden bg-white/95 backdrop-blur-xl border border-white/80 shadow-[0_20px_50px_rgba(32,45,70,0.15)]
+              ${isAdmin ? 'w-[280px] sm:w-80 md:w-96 rounded-[24px] md:rounded-[32px]' : 'rounded-full md:rounded-[32px] md:w-96 min-w-[220px] max-w-[260px] md:max-w-none'}`}
           >
-            <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#2FDC46]/60 to-[#108AF9]/60 opacity-50"></div>
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#2FDC46]/60 to-[#108AF9]/60 opacity-50 z-0"></div>
             
             {/* Admin Secret Login Button (Bottom Right Small Dot) */}
             {!isAdmin && (
               <button 
                 onClick={handleLogin}
-                className="absolute bottom-3 right-3 w-4 h-4 z-50 bg-solne-dark/10 rounded-full hover:bg-solne-gold transition-colors cursor-pointer flex items-center justify-center opacity-30 hover:opacity-100"
+                className="absolute bottom-2 right-2 md:bottom-3 md:right-3 w-5 h-5 z-50 bg-solne-dark/5 rounded-full hover:bg-solne-gold/50 transition-colors cursor-pointer flex items-center justify-center opacity-30 hover:opacity-100"
                 aria-label="Admin Login"
               />
             )}
             
-            <div className="flex flex-col items-center justify-center py-4">
+            {/* --- DESKTOP VIEW & ADMIN FULL VIEW --- */}
+            <div className={`${!isAdmin ? 'hidden md:flex' : 'flex'} flex-col items-center justify-center py-4 px-5 md:py-6 md:px-6 relative z-10 w-full`}>
               
               <div className="flex flex-col items-center gap-2 mb-6 text-center">
                 <span className="text-[10px] tracking-[0.3em] text-[#108AF9] mb-2 font-medium bg-blue-50/50 px-4 py-1 rounded-full border border-[#108AF9]/20 shadow-sm flex items-center gap-1.5">
@@ -211,11 +216,8 @@ export default function TwitCastingPanel() {
                 {/* Notification Subscribe Button */}
                 <button 
                   onClick={() => {
-                    if (!notificationsEnabled) {
-                      requestNotification();
-                    } else {
-                      setNotificationsEnabled(false);
-                    }
+                    if (!notificationsEnabled) requestNotification();
+                    else setNotificationsEnabled(false);
                   }}
                   className={`mt-3 inline-flex items-center gap-1.5 text-[10px] tracking-widest px-3 py-1.5 rounded-full transition-all duration-300 border ${
                     !notificationsEnabled 
@@ -304,13 +306,52 @@ export default function TwitCastingPanel() {
 
             </div>
 
+            {/* --- MOBILE COMPACT VIEW (Visible only if NOT Admin) --- */}
+            {!isAdmin && (
+               <div className="md:hidden flex items-center gap-2.5 w-auto p-1.5 pr-8 relative z-10">
+                 <a href="https://twitcasting.tv/c:ziepiano" target="_blank" rel="noopener noreferrer" 
+                    className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-colors shadow-sm ${streamStatus === 'live' ? 'bg-[#108AF9] text-white' : 'bg-[#108AF9]/5 text-[#108AF9] border border-[#108AF9]/20 hover:bg-[#108AF9]/10'}`}>
+                   <PlayCircle className="w-6 h-6 ml-0.5" />
+                 </a>
+                 <div className="flex flex-col flex-1 justify-center min-w-[120px]">
+                    <span className="text-[9px] tracking-widest text-[#108AF9] font-medium flex items-center gap-1 mb-0.5">
+                      <Radio className="w-2.5 h-2.5" /> TwitCasting
+                    </span>
+                    {streamStatus === 'live' ? (
+                      <span className="text-[11px] font-bold text-[#108AF9] tracking-widest flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-[#108AF9] rounded-full animate-ping"></span>現在配信中！
+                      </span>
+                    ) : streamStatus === 'scheduled' && streamInfo.scheduledAt ? (
+                      <span className="text-[11px] font-bold text-solne-dark tracking-wider flex items-center gap-1">
+                        <Calendar className="w-3 h-3 text-blue-400" />
+                        {formatSchedule(streamInfo.scheduledAt)}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] text-gray-400 tracking-widest">お休み中</span>
+                    )}
+                 </div>
+                 
+                 {/* Mobile Notification Toggle */}
+                 <button 
+                  onClick={() => {
+                    if (!notificationsEnabled) requestNotification();
+                    else setNotificationsEnabled(false);
+                  }}
+                  className={`absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center border shadow-sm transition-colors
+                    ${!notificationsEnabled ? 'text-gray-400 border-gray-200 bg-white hover:bg-gray-50' : 'text-green-500 border-green-200 bg-green-50 hover:bg-green-100'}`}
+                 >
+                   {!notificationsEnabled ? <Bell className="w-3.5 h-3.5" /> : <BellRing className="w-3.5 h-3.5" />}
+                 </button>
+               </div>
+            )}
+
             {/* Admin Controls Overlay */}
             <AnimatePresence>
               {isAdmin && (
                 <motion.div 
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="mt-6 pt-4 border-t border-solne-dark/10"
+                  className="pt-4 border-t border-solne-dark/10 px-5 pb-5 md:px-6 md:pb-6 relative z-10"
                 >
                   <div className="flex items-center justify-between mb-3">
                      <span className="text-[10px] font-semibold tracking-widest text-[#108AF9] bg-[#108AF9]/10 px-2.5 py-1 rounded-full flex items-center gap-1.5">
