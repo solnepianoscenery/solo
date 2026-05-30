@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithRedirect, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, LogIn, Edit2, CheckCircle2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -17,6 +17,7 @@ export default function TwitCastingPanel() {
   const [isOpen, setIsOpen] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [actualLiveStatus, setActualLiveStatus] = useState<boolean>(false);
   
   const notificationsEnabledRef = React.useRef(notificationsEnabled);
   useEffect(() => {
@@ -25,6 +26,22 @@ export default function TwitCastingPanel() {
 
   const initialFetchRef = React.useRef(true);
   const prevDataRef = React.useRef<StreamInfo | null>(null);
+
+  // Poll actual TwitCasting Live Status
+  useEffect(() => {
+    const checkLiveStatus = async () => {
+      try {
+        const res = await fetch('/api/twitcasting/status');
+        const data = await res.json();
+        setActualLiveStatus(!!data.live);
+      } catch (e) {
+        console.error('Failed to fetch live status', e);
+      }
+    };
+    checkLiveStatus();
+    const timer = setInterval(checkLiveStatus, 60000); // every minute
+    return () => clearInterval(timer);
+  }, []);
 
   // Edit Form State
   const [editDate, setEditDate] = useState('');
@@ -95,9 +112,9 @@ export default function TwitCastingPanel() {
 
   const handleLogin = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).catch((error) => {
+    signInWithRedirect(auth, provider).catch((error) => {
       console.error(error);
-      alert('管理者ログインに失敗しました。\n\nプレビュー環境ではポップアップがブロックされる場合があります。右上の「新しいタブで開く」アイコンから別タブを開き、そこで再度お試しください。');
+      alert('管理者ログインに失敗しました。');
     });
   };
 
@@ -128,10 +145,17 @@ export default function TwitCastingPanel() {
 
   let streamStatus: 'waiting' | 'scheduled' | 'live' = 'waiting';
   
-  if (streamInfo.status === 'scheduled' && streamInfo.scheduledAt) {
+  if (actualLiveStatus) {
+    streamStatus = 'live';
+  } else if (streamInfo.status === 'scheduled' && streamInfo.scheduledAt) {
     const streamTime = new Date(streamInfo.scheduledAt);
     if (now >= streamTime) {
-      streamStatus = 'live';
+      // If time passed but TwitCasting is NOT live yet, we keep showing 'scheduled'
+      // Or maybe 'live' with a small disclaimer? Let's show scheduled but meaning "starting soon" or "live"
+      // User says "連動して自動化するように" (Automate with TwitCasting). Therefore:
+      // Since actualLiveStatus is false, we don't show "LIVE" even if scheduled time arrived.
+      // Wait, if actualLiveStatus is false, let's keep it as 'scheduled' so they know when it was *supposed* to start.
+      streamStatus = 'scheduled';
     } else {
       streamStatus = 'scheduled';
     }
@@ -140,9 +164,9 @@ export default function TwitCastingPanel() {
   // Monitor status transitons internally (Timer crossover)
   const prevStreamStatusRef = React.useRef<string>('waiting');
   useEffect(() => {
-    if (!loading && prevStreamStatusRef.current === 'scheduled' && streamStatus === 'live') {
+    if (!loading && prevStreamStatusRef.current !== 'live' && streamStatus === 'live') {
       if (notificationsEnabledRef.current && 'Notification' in window && Notification.permission === 'granted') {
-        new Notification('ほのぼのピアノ練習部屋', { body: '予定時間が訪れました！配信がスタートしているかもしれません。' });
+        new Notification('ほのぼのピアノ練習部屋', { body: '配信がスタートしました！' });
       }
     }
     if (!loading) {
@@ -189,11 +213,11 @@ export default function TwitCastingPanel() {
           >
             <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#2FDC46]/60 to-[#108AF9]/60 opacity-50 z-0"></div>
             
-            {/* Admin Secret Login Button (Bottom Right Small Dot) */}
+            {/* Admin Secret Login Button (Small Dot) */}
             {!isAdmin && (
               <button 
                 onClick={handleLogin}
-                className="absolute bottom-2 right-2 md:bottom-3 md:right-3 w-5 h-5 z-50 bg-solne-dark/5 rounded-full hover:bg-solne-gold/50 transition-colors cursor-pointer flex items-center justify-center opacity-30 hover:opacity-100"
+                className="absolute top-1/2 -translate-y-1/2 left-1.5 md:top-auto md:translate-y-0 md:bottom-3 md:left-auto md:right-3 w-5 h-5 z-50 bg-solne-dark/10 rounded-full hover:bg-solne-gold/50 transition-colors cursor-pointer flex items-center justify-center opacity-40 hover:opacity-100"
                 aria-label="Admin Login"
               />
             )}
