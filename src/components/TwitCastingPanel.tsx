@@ -178,7 +178,7 @@ export default function TwitCastingPanel() {
 
   const requestNotification = async () => {
     if (!('Notification' in window)) {
-      alert('お使いのブラウザは通知機能に対応していません。');
+      alert('【通知設定について】\n\niOSをお使いの場合、現在Appleの制限により「Safari」から「ホーム画面に追加」をした場合のみ通知がサポートされています。Chrome等のアプリからは通知を受け取れません。\n\nお手数ですが、Safariでこのページを開き、共有メニューから「ホーム画面に追加」をお試しください。追加したアプリアイコンから開くと通知が許可できるようになります。');
       return;
     }
     try {
@@ -217,9 +217,11 @@ export default function TwitCastingPanel() {
             {!isAdmin && (
               <button 
                 onClick={handleLogin}
-                className="absolute top-1/2 -translate-y-1/2 left-1.5 md:top-auto md:translate-y-0 md:bottom-3 md:left-auto md:right-3 w-5 h-5 z-50 bg-solne-dark/10 rounded-full hover:bg-solne-gold/50 transition-colors cursor-pointer flex items-center justify-center opacity-40 hover:opacity-100"
+                className="absolute top-0 right-0 w-8 h-8 z-50 bg-transparent cursor-pointer"
                 aria-label="Admin Login"
-              />
+              >
+                <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-black/5 hover:bg-solne-gold/50 transition-colors" />
+              </button>
             )}
             
             {/* --- DESKTOP VIEW & ADMIN FULL VIEW --- */}
