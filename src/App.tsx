@@ -2,6 +2,7 @@ import ParticleBackground from './components/ParticleBackground';
 import CherryBlossom from './components/CherryBlossom';
 import Nemophila from './components/Nemophila';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
+import TwitCastingPanel from './components/TwitCastingPanel';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
@@ -218,8 +219,11 @@ export default function App() {
           </motion.div>
         </section>
 
+        {/* TwitCasting Floating Panel (Fixed) */}
+        <TwitCastingPanel />
+
         {/* TikTok Section */}
-        <Section id="tiktok" className="bg-white/30 backdrop-blur-md w-full max-w-none pt-32 pb-0 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+        <Section id="tiktok" className="bg-white/30 backdrop-blur-md w-full max-w-none pt-24 pb-0 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
           <div className="max-w-3xl mx-auto w-full px-6 flex flex-col items-center">
             {/* TikTok Latest Videos Embed */}
             <div className="w-full bg-white/40 backdrop-blur-md border border-white/60 rounded-3xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
@@ -243,6 +247,22 @@ export default function App() {
             </h2>
             
             <div className="w-full text-left space-y-4">
+              {/* News Item: TwitCasting Panel */}
+              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.30</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    ウェブサイト内に、ツイキャスの配信告知エリアを追加しました。今後はサイト上で最新の配信状況やスケジュールをご確認いただけます。
+                  </p>
+                  <a 
+                    href="#twitcasting" 
+                    className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
+                  >
+                    配信状況を見る <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
               {/* News Item: 2nd Original Sheet Release */}
               <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.19</time>
@@ -330,7 +350,6 @@ export default function App() {
           
           <div className="py-12 md:py-20 px-4 md:px-12 w-full flex flex-col items-center">
             <h2 className="text-3xl md:text-4xl mb-12 md:mb-16 tracking-[0.2em] text-solne-dark flex flex-col items-center gap-4 mt-10 md:mt-0">
-              <span className="text-[10px] md:text-xs tracking-[0.3em] text-solne-gold mb-1 font-medium bg-white/50 px-4 py-1 rounded-full border border-solne-gold/20 shadow-sm">PROFILE</span>
               <div className="flex items-center gap-6">
                 <span className="w-8 md:w-16 h-[1px] bg-solne-gold/50"></span>
                 About

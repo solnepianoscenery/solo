@@ -1,0 +1,32 @@
+{
+  "entities": {
+    "StreamInfo": {
+      "title": "Stream Info",
+      "description": "Information about the upcoming or current live stream.",
+      "type": "object",
+      "properties": {
+        "scheduledAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp of when the stream is scheduled to start."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["scheduled", "finished"],
+          "description": "The current status of the stream."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of last update."
+        }
+      },
+      "required": ["status", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/site/streamInfo": {
+      "schema": "StreamInfo",
+      "description": "Singleton document storing stream information."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} { 
+      allow read, write: if false; 
+    }
+
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { 
+      return isSignedIn() && 
+             request.auth.token.email_verified == true && 
+             request.auth.token.email == 'ziepiano@gmail.com'; 
+    }
+    
+    function isValidStreamInfo(data) {
+      return data.keys().hasAll(['status']) &&
+             data.status in ['scheduled', 'finished'] &&
+             (!('scheduledAt' in data) || data.scheduledAt == null || (data.scheduledAt is string && data.scheduledAt.size() <= 64)) &&
+             (!('updatedAt' in data) || data.updatedAt == request.time);
+    }
+
+    match /site/streamInfo {
+      allow read: if true;
+      allow create: if isAdmin() && isValidStreamInfo(request.resource.data) && request.resource.data.keys().hasOnly(['status', 'scheduledAt', 'updatedAt']);
+      allow update: if isAdmin() && isValidStreamInfo(request.resource.data) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'scheduledAt', 'updatedAt']);
+      allow delete: if isAdmin();
+    }
+  }
+}
