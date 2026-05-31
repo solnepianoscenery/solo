@@ -10,6 +10,10 @@ async function startServer() {
 
   // TwitCasting Check Proxy Route
   app.get('/api/twitcasting/status', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
     https.get('https://twitcasting.tv/c:ziepiano', (twitRes) => {
       let data = '';
       twitRes.on('data', (chunk) => { data += chunk; });

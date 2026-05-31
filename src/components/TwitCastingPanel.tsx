@@ -38,7 +38,7 @@ export default function TwitCastingPanel() {
   useEffect(() => {
     const checkLiveStatus = async () => {
       try {
-        const res = await fetch('/api/twitcasting/status');
+        const res = await fetch('/api/twitcasting/status?t=' + Date.now());
         const data = await res.json();
         setActualLiveStatus(!!data.live);
       } catch (e) {
@@ -46,7 +46,7 @@ export default function TwitCastingPanel() {
       }
     };
     checkLiveStatus();
-    const timer = setInterval(checkLiveStatus, 60000); // every minute
+    const timer = setInterval(checkLiveStatus, 30000); // Check every 30 seconds for faster sync
     return () => clearInterval(timer);
   }, []);
 
@@ -54,11 +54,27 @@ export default function TwitCastingPanel() {
   const [editDate, setEditDate] = useState('');
   const [editTime, setEditTime] = useState('');
 
+  // Load persisted notification preference or check permission
   useEffect(() => {
-    if ('Notification' in window && Notification.permission === 'granted') {
+    const saved = localStorage.getItem('solne_push_enabled');
+    if (saved === 'true') {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        setNotificationsEnabled(true);
+      }
+    } else if (saved === 'false') {
+      setNotificationsEnabled(false);
+    } else if ('Notification' in window && Notification.permission === 'granted') {
+      // Default behavior if not explicitly disabled
       setNotificationsEnabled(true);
     }
+  }, []);
+
+  const toggleNotifications = (enable: boolean) => {
+    setNotificationsEnabled(enable);
+    localStorage.setItem('solne_push_enabled', enable ? 'true' : 'false');
+  };
     
+  useEffect(() => {
     const docRef = doc(db, 'site', 'streamInfo');
     const unsubDB = onSnapshot(docRef, (snap) => {
       if (snap.exists()) {
@@ -235,8 +251,8 @@ export default function TwitCastingPanel() {
     try {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        setNotificationsEnabled(true);
-        new Notification('通知オン', { body: '配信情報が更新されるとお知らせします！' });
+        toggleNotifications(true);
+        new Notification('通知オン', { body: '配信情報が更新されるとお知らせします！\n(※ブラウザでこの画面を開いている間のみ有効です)' });
       } else {
         alert('通知がブロックされています。ブラウザの設定をご確認ください。');
       }
@@ -286,7 +302,7 @@ export default function TwitCastingPanel() {
                 <button 
                   onClick={() => {
                     if (!notificationsEnabled) requestNotification();
-                    else setNotificationsEnabled(false);
+                    else toggleNotifications(false);
                   }}
                   className={`mt-3 inline-flex items-center gap-1.5 text-[10px] tracking-widest px-3 py-1.5 rounded-full transition-all duration-300 border ${
                     !notificationsEnabled 
@@ -407,7 +423,7 @@ export default function TwitCastingPanel() {
                  <button 
                   onClick={() => {
                     if (!notificationsEnabled) requestNotification();
-                    else setNotificationsEnabled(false);
+                    else toggleNotifications(false);
                   }}
                   className={`absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center border shadow-sm transition-colors
                     ${!notificationsEnabled ? 'text-gray-400 border-gray-200 bg-white hover:bg-gray-50' : 'text-green-500 border-green-200 bg-green-50 hover:bg-green-100'}`}
