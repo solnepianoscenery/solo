@@ -14,15 +14,16 @@ service cloud.firestore {
     
     function isValidStreamInfo(data) {
       return data.keys().hasAll(['status']) &&
-             data.status in ['scheduled', 'finished'] &&
+             data.status in ['scheduled', 'finished', 'live'] &&
              (!('scheduledAt' in data) || data.scheduledAt == null || (data.scheduledAt is string && data.scheduledAt.size() <= 64)) &&
-             (!('updatedAt' in data) || data.updatedAt == request.time);
+             (!('updatedAt' in data) || data.updatedAt == request.time) &&
+             (!('timeReached' in data) || data.timeReached is bool);
     }
 
     match /site/streamInfo {
       allow read: if true;
-      allow create: if isValidStreamInfo(request.resource.data) && request.resource.data.keys().hasOnly(['status', 'scheduledAt', 'updatedAt']);
-      allow update: if isValidStreamInfo(request.resource.data) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'scheduledAt', 'updatedAt']);
+      allow create: if isValidStreamInfo(request.resource.data) && request.resource.data.keys().hasOnly(['status', 'scheduledAt', 'updatedAt', 'timeReached']);
+      allow update: if isValidStreamInfo(request.resource.data) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'scheduledAt', 'updatedAt', 'timeReached']);
       allow delete: if false;
     }
   }

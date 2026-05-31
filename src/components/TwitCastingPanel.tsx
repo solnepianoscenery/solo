@@ -5,8 +5,9 @@ import { Bell, BellRing, Coffee, Music, Calendar, Radio, PlayCircle, Edit2, Chec
 import { motion, AnimatePresence } from 'motion/react';
 
 interface StreamInfo {
-  status: 'scheduled' | 'finished';
+  status: 'scheduled' | 'finished' | 'live';
   scheduledAt: string | null;
+  timeReached?: boolean;
 }
 
 export default function TwitCastingPanel() {
@@ -17,7 +18,6 @@ export default function TwitCastingPanel() {
   const [isOpen, setIsOpen] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [actualLiveStatus, setActualLiveStatus] = useState<boolean>(false);
 
   useEffect(() => {
     if ((window as any).__solne_admin) {
@@ -33,22 +33,6 @@ export default function TwitCastingPanel() {
 
   const initialFetchRef = React.useRef(true);
   const prevDataRef = React.useRef<StreamInfo | null>(null);
-
-  // Poll actual TwitCasting Live Status
-  useEffect(() => {
-    const checkLiveStatus = async () => {
-      try {
-        const res = await fetch('/api/twitcasting/status?t=' + Date.now());
-        const data = await res.json();
-        setActualLiveStatus(!!data.live);
-      } catch (e) {
-        console.error('Failed to fetch live status', e);
-      }
-    };
-    checkLiveStatus();
-    const timer = setInterval(checkLiveStatus, 30000); // Check every 30 seconds for faster sync
-    return () => clearInterval(timer);
-  }, []);
 
   // Edit Form State
   const [editDate, setEditDate] = useState('');
@@ -92,16 +76,14 @@ export default function TwitCastingPanel() {
         if (!initialFetchRef.current && prevDataRef.current) {
           if (notificationsEnabledRef.current && 'Notification' in window && Notification.permission === 'granted') {
             const prev = prevDataRef.current;
-            // Avoid duplicate notifications from local writes, only rely on diff
-            if (data.status !== prev.status || data.scheduledAt !== prev.scheduledAt) {
-              let body = '配信情報が更新されました！';
-              if (data.status === 'scheduled' && data.scheduledAt) {
-                 const d = new Date(data.scheduledAt);
-                 body = `次回配信が ${d.getMonth()+1}月${d.getDate()}日 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} に予定されました！`;
-              } else if (data.status === 'finished') {
-                 body = '配信が終了し、更新待ちになりました。';
-              }
-              new Notification('ほのぼのピアノ練習部屋', { body });
+            
+            if (data.status === 'live' && prev.status !== 'live') {
+               new Notification('ほのぼのピアノ練習部屋', { body: '配信がスタートしました！', tag: 'solne-stream-notify' });
+            } else if (data.status === 'scheduled' && data.timeReached && !prev.timeReached) {
+               new Notification('ほのぼのピアノ練習部屋', { body: 'まもなく配信予定時間です！', tag: 'solne-stream-notify' });
+            } else if (data.status === 'scheduled' && data.scheduledAt && data.scheduledAt !== prev.scheduledAt) {
+               const d = new Date(data.scheduledAt);
+               new Notification('ほのぼのピアノ練習部屋', { body: `次回配信が ${d.getMonth()+1}月${d.getDate()}日 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} に予定されました！`, tag: 'solne-stream-notify' });
             }
           }
         }
@@ -117,13 +99,6 @@ export default function TwitCastingPanel() {
     return () => {
       unsubDB();
     };
-  }, []);
-
-  // Update effect to periodically check for "Live" transition
-  const [now, setNow] = useState(new Date());
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 60000); // Check every minute
-    return () => clearInterval(timer);
   }, []);
 
   const clickCountRef = React.useRef(0);
@@ -163,7 +138,7 @@ export default function TwitCastingPanel() {
     alert('管理者モードを終了しました。');
   };
 
-  const handleSave = async (status: 'scheduled' | 'finished') => {
+  const handleSave = async (status: 'scheduled' | 'finished' | 'live') => {
     setIsEditing(false);
     let scheduledAt = streamInfo.scheduledAt;
     
@@ -190,6 +165,7 @@ export default function TwitCastingPanel() {
       await setDoc(doc(db, 'site', 'streamInfo'), {
         status,
         scheduledAt,
+        timeReached: false,
         updatedAt: serverTimestamp()
       });
 
@@ -200,36 +176,7 @@ export default function TwitCastingPanel() {
     }
   };
 
-  let streamStatus: 'waiting' | 'scheduled' | 'live' = 'waiting';
-  
-  if (actualLiveStatus) {
-    streamStatus = 'live';
-  } else if (streamInfo.status === 'scheduled' && streamInfo.scheduledAt) {
-    const streamTime = new Date(streamInfo.scheduledAt);
-    if (now >= streamTime) {
-      // If time passed but TwitCasting is NOT live yet, we keep showing 'scheduled'
-      // Or maybe 'live' with a small disclaimer? Let's show scheduled but meaning "starting soon" or "live"
-      // User says "連動して自動化するように" (Automate with TwitCasting). Therefore:
-      // Since actualLiveStatus is false, we don't show "LIVE" even if scheduled time arrived.
-      // Wait, if actualLiveStatus is false, let's keep it as 'scheduled' so they know when it was *supposed* to start.
-      streamStatus = 'scheduled';
-    } else {
-      streamStatus = 'scheduled';
-    }
-  }
-
-  // Monitor status transitons internally (Timer crossover)
-  const prevStreamStatusRef = React.useRef<string>('waiting');
-  useEffect(() => {
-    if (!loading && prevStreamStatusRef.current !== 'live' && streamStatus === 'live') {
-      if (notificationsEnabledRef.current && 'Notification' in window && Notification.permission === 'granted') {
-        new Notification('ほのぼのピアノ練習部屋', { body: '配信がスタートしました！' });
-      }
-    }
-    if (!loading) {
-      prevStreamStatusRef.current = streamStatus;
-    }
-  }, [streamStatus, loading]);
+  const streamStatus = streamInfo.status;
 
   if (loading) return null;
 
@@ -355,10 +302,14 @@ export default function TwitCastingPanel() {
                       <span className="text-lg tracking-wider font-semibold text-solne-dark">
                         {formatSchedule(streamInfo.scheduledAt)}
                       </span>
-                      <span className="text-[10px] text-blue-500/80 tracking-[0.2em] font-bold border border-blue-200/50 px-2.5 py-0.5 rounded-full mt-0.5 shadow-sm bg-blue-50/50">START</span>
+                      {streamInfo.timeReached ? (
+                        <span className="text-[10px] text-green-600/90 tracking-[0.2em] font-bold border border-green-200/50 px-2.5 py-0.5 rounded-full mt-0.5 shadow-sm bg-green-50/50 animate-pulse">まもなく開始</span>
+                      ) : (
+                        <span className="text-[10px] text-blue-500/80 tracking-[0.2em] font-bold border border-blue-200/50 px-2.5 py-0.5 rounded-full mt-0.5 shadow-sm bg-blue-50/50">START</span>
+                      )}
                     </>
                   )}
-                  {streamStatus === 'waiting' && (
+                  {(streamStatus === 'finished' || (!streamInfo.scheduledAt && streamStatus !== 'live')) && (
                     <>
                       <Radio className="w-4 h-4 text-gray-300 mb-0.5" strokeWidth={1.5} />
                       <span className="text-xs tracking-widest font-light text-gray-400 text-center leading-relaxed">
@@ -412,7 +363,7 @@ export default function TwitCastingPanel() {
                     ) : streamStatus === 'scheduled' && streamInfo.scheduledAt ? (
                       <span className="text-[11px] font-bold text-solne-dark tracking-wider flex items-center gap-1">
                         <Calendar className="w-3 h-3 text-blue-400" />
-                        {formatSchedule(streamInfo.scheduledAt)}
+                        {streamInfo.timeReached ? 'まもなく開始' : formatSchedule(streamInfo.scheduledAt)}
                       </span>
                     ) : (
                       <span className="text-[10px] text-gray-400 tracking-widest">お休み中</span>
