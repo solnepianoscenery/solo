@@ -10,7 +10,7 @@ import { ScrollCarousel } from './components/ScrollCarousel';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
-const ABOUT_ILLUST_URL = "https://i.imgur.com/0ipCuQk.png"; // Fallback/Placeholder for undefined URL
+const ABOUT_ILLUST_URL = "https://i.imgur.com/LqjTi4M.png";
 const CHAR_URL = "https://i.imgur.com/4ArBose.png";
 
 export default function App() {
