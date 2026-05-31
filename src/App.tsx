@@ -10,6 +10,7 @@ import { ScrollCarousel } from './components/ScrollCarousel';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
+const ABOUT_ILLUST_URL = "https://i.imgur.com/0ipCuQk.png"; // Fallback/Placeholder for undefined URL
 const CHAR_URL = "https://i.imgur.com/4ArBose.png";
 
 export default function App() {
@@ -251,15 +252,9 @@ export default function App() {
               <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.30</time>
                 <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
-                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base">
                     ウェブサイト内に、ツイキャスの配信告知エリアを追加しました。今後はサイト上で最新の配信状況やスケジュールをご確認いただけます。
                   </p>
-                  <a 
-                    href="#twitcasting" 
-                    className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
-                  >
-                    配信状況を見る <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
                 </div>
               </div>
 
@@ -357,37 +352,41 @@ export default function App() {
               </div>
             </h2>
             
-            <div className="space-y-10 md:space-y-12 text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark flex flex-col items-center text-center">
-              
-              <div className="space-y-3 md:space-y-4">
-                <p className="text-xl md:text-3xl font-serif text-solne-dark tracking-[0.2em]">Solne</p>
-                <p className="text-solne-gold font-medium tracking-[0.3em] text-[11px] md:text-sm">— 情景作曲家 ＆ 独学ピアニスト —</p>
+            <div className="w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+              {/* Illustration Side */}
+              <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
+                <div className="absolute inset-0 bg-solne-gold/10 rounded-full blur-[80px] sm:blur-[120px] scale-110 -z-10"></div>
+                <img 
+                  src={ABOUT_ILLUST_URL} 
+                  alt="Solne Illustration" 
+                  className="w-56 sm:w-72 md:w-80 max-w-full object-contain relative z-10 drop-shadow-2xl transition-transform duration-700 hover:scale-[1.03]"
+                />
               </div>
 
-              <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
-
-              <div className="space-y-6 md:space-y-8 font-light text-solne-dark/80 px-2 md:px-0 w-full flex flex-col items-center bg-white/20 p-8 md:p-12 rounded-[2rem] border border-white/50 shadow-[0_4px_20px_rgba(219,157,100,0.05)] relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-32 h-32 bg-solne-gold/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-solne-gold/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+              {/* Text Side */}
+              <div className="w-full lg:w-1/2 space-y-10 text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark flex flex-col items-center lg:items-start text-center lg:text-left">
                 
-                <p className="text-[13px] sm:text-[14px] md:text-base leading-loose md:leading-[2.5] hidden md:block tracking-[0.2em] relative z-10 text-center">
-                  情景が浮かぶ<br />
-                  オリジナルピアノソロ曲や、<br />
-                  様々な曲の「弾いてみた」を<br />
-                  投稿しています。
-                </p>
-                <p className="text-[13px] leading-[2.4] block md:hidden tracking-[0.15em] relative z-10 text-center">
-                  情景が浮かぶ<br />オリジナルピアノソロ曲や、<br />
-                  様々な曲の「弾いてみた」を<br />投稿しています。
-                </p>
-              </div>
-              
-              <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-transparent via-solne-gold/40 to-transparent"></div>
+                <div className="space-y-3 md:space-y-4">
+                  <p className="text-xl md:text-3xl font-serif text-solne-dark tracking-[0.2em]">Solne</p>
+                  <p className="text-solne-gold font-medium tracking-[0.3em] text-[11px] md:text-sm">— 情景作曲家 ＆ 独学ピアニスト —</p>
+                </div>
 
-              <p className="text-[11px] sm:text-xs md:text-[14px] text-solne-dark/60 font-light max-w-xl mx-auto px-4 pb-8 md:pb-0 leading-[2] tracking-[0.15em]">
-                このサイトでは、活動紹介や新曲のご案内など、<br className="hidden sm:block" />
-                Solneの音楽の世界への入り口をお届けします。
-              </p>
+                <div className="w-12 h-[1px] bg-gradient-to-r from-solne-gold/40 to-transparent lg:hidden"></div>
+
+                <div className="space-y-6 font-light text-solne-dark/80 relative z-10 w-full bg-white/30 lg:bg-transparent p-6 lg:p-0 rounded-3xl lg:rounded-none border border-white/40 lg:border-none shadow-sm lg:shadow-none">
+                  <p className="text-[13px] sm:text-[14px] md:text-base leading-loose md:leading-[2.5] tracking-[0.2em] mb-6">
+                    情景が浮かぶ<br className="hidden md:block" />
+                    オリジナルピアノソロ曲や、<br />
+                    様々な曲の「弾いてみた」を<br className="hidden md:block" />
+                    投稿しています。
+                  </p>
+                  
+                  <p className="text-[11px] sm:text-xs md:text-[14px] text-solne-dark/60 font-light pt-6 border-t border-solne-gold/20 leading-[2] tracking-[0.15em]">
+                    このサイトでは、活動紹介や新曲のご案内など、<br className="hidden lg:block" />
+                    Solneの音楽の世界への入り口をお届けします。
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </Section>
