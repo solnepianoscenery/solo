@@ -2,7 +2,6 @@ import ParticleBackground from './components/ParticleBackground';
 import CherryBlossom from './components/CherryBlossom';
 import Nemophila from './components/Nemophila';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
-import TwitCastingPanel from './components/TwitCastingPanel';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
@@ -236,8 +235,6 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* TwitCasting Floating Panel (Fixed) */}
-        <TwitCastingPanel />
 
         {/* TikTok Section */}
         <Section id="tiktok" className="bg-white/30 backdrop-blur-md w-full max-w-none pt-24 pb-0 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
