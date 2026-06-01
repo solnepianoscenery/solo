@@ -53,10 +53,72 @@ export default function TwitCastingPanel() {
     }
   }, []);
 
-  const toggleNotifications = (enable: boolean) => {
-    setNotificationsEnabled(enable);
-    localStorage.setItem('solne_push_enabled', enable ? 'true' : 'false');
+  const toggleNotifications = async (enable: boolean) => {
+    try {
+      if (enable) {
+        // Register service worker if not already
+        let swRegistration = await navigator.serviceWorker.getRegistration();
+        if (!swRegistration) {
+          swRegistration = await navigator.serviceWorker.register('/sw.js');
+        }
+
+        // Get public key
+        const response = await fetch('/api/push/public-key');
+        const data = await response.json();
+        const vapidPublicKey = data.publicKey;
+
+        // Subscribe to push
+        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+        const subscription = await swRegistration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedVapidKey
+        });
+
+        // Send to backend
+        await fetch('/api/push/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(subscription)
+        });
+
+        setNotificationsEnabled(true);
+        localStorage.setItem('solne_push_enabled', 'true');
+        alert('ブラウザのプッシュ通知をオンにしました！ブラウザを閉じても通知が届きます。');
+
+      } else {
+        // Unsubscribe
+        const swRegistration = await navigator.serviceWorker.getRegistration();
+        if (swRegistration) {
+          const subscription = await swRegistration.pushManager.getSubscription();
+          if (subscription) {
+            await fetch('/api/push/unsubscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ endpoint: subscription.endpoint })
+            });
+            await subscription.unsubscribe();
+          }
+        }
+        setNotificationsEnabled(false);
+        localStorage.setItem('solne_push_enabled', 'false');
+      }
+    } catch(e) {
+      console.error(e);
+      alert('通知の設定に失敗しました。');
+    }
   };
+
+  // Helper function for VAPID key
+  function urlBase64ToUint8Array(base64String: string) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
     
   useEffect(() => {
     const docRef = doc(db, 'site', 'streamInfo');
@@ -71,22 +133,7 @@ export default function TwitCastingPanel() {
           setEditTime(`${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`);
         }
         
-        // Notify on actual data change from remote 
-        // Ignore the very first time we load the data
-        if (!initialFetchRef.current && prevDataRef.current) {
-          if (notificationsEnabledRef.current && 'Notification' in window && Notification.permission === 'granted') {
-            const prev = prevDataRef.current;
-            
-            if (data.status === 'live' && prev.status !== 'live') {
-               new Notification('ほのぼのピアノ練習部屋', { body: '配信がスタートしました！', tag: 'solne-stream-notify' });
-            } else if (data.status === 'scheduled' && data.timeReached && !prev.timeReached) {
-               new Notification('ほのぼのピアノ練習部屋', { body: 'まもなく配信予定時間です！', tag: 'solne-stream-notify' });
-            } else if (data.status === 'scheduled' && data.scheduledAt && data.scheduledAt !== prev.scheduledAt) {
-               const d = new Date(data.scheduledAt);
-               new Notification('ほのぼのピアノ練習部屋', { body: `次回配信が ${d.getMonth()+1}月${d.getDate()}日 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} に予定されました！`, tag: 'solne-stream-notify' });
-            }
-          }
-        }
+        // Notification logic is now handled entirely by the backend via Web Push Service Worker
         prevDataRef.current = data;
       }
       initialFetchRef.current = false;
@@ -169,6 +216,14 @@ export default function TwitCastingPanel() {
         updatedAt: serverTimestamp()
       });
 
+      if (status === 'scheduled' && scheduledAt) {
+         fetch('/api/push/notify-scheduled', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ time: formatSchedule(scheduledAt) })
+         }).catch(console.error);
+      }
+
       alert('配信情報を保存しました！');
     } catch (e) {
       console.error(e);
@@ -199,7 +254,6 @@ export default function TwitCastingPanel() {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         toggleNotifications(true);
-        new Notification('通知オン', { body: '配信情報が更新されるとお知らせします！\n(※ブラウザでこの画面を開いている間のみ有効です)' });
       } else {
         alert('通知がブロックされています。ブラウザの設定をご確認ください。');
       }

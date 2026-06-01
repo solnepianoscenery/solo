@@ -3,6 +3,17 @@ import path from 'path';
 import https from 'https';
 import { initializeApp, getApps } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+import webpush from 'web-push';
+
+// Web Push setup
+const vapidPublicKey = 'BNMB6b4DV1-x5OR9XzmJMJKN_aqV7yDef7FQ_Y4UNZf7tWShvuE7wCppwU8DPiGOdeJ8fMcnZB04jc-GAOIevz8';
+const vapidPrivateKey = 'fk0lX9lTxMjopETZsu3QOMKjsDhsot0DSgx28HWbrIw';
+
+webpush.setVapidDetails(
+  'mailto:ziepiano@gmail.com',
+  vapidPublicKey,
+  vapidPrivateKey
+);
 
 if (getApps().length === 0) {
   initializeApp({
@@ -10,6 +21,31 @@ if (getApps().length === 0) {
   });
 }
 const adminDb = getFirestore('ai-studio-33ccd0d0-1b79-4e05-9a14-8c22bb8e826d');
+
+async function sendPushToAll(title: string, body: string, url: string) {
+  console.log(`Sending Web Push: ${title} - ${body}`);
+  try {
+    const subsSnap = await adminDb.collection('site/streamInfo/subscriptions').get();
+    const payload = JSON.stringify({ title, body, url });
+    
+    const promises = subsSnap.docs.map(async (doc) => {
+      const sub = doc.data() as webpush.PushSubscription;
+      try {
+        await webpush.sendNotification(sub, payload);
+      } catch (e: any) {
+        if (e.statusCode === 410 || e.statusCode === 404) {
+          console.log('Subscription expired, deleting', doc.id);
+          await doc.ref.delete();
+        } else {
+          console.error('Push error:', e);
+        }
+      }
+    });
+    await Promise.all(promises);
+  } catch(e) {
+    console.error('Error in sendPushToAll', e);
+  }
+}
 
 // Helper to poll Twitcasting
 function checkTwitcastingLiveStatus(): Promise<boolean> {
@@ -49,6 +85,7 @@ setInterval(async () => {
           updatedAt: FieldValue.serverTimestamp()
         });
         console.log('Stream goes LIVE - Updated Firestore');
+        await sendPushToAll('ほのぼのピアノ練習部屋', '配信がスタートしました！', 'https://twitcasting.tv/c:ziepiano');
       } else if (!isLive && currentStatus === 'live') {
         // Stream has ended!
         await docRef.update({
@@ -67,6 +104,7 @@ setInterval(async () => {
              updatedAt: FieldValue.serverTimestamp()
           });
           console.log('Stream scheduled time reached - Updated Firestore');
+          await sendPushToAll('ほのぼのピアノ練習部屋', 'まもなく配信予定時間です！準備はいいですか？', 'https://twitcasting.tv/c:ziepiano');
         }
       }
     }
@@ -80,6 +118,42 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
+
+  // Web push endpoints
+  app.get('/api/push/public-key', (req, res) => {
+    res.json({ publicKey: vapidPublicKey });
+  });
+
+  app.post('/api/push/subscribe', async (req, res) => {
+    const subscription = req.body;
+    try {
+      // Use the endpoint as a unique ID (hash it to be safe for firestore ID)
+      const id = Buffer.from(subscription.endpoint).toString('base64').replace(/[/+=]/g, '');
+      await adminDb.doc(`site/streamInfo/subscriptions/${id}`).set(subscription);
+      res.status(201).json({ success: true });
+    } catch(e) {
+      console.error(e);
+      res.status(500).json({ error: 'Failed to subscribe' });
+    }
+  });
+
+  app.post('/api/push/notify-scheduled', async (req, res) => {
+    const { time } = req.body;
+    await sendPushToAll('ほのぼのピアノ練習部屋', `配信時間が更新されました！（次回予定: ${time}）`, window.location?.origin || '/');
+    res.json({ success: true });
+  });
+
+  app.post('/api/push/unsubscribe', async (req, res) => {
+    const { endpoint } = req.body;
+    try {
+      const id = Buffer.from(endpoint).toString('base64').replace(/[/+=]/g, '');
+      await adminDb.doc(`site/streamInfo/subscriptions/${id}`).delete();
+      res.json({ success: true });
+    } catch(e) {
+      console.error(e);
+      res.status(500).json({ error: 'Failed to unsubscribe' });
+    }
+  });
 
   // TwitCasting Check Proxy Route (Keep for backward compatibility)
   app.get('/api/twitcasting/status', async (req, res) => {
