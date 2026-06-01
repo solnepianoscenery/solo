@@ -29,6 +29,7 @@ const popInItem = {
 };
 
 export default function App() {
+  // Main Application Component
   return (
     <div className="min-h-screen text-solne-dark font-serif selection:bg-solne-gold selection:text-white relative">
       <ParticleBackground />

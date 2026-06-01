@@ -57,15 +57,16 @@ export default function TwitCastingPanel() {
     try {
       if (enable) {
         // Register service worker if not already
-        let swRegistration = await navigator.serviceWorker.getRegistration();
-        if (!swRegistration) {
-          swRegistration = await navigator.serviceWorker.register('/sw.js');
-        }
+        const swRegistration = await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.ready;
 
         // Get public key
         const response = await fetch('/api/push/public-key');
+        if (!response.ok) throw new Error('Failed to get public key');
         const data = await response.json();
         const vapidPublicKey = data.publicKey;
+
+        if (!vapidPublicKey) throw new Error('Missing VAPID public key');
 
         // Subscribe to push
         const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
@@ -102,9 +103,16 @@ export default function TwitCastingPanel() {
         setNotificationsEnabled(false);
         localStorage.setItem('solne_push_enabled', 'false');
       }
-    } catch(e) {
+    } catch(e: any) {
       console.error(e);
-      alert('通知の設定に失敗しました。');
+      let errMsg = e.message || String(e);
+      if (errMsg.includes('NotAllowedError') || errMsg.includes('permission')) {
+        alert('通知が許可されませんでした。ブラウザの設定で通知を許可してください。');
+      } else if (errMsg.includes('SecurityError') || !navigator.serviceWorker) {
+        alert('この環境ではプッシュ通知がサポートされていません。（右上のボタンから別タブで開くとうまくいく場合があります）');
+      } else {
+        alert('通知の設定に失敗しました: ' + errMsg + '\n（右上のボタンから別タブで開くとうまくいく場合があります）');
+      }
     }
   };
 
@@ -220,7 +228,7 @@ export default function TwitCastingPanel() {
          fetch('/api/push/notify-scheduled', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ time: formatSchedule(scheduledAt) })
+            body: JSON.stringify({ time: formatSchedule(scheduledAt), url: window.location.origin })
          }).catch(console.error);
       }
 
@@ -357,7 +365,7 @@ export default function TwitCastingPanel() {
                         {formatSchedule(streamInfo.scheduledAt)}
                       </span>
                       {streamInfo.timeReached ? (
-                        <span className="text-[10px] text-green-600/90 tracking-[0.2em] font-bold border border-green-200/50 px-2.5 py-0.5 rounded-full mt-0.5 shadow-sm bg-green-50/50 animate-pulse">まもなく開始</span>
+                        <span className="text-[10px] text-green-600/90 tracking-[0.2em] font-bold border border-green-200/50 px-2.5 py-0.5 rounded-full mt-0.5 shadow-sm bg-green-50/50 animate-pulse">まもなく始まります</span>
                       ) : (
                         <span className="text-[10px] text-blue-500/80 tracking-[0.2em] font-bold border border-blue-200/50 px-2.5 py-0.5 rounded-full mt-0.5 shadow-sm bg-blue-50/50">START</span>
                       )}
@@ -367,8 +375,7 @@ export default function TwitCastingPanel() {
                     <>
                       <Radio className="w-4 h-4 text-gray-300 mb-0.5" strokeWidth={1.5} />
                       <span className="text-xs tracking-widest font-light text-gray-400 text-center leading-relaxed">
-                        現在配信はお休み中です<br/>
-                        次回の更新をお待ちください
+                        次回の配信時間情報更新を<br/>お待ちください
                       </span>
                     </>
                   )}

@@ -138,8 +138,8 @@ async function startServer() {
   });
 
   app.post('/api/push/notify-scheduled', async (req, res) => {
-    const { time } = req.body;
-    await sendPushToAll('ほのぼのピアノ練習部屋', `配信時間が更新されました！（次回予定: ${time}）`, window.location?.origin || '/');
+    const { time, url } = req.body;
+    await sendPushToAll('ほのぼのピアノ練習部屋', `配信時間が更新されました！（次回予定: ${time}）`, url || 'https://twitcasting.tv/c:ziepiano');
     res.json({ success: true });
   });
 
