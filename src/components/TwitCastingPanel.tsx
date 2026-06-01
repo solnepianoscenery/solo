@@ -57,14 +57,25 @@ export default function TwitCastingPanel() {
     try {
       if (enable) {
         // Register service worker if not already
-        const swRegistration = await navigator.serviceWorker.register('/sw.js');
+        const swUrl = import.meta.env.BASE_URL + 'sw.js';
+        const swRegistration = await navigator.serviceWorker.register(swUrl);
         await navigator.serviceWorker.ready;
 
         // Get public key
         const response = await fetch('/api/push/public-key');
-        if (!response.ok) throw new Error('Failed to get public key');
-        const data = await response.json();
-        const vapidPublicKey = data.publicKey;
+        if (!response.ok) {
+          if (response.status === 404) {
+             throw new Error('バックエンドサーバーにアクセスできません。(GitHub Pages環境などでは通知機能は動作しません)');
+          }
+          throw new Error('Failed to get public key');
+        }
+        let data;
+        try {
+          data = await response.json();
+        } catch(e) {
+          throw new Error('バックエンドサーバーからの応答が不正です。(GitHub Pages環境などでは通知機能は動作しません)');
+        }
+        const vapidPublicKey = data?.publicKey;
 
         if (!vapidPublicKey) throw new Error('Missing VAPID public key');
 
