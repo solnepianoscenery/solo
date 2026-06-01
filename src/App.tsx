@@ -13,6 +13,21 @@ const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
 const ABOUT_ILLUST_URL = "https://i.imgur.com/LqjTi4M.png";
 const CHAR_URL = "https://i.imgur.com/4ArBose.png";
 
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+};
+
+const popInItem = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+};
+
 export default function App() {
   return (
     <div className="min-h-screen text-solne-dark font-serif selection:bg-solne-gold selection:text-white relative">
@@ -247,19 +262,25 @@ export default function App() {
               <span className="w-12 h-[1px] bg-solne-gold/50"></span>
             </h2>
             
-            <div className="w-full text-left space-y-4">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="w-full text-left space-y-4"
+            >
               {/* News Item: TwitCasting Panel */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.30</time>
                 <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
                   <p className="leading-relaxed tracking-wider font-light text-sm md:text-base">
                     ウェブサイト内に、ツイキャスの配信告知エリアを追加しました。今後はサイト上で最新の配信状況やスケジュールをご確認いただけます。
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: 2nd Original Sheet Release */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.19</time>
                 <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
                   <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
@@ -274,68 +295,68 @@ export default function App() {
                     <FileText className="w-3.5 h-3.5" /> Piascoreで購入
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: 2nd Original Release */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.11</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">2</span>nd. Original 作品「碧に包まれて」フルMV公開しました。
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: Sheet Music Release */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.12</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">1</span>st. Original 作品「桜色の夢」の楽譜を公開しました。
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: Full MV Release */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.11</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">1</span>st. Original 作品「桜色の夢」のフルMVを公開しました。
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: TikTok Launch */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.09</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     TikTokアカウントを開設しました。
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: Teaser Video */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.07</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     <span className="font-sans">1</span>st. Original 作品「桜色の夢」予告動画公開しました。
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* News Item: Website Launch */}
-              <div className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.04.05</time>
                 <div className="flex-1">
                   <p className="text-solne-dark/70 group-hover:text-solne-dark transition-colors leading-relaxed tracking-wider font-light text-sm md:text-base">
                     公式サイトを公開しました。今後の新曲情報などはこちらでお知らせいたします。
                   </p>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </Section>
 
@@ -354,17 +375,29 @@ export default function App() {
             
             <div className="w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
               {/* Illustration Side */}
-              <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
+              <motion.div 
+                initial={{ opacity: 0, x: -40, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="w-full lg:w-1/2 flex justify-center lg:justify-end relative"
+              >
                 <div className="absolute inset-0 bg-solne-gold/10 rounded-full blur-[80px] sm:blur-[120px] scale-110 -z-10"></div>
                 <img 
                   src={ABOUT_ILLUST_URL} 
                   alt="Solne Illustration" 
                   className="w-56 sm:w-72 md:w-80 max-w-full object-contain relative z-10 drop-shadow-2xl transition-transform duration-700 hover:scale-[1.03]"
                 />
-              </div>
+              </motion.div>
 
               {/* Text Side */}
-              <div className="w-full lg:w-1/2 space-y-10 text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark flex flex-col items-center lg:items-start text-center lg:text-left">
+              <motion.div 
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                className="w-full lg:w-1/2 space-y-10 text-sm md:text-lg leading-[2.2] md:leading-[2.5] tracking-[0.15em] text-solne-dark flex flex-col items-center lg:items-start text-center lg:text-left"
+              >
                 
                 <div className="space-y-3 md:space-y-4">
                   <p className="text-xl md:text-3xl font-serif text-solne-dark tracking-[0.2em]">Solne</p>
@@ -386,7 +419,7 @@ export default function App() {
                     Solneの音楽の世界への入り口をお届けします。
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </Section>
@@ -604,39 +637,45 @@ export default function App() {
             <span className="w-12 h-[1px] bg-solne-gold/50"></span>
           </h2>
           
-          <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-x-4 gap-y-12 md:gap-20 max-w-sm md:max-w-none mx-auto">
-            <a href="https://x.com/solnepiano" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-x-4 gap-y-12 md:gap-20 max-w-sm md:max-w-none mx-auto"
+          >
+            <motion.a variants={popInItem} href="https://x.com/solnepiano" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </div>
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">X</span>
-            </a>
+            </motion.a>
 
-            <a href="https://www.youtube.com/@SolnePianoScenery" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+            <motion.a variants={popInItem} href="https://www.youtube.com/@SolnePianoScenery" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <Youtube className="w-7 h-7" strokeWidth={1.5} />
               </div>
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">YouTube</span>
-            </a>
+            </motion.a>
             
-            <a href="https://www.instagram.com/solne_piano_scenery/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+            <motion.a variants={popInItem} href="https://www.instagram.com/solne_piano_scenery/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <Instagram className="w-7 h-7" strokeWidth={1.5} />
               </div>
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">Instagram</span>
-            </a>
+            </motion.a>
             
-            <a href="https://www.tiktok.com/@solne.piano.scenery?_r=1&_t=ZS-95R4K7BwjHs" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+            <motion.a variants={popInItem} href="https://www.tiktok.com/@solne.piano.scenery?_r=1&_t=ZS-95R4K7BwjHs" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
                 </svg>
               </div>
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">TikTok</span>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </Section>
 
       </main>
