@@ -1,7 +1,8 @@
 import ParticleBackground from './components/ParticleBackground';
+import FireworksBackground from './components/FireworksBackground';
 import CherryBlossom from './components/CherryBlossom';
-import Nemophila from './components/Nemophila';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
+import fireworksBg from './assets/images/fireworks_illustration_1782306205071.jpg';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
@@ -108,20 +109,20 @@ export default function App() {
       <main className="pt-32 pb-20 flex flex-col items-center relative z-10">
         
         {/* Hero Section */}
-        <section className="w-full min-h-[90vh] flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden">
+        <section className="w-full min-h-[90vh] flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden bg-solne-dark/90">
           
           {/* Hero Background Watermark */}
           <div className="absolute inset-x-0 top-0 h-[120vh] pointer-events-none z-0 -mt-20">
             <div 
-              className="w-full h-full opacity-60 bg-cover bg-center object-cover mix-blend-normal"
-              style={{ backgroundImage: `url('https://i.imgur.com/J5oQejK.jpeg')` }}
+              className="w-full h-full opacity-30 bg-cover bg-center object-cover mix-blend-normal"
+              style={{ backgroundImage: `url(${fireworksBg})` }}
             ></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/50 to-solne-light"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/50 via-solne-dark/80 to-white/10"></div>
           </div>
 
-          {/* Floral Effects */}
+          {/* Fireworks Effects */}
           <div className="absolute inset-0 pointer-events-none z-0">
-            <Nemophila />
+            <FireworksBackground />
           </div>
 
           {/* Logo & Background Wrapper */}
@@ -133,46 +134,12 @@ export default function App() {
               className="relative flex items-center justify-center"
             >
             {/* Glow effect behind the logo to ensure readability */}
-            <div className="absolute inset-0 bg-white/80 blur-[60px] rounded-full transform translate-y-6 scale-[1.6] -z-10"></div>
+            <div className="absolute inset-0 bg-white/30 blur-[60px] rounded-full transform translate-y-6 scale-[1.6] -z-10"></div>
             
-            {/* Orbit Track & Elements */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 3, delay: 1, ease: "easeOut" }}
-                className="w-[72%] md:w-[68%] aspect-square rounded-full border-[0.5px] border-solne-gold/15 absolute"
-              />
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, rotate: 360 }}
-                transition={{ 
-                  opacity: { duration: 3, delay: 1, ease: "easeOut" },
-                  rotate: { duration: 45, repeat: Infinity, ease: "linear" }
-                }}
-                className="w-[72%] md:w-[68%] aspect-square rounded-full relative"
-              >
-                {/* Sun */}
-                <div className="absolute -top-3 md:-top-4 left-1/2 -translate-x-1/2 flex items-center justify-center">
-                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 45, repeat: Infinity, ease: "linear" }} className="relative flex items-center justify-center">
-                    <div className="absolute inset-0 bg-solne-gold/20 blur-md rounded-full scale-[2]"></div>
-                    <Sun className="w-5 h-5 md:w-6 md:h-6 text-solne-gold drop-shadow-[0_0_8px_rgba(184,153,117,0.6)]" strokeWidth={0.75} />
-                  </motion.div>
-                </div>
-                {/* Moon */}
-                <div className="absolute -bottom-3 md:-bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center">
-                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 45, repeat: Infinity, ease: "linear" }} className="relative flex items-center justify-center">
-                    <div className="absolute inset-0 bg-solne-dark/10 blur-md rounded-full scale-[2]"></div>
-                    <Moon className="w-5 h-5 md:w-6 md:h-6 text-solne-dark drop-shadow-[0_0_8px_rgba(58,38,40,0.3)]" strokeWidth={0.75} />
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
-
             <img 
               src={LOGO_URL} 
               alt="Solne Logo" 
-              className="w-[85vw] md:w-[500px] lg:w-[600px] object-contain relative z-10 drop-shadow-2xl mix-blend-multiply"
+              className="w-[85vw] md:w-[500px] lg:w-[600px] object-contain relative z-10 drop-shadow-2xl mix-blend-overlay opacity-90 invert"
             />
             </motion.div>
           </div>
@@ -182,54 +149,42 @@ export default function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }}
-            className="w-full max-w-5xl relative rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] bg-white/40 backdrop-blur-md border border-white/60"
+            className="w-full max-w-5xl relative rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] bg-solne-dark/80 backdrop-blur-md border border-white/20"
           >
             {/* Watermark Background */}
             <div 
               className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
-              style={{ backgroundImage: `url('https://i.imgur.com/J5oQejK.jpeg')` }}
+              style={{ backgroundImage: `url(${fireworksBg})` }}
             ></div>
 
-            <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center">
+            <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center text-white">
               {/* Text Content */}
               <div className="flex flex-col items-center">
                 <div className="flex flex-wrap justify-center gap-3 mb-6">
                   <motion.span 
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm text-solne-dark text-sm md:text-base tracking-widest border border-blue-200 shadow-md font-medium"
-                  >
-                    <span className="text-lg">🌿</span> 2nd. 作品公開
-                  </motion.span>
-                  <motion.a 
-                    href="#sheet-latest"
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-solne-gold text-white text-sm md:text-base tracking-widest border border-solne-gold shadow-lg font-medium hover:bg-solne-gold/90 transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-red-500/80 backdrop-blur-sm text-white text-sm md:text-base tracking-widest border border-red-400 shadow-[0_0_15px_rgba(239,68,68,0.5)] font-medium"
                   >
-                    <FileText className="w-4 h-4" /> 楽譜 公開中
-                  </motion.a>
+                    <span className="text-lg">🎇</span> 2026年7月12日(日) 21:00 公開
+                  </motion.span>
                 </div>
                 
-                <h3 className="text-lg md:text-2xl tracking-[0.2em] text-solne-dark/90 font-light mb-4 whitespace-nowrap">
-                  <span className="font-sans">2</span>nd. Original Piano Solo
+                <h3 className="text-lg md:text-2xl tracking-[0.2em] text-white/90 font-light mb-4 whitespace-nowrap">
+                  New Original Piano Solo
                 </h3>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.2em] text-solne-dark font-medium mb-10 drop-shadow-sm whitespace-nowrap">
-                  「碧に包まれて」
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.2em] text-white font-medium mb-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] whitespace-nowrap">
+                  「夏灯花火」
                 </h2>
               </div>
 
-              {/* YouTube Full Video Embed */}
-              <div className="w-full max-w-4xl relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-4 border-white/80 bg-white aspect-video">
-                <iframe 
-                  src="https://www.youtube.com/embed/_WpV5B3S9dI" 
-                  title="YouTube video player" 
-                  frameBorder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  className="absolute top-0 left-0 w-full h-full z-10"
-                ></iframe>
+              {/* Thumbnail Display */}
+              <div className="w-full max-w-4xl relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-2 border-white/20 bg-black aspect-video">
+                <img 
+                  src="https://i.imgur.com/4us78H6.jpg" 
+                  alt="夏灯花火 Thumbnail" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
               </div>
             </div>
           </motion.div>
@@ -267,12 +222,12 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
-              {/* News Item: TwitCasting Panel */}
+              {/* News Item: 3rd Original Teaser Release */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
-                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.05.30</time>
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.06.21</time>
                 <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
-                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base">
-                    ウェブサイト内に、ツイキャスの配信告知エリアを追加しました。今後はサイト上で最新の配信状況やスケジュールをご確認いただけます。
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    <span className="font-sans">3</span>rd. Original 作品「夏灯花火」の公開予告を発表しました。7月12日(日) 21:00 公開予定です。
                   </p>
                 </div>
               </motion.div>
