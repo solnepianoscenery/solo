@@ -3,6 +3,7 @@ import FireworksBackground from './components/FireworksBackground';
 import CherryBlossom from './components/CherryBlossom';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import fireworksBg from './assets/images/fireworks_illustration_1782306205071.jpg';
+import mobileFireworksBg from './assets/images/mobile_fireworks_bg_1782608794136.jpg';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
@@ -114,8 +115,12 @@ export default function App() {
           {/* Hero Background Watermark */}
           <div className="absolute inset-x-0 top-0 h-[120vh] pointer-events-none z-0 -mt-20">
             <div 
-              className="w-full h-full opacity-30 bg-cover bg-center object-cover mix-blend-normal"
+              className="hidden md:block w-full h-full opacity-30 bg-cover bg-center object-cover mix-blend-normal"
               style={{ backgroundImage: `url(${fireworksBg})` }}
+            ></div>
+            <div 
+              className="md:hidden w-full h-full opacity-30 bg-cover bg-center object-cover mix-blend-normal"
+              style={{ backgroundImage: `url(${mobileFireworksBg})` }}
             ></div>
             <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/50 via-solne-dark/80 to-white/10"></div>
           </div>
@@ -153,8 +158,12 @@ export default function App() {
           >
             {/* Watermark Background */}
             <div 
-              className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
+              className="hidden md:block absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
               style={{ backgroundImage: `url(${fireworksBg})` }}
+            ></div>
+            <div 
+              className="md:hidden absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
+              style={{ backgroundImage: `url(${mobileFireworksBg})` }}
             ></div>
 
             <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center text-white">
