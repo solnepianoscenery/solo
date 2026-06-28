@@ -12,7 +12,7 @@ import { ScrollCarousel } from './components/ScrollCarousel';
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
 const ABOUT_ILLUST_URL = "https://i.imgur.com/LqjTi4M.png";
-const CHAR_URL = "https://i.imgur.com/4ArBose.png";
+const CHAR_URL = "https://i.imgur.com/Ee53ClW.png";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
