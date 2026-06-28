@@ -187,13 +187,19 @@ export default function App() {
                 </h2>
               </div>
 
-              {/* Thumbnail Display */}
-              <div className="w-full max-w-4xl relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-2 border-white/20 bg-black aspect-video">
-                <img 
-                  src="https://i.imgur.com/4us78H6.jpg" 
-                  alt="夏灯花火 Thumbnail" 
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              <div className="flex flex-col gap-6 w-full max-w-5xl justify-center items-center">
+                {/* YouTube Shorts Trailer */}
+                <div className="w-full max-w-[320px] relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-2 border-white/20 bg-black aspect-[9/16]">
+                  <iframe 
+                    src="https://www.youtube.com/embed/2EPYyrhxJG4" 
+                    title="YouTube Shorts" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -231,6 +237,16 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
+              {/* News Item: Shorts Teaser Release */}
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.06.28</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    <span className="font-sans">3</span>rd. Original 作品「夏灯花火」のショート予告動画をYouTubeにて公開しました。
+                  </p>
+                </div>
+              </motion.div>
+
               {/* News Item: 3rd Original Teaser Release */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.06.21</time>
