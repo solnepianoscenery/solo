@@ -8,6 +8,8 @@ import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
 import { ScrollCarousel } from './components/ScrollCarousel';
+import { useEffect } from 'react';
+import ReactGA from 'react-ga4';
 
 // Uploaded images
 const LOGO_URL = "https://i.imgur.com/3gkwo9v.png";
@@ -30,6 +32,14 @@ const popInItem = {
 };
 
 export default function App() {
+  useEffect(() => {
+    const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    if (measurementId) {
+      ReactGA.initialize(measurementId);
+      ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
+    }
+  }, []);
+
   // Main Application Component
   return (
     <div className="min-h-screen text-solne-dark font-serif selection:bg-solne-gold selection:text-white relative">
