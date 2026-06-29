@@ -34,6 +34,7 @@ const popInItem = {
 export default function App() {
   useEffect(() => {
     const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    console.log("GA Measurement ID check:", measurementId ? "Set" : "Not Set");
     if (measurementId) {
       ReactGA.initialize(measurementId);
       ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
