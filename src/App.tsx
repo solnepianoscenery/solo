@@ -237,6 +237,16 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
+              {/* News Item: Sheet Music Platform Change */}
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.06.29</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    楽譜の公開場所をPiascoreからmucomeへと移行いたしました。今後はこちらからお買い求めいただけます。
+                  </p>
+                </div>
+              </motion.div>
+
               {/* News Item: Shorts Teaser Release */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.06.28</time>
@@ -265,12 +275,12 @@ export default function App() {
                     <span className="font-sans">2</span>nd. Original 作品「碧に包まれて」の楽譜を公開しました。
                   </p>
                   <a 
-                    href="https://store.piascore.com/scores/417018" 
+                    href="https://mucome.net/work?id=163660" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
                   >
-                    <FileText className="w-3.5 h-3.5" /> Piascoreで購入
+                    <FileText className="w-3.5 h-3.5" /> mucomeで購入
                   </a>
                 </div>
               </motion.div>
@@ -458,7 +468,7 @@ export default function App() {
                     <Youtube className="w-4 h-4" /> Watch on YouTube
                   </span>
                   <a 
-                    href="https://store.piascore.com/scores/417018"
+                    href="https://mucome.net/work?id=163660"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[10px] md:text-xs tracking-widest text-solne-gold/70 hover:text-solne-gold transition-all flex items-center justify-center gap-2 py-1"
@@ -525,7 +535,7 @@ export default function App() {
               {/* Sheet Music Card: 碧に包まれて */}
               <a 
                 id="sheet-latest"
-                href="https://store.piascore.com/scores/417018" 
+                href="https://mucome.net/work?id=163660" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
@@ -558,14 +568,14 @@ export default function App() {
                   <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4 italic">Wrapped in Azure</p>
                   <div className="w-6 h-[1px] bg-solne-gold/30 mb-4 hidden md:block"></div>
                   <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
-                    <FileText className="w-3 h-3" /> Piascoreで購入 <ExternalLink className="w-3 h-3" />
+                    <FileText className="w-3 h-3" /> mucomeで購入 <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
               </a>
 
               {/* Sheet Music Card: 桜色の夢 */}
               <a 
-                href="https://store.piascore.com/scores/408615" 
+                href="https://mucome.net/work?id=163659" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
@@ -593,7 +603,7 @@ export default function App() {
                   <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4">Dream in Cherry Blossom</p>
                   <div className="w-6 h-[1px] bg-solne-gold/30 mb-4 hidden md:block"></div>
                   <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
-                    <FileText className="w-3 h-3" /> Piascoreで購入 <ExternalLink className="w-3 h-3" />
+                    <FileText className="w-3 h-3" /> mucomeで購入 <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
               </a>
