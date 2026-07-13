@@ -2,8 +2,7 @@ import ParticleBackground from './components/ParticleBackground';
 import FireworksBackground from './components/FireworksBackground';
 import CherryBlossom from './components/CherryBlossom';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
-import fireworksBg from './assets/images/fireworks_illustration_1782306205071.jpg';
-import mobileFireworksBg from './assets/images/mobile_fireworks_bg_1782608794136.jpg';
+import topBackground from './assets/images/summer_lantern_fireworks_scenery_1783924938769.jpg';
 import { Section } from './components/Section';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
@@ -124,16 +123,14 @@ export default function App() {
         <section className="w-full min-h-[90vh] flex flex-col items-center justify-start relative px-6 pt-10 pb-20 overflow-hidden bg-solne-dark/90">
           
           {/* Hero Background Watermark */}
-          <div className="absolute inset-x-0 top-0 h-[120vh] pointer-events-none z-0 -mt-20">
+          <div className="absolute inset-x-0 top-0 h-[120vh] pointer-events-none z-0 -mt-20 overflow-hidden">
             <div 
-              className="hidden md:block w-full h-full opacity-30 bg-cover bg-center object-cover mix-blend-normal"
-              style={{ backgroundImage: `url(${fireworksBg})` }}
+              className="w-full h-full opacity-60 bg-cover bg-center object-cover scale-100"
+              style={{ 
+                backgroundImage: `url(${topBackground})`
+              }}
             ></div>
-            <div 
-              className="md:hidden w-full h-full opacity-30 bg-cover bg-center object-cover mix-blend-normal"
-              style={{ backgroundImage: `url(${mobileFireworksBg})` }}
-            ></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/50 via-solne-dark/80 to-white/10"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/30 via-solne-dark/80 to-solne-dark"></div>
           </div>
 
           {/* Fireworks Effects */}
@@ -152,10 +149,18 @@ export default function App() {
             {/* Glow effect behind the logo to ensure readability */}
             <div className="absolute inset-0 bg-white/30 blur-[60px] rounded-full transform translate-y-6 scale-[1.6] -z-10"></div>
             
-            <img 
+            <motion.img 
               src={LOGO_URL} 
               alt="Solne Logo" 
-              className="w-[85vw] md:w-[500px] lg:w-[600px] object-contain relative z-10 drop-shadow-2xl mix-blend-overlay opacity-90 invert"
+              animate={{ 
+                filter: [
+                  'invert(1) drop-shadow(0 0 15px rgba(255,200,150,0.5))',
+                  'invert(1) drop-shadow(0 0 35px rgba(255,180,80,0.9)) drop-shadow(0 0 10px rgba(255,255,255,0.8))',
+                  'invert(1) drop-shadow(0 0 15px rgba(255,200,150,0.5))'
+                ]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="w-[85vw] md:w-[500px] lg:w-[600px] object-contain relative z-10 mix-blend-screen opacity-100"
             />
             </motion.div>
           </div>
@@ -169,12 +174,8 @@ export default function App() {
           >
             {/* Watermark Background */}
             <div 
-              className="hidden md:block absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
-              style={{ backgroundImage: `url(${fireworksBg})` }}
-            ></div>
-            <div 
-              className="md:hidden absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center"
-              style={{ backgroundImage: `url(${mobileFireworksBg})` }}
+              className="absolute inset-0 opacity-40 mix-blend-overlay bg-cover bg-center"
+              style={{ backgroundImage: `url(${topBackground})` }}
             ></div>
 
             <div className="relative z-20 flex flex-col items-center justify-center gap-8 p-8 md:p-12 lg:p-16 text-center text-white">
@@ -186,24 +187,24 @@ export default function App() {
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-red-500/80 backdrop-blur-sm text-white text-sm md:text-base tracking-widest border border-red-400 shadow-[0_0_15px_rgba(239,68,68,0.5)] font-medium"
                   >
-                    <span className="text-lg">🎇</span> 2026年7月12日(日) 21:00 公開
+                    <span className="text-lg">🎇</span> 好評公開中
                   </motion.span>
                 </div>
                 
                 <h3 className="text-lg md:text-2xl tracking-[0.2em] text-white/90 font-light mb-4 whitespace-nowrap">
-                  New Original Piano Solo
+                  3rd Original Piano Solo
                 </h3>
                 <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.2em] text-white font-medium mb-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] whitespace-nowrap">
                   「夏灯花火」
                 </h2>
               </div>
 
-              <div className="flex flex-col gap-6 w-full max-w-5xl justify-center items-center">
-                {/* YouTube Shorts Trailer */}
-                <div className="w-full max-w-[320px] relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-2 border-white/20 bg-black aspect-[9/16]">
+              <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl justify-center items-center">
+                {/* YouTube Video */}
+                <div className="w-full max-w-[800px] relative rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-2 border-white/20 bg-black aspect-video">
                   <iframe 
-                    src="https://www.youtube.com/embed/2EPYyrhxJG4" 
-                    title="YouTube Shorts" 
+                    src="https://www.youtube.com/embed/uo7kyZqZD0k" 
+                    title="YouTube Video" 
                     frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerPolicy="strict-origin-when-cross-origin"
@@ -248,6 +249,24 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
+              {/* News Item: 3rd Original Release */}
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.07.11</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    <span className="font-sans">3</span>rd. Original 作品「夏灯花火」を公開しました。
+                  </p>
+                  <a 
+                    href="https://youtu.be/uo7kyZqZD0k" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
+                  >
+                    <Youtube className="w-3.5 h-3.5" /> 視聴する
+                  </a>
+                </div>
+              </motion.div>
+
               {/* News Item: Sheet Music Platform Change */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.06.29</time>
@@ -432,10 +451,10 @@ export default function App() {
           </h2>
           
           <ScrollCarousel>
-            {/* Song Card: 碧に包まれて */}
+            {/* Song Card: 夏灯花火 */}
             <a 
               id="music-latest"
-              href="https://youtu.be/_WpV5B3S9dI" 
+              href="https://youtu.be/uo7kyZqZD0k" 
               target="_blank" 
               rel="noopener noreferrer"
               className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
@@ -453,6 +472,43 @@ export default function App() {
                   </div>
                 </motion.div>
 
+                <img 
+                  src="https://i.imgur.com/Wo5A8FC.jpeg" 
+                  alt="夏灯花火" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-solne-dark/20 group-hover:bg-solne-dark/10 transition-colors duration-500 flex items-center justify-center">
+                  {/* Central Play Button */}
+                  <div className="w-12 h-12 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-all duration-300">
+                    <Youtube className="w-6 h-6" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="p-6 md:p-8 flex flex-col items-center text-center">
+                <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full bg-white/50 shadow-sm">
+                  <span className="font-sans">3</span>rd. Original
+                </span>
+                <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">夏灯花火</h3>
+                <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light italic">Summer Lantern Fireworks</p>
+                <div className="w-6 h-[1px] bg-solne-gold/30 my-4"></div>
+                <div className="flex flex-col gap-3">
+                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center justify-center gap-2">
+                    <Youtube className="w-4 h-4" /> Watch on YouTube
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            {/* Song Card: 碧に包まれて */}
+            <a 
+              href="https://youtu.be/_WpV5B3S9dI" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2 opacity-90 hover:opacity-100"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
                 <img 
                   src="https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg" 
                   alt="碧に包まれて" 
@@ -478,14 +534,6 @@ export default function App() {
                   <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-red-500 transition-colors flex items-center justify-center gap-2">
                     <Youtube className="w-4 h-4" /> Watch on YouTube
                   </span>
-                  <a 
-                    href="https://mucome.net/work?id=163660"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] md:text-xs tracking-widest text-solne-gold/70 hover:text-solne-gold transition-all flex items-center justify-center gap-2 py-1"
-                  >
-                    <FileText className="w-4 h-4" /> Sheet Music Available
-                  </a>
                 </div>
               </div>
             </a>
@@ -543,21 +591,52 @@ export default function App() {
             </h2>
             
             <ScrollCarousel>
+              {/* Sheet Music Card: 夏灯花火 (Coming Soon) */}
+              <div 
+                id="sheet-latest"
+                className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2 cursor-default"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
+                  {/* Badges */}
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <div className="bg-solne-gold text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium animate-pulse">
+                      NEW
+                    </div>
+                    <div className="bg-solne-dark/80 backdrop-blur-sm text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium">
+                      公開予定
+                    </div>
+                  </div>
+                  <img 
+                    src="https://i.imgur.com/Wo5A8FC.jpeg" 
+                    alt="夏灯花火 楽譜" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-solne-dark/10 transition-colors duration-500">
+                  </div>
+                </div>
+                
+                <div className="p-6 md:p-8 flex flex-col items-center text-center">
+                  <span className="text-[10px] tracking-widest text-solne-gold mb-3 border border-solne-gold/30 px-3 py-1 rounded-full bg-white/50 shadow-sm">
+                    Piano Solo Sheet
+                  </span>
+                  <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">夏灯花火</h3>
+                  <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4 italic">Summer Lantern Fireworks</p>
+                  <div className="w-6 h-[1px] bg-solne-gold/30 mb-4 hidden md:block"></div>
+                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/40 flex items-center gap-2">
+                    <FileText className="w-3 h-3" /> Coming Soon
+                  </span>
+                </div>
+              </div>
+
               {/* Sheet Music Card: 碧に包まれて */}
               <a 
-                id="sheet-latest"
                 href="https://mucome.net/work?id=163660" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
-                  {/* New Badge */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <div className="bg-solne-gold text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium animate-pulse">
-                      NEW
-                    </div>
-                  </div>
                   <img 
                     src="https://img.youtube.com/vi/_WpV5B3S9dI/maxresdefault.jpg" 
                     alt="碧に包まれて 楽譜" 
