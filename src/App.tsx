@@ -213,6 +213,28 @@ export default function App() {
                   ></iframe>
                 </div>
               </div>
+
+              {/* CTA Section */}
+              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center mt-4">
+                <a 
+                  href="https://mucome.net/work?id=164509" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-solne-gold text-white tracking-[0.2em] font-medium hover:bg-solne-gold/90 transition-all duration-300 shadow-[0_0_20px_rgba(219,157,100,0.4)] hover:shadow-[0_0_30px_rgba(219,157,100,0.6)] hover:-translate-y-0.5 flex items-center justify-center gap-2 border border-solne-gold"
+                >
+                  <FileText className="w-5 h-5 animate-bounce" />
+                  楽譜を購入する (mucome)
+                </a>
+                <a 
+                  href="https://youtu.be/uo7kyZqZD0k" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent text-white border border-white/40 tracking-[0.2em] font-medium hover:bg-white/10 hover:border-white transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <Youtube className="w-5 h-5 text-red-500" />
+                  MVを視聴する (YouTube)
+                </a>
+              </div>
             </div>
           </motion.div>
         </section>
@@ -249,6 +271,34 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
+              {/* News Item: 3rd Original Sheet Release */}
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.07.17</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    <span className="font-sans">3</span>rd. Original 作品「夏灯花火」の楽譜を公開しました。mucomeにてお買い求めいただけます。
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <a 
+                      href="https://mucome.net/work?id=164509" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-white bg-solne-gold border border-solne-gold px-3 py-1 rounded-full hover:bg-solne-gold/80 transition-all shadow-sm"
+                    >
+                      <FileText className="w-3.5 h-3.5" /> 楽譜を購入する
+                    </a>
+                    <a 
+                      href="https://youtu.be/uo7kyZqZD0k" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
+                    >
+                      <Youtube className="w-3.5 h-3.5" /> MVを視聴する
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* News Item: 3rd Original Release */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.07.11</time>
@@ -591,10 +641,13 @@ export default function App() {
             </h2>
             
             <ScrollCarousel>
-              {/* Sheet Music Card: 夏灯花火 (Coming Soon) */}
-              <div 
+              {/* Sheet Music Card: 夏灯花火 */}
+              <a 
                 id="sheet-latest"
-                className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2 cursor-default"
+                href="https://mucome.net/work?id=164509" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group shrink-0 w-[78vw] sm:w-[300px] md:w-auto snap-start flex flex-col bg-white/50 backdrop-blur-md border border-white/60 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(32,45,70,0.05)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(219,157,100,0.2)] hover:-translate-y-2"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-solne-light">
                   {/* Badges */}
@@ -602,17 +655,20 @@ export default function App() {
                     <div className="bg-solne-gold text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium animate-pulse">
                       NEW
                     </div>
-                    <div className="bg-solne-dark/80 backdrop-blur-sm text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium">
-                      公開予定
+                    <div className="bg-red-500 text-white text-[9px] tracking-[0.2em] px-3 py-1 rounded-full shadow-lg font-medium">
+                      好評発売中
                     </div>
                   </div>
                   <img 
                     src="https://i.imgur.com/Wo5A8FC.jpeg" 
                     alt="夏灯花火 楽譜" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-solne-dark/10 transition-colors duration-500">
+                  <div className="absolute inset-0 bg-solne-dark/10 group-hover:bg-solne-dark/30 transition-colors duration-500 flex items-center justify-center">
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-solne-dark shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <FileText className="w-5 h-5" strokeWidth={1.5} />
+                    </div>
                   </div>
                 </div>
                 
@@ -623,11 +679,11 @@ export default function App() {
                   <h3 className="text-base md:text-lg tracking-[0.15em] text-solne-dark font-medium mt-1">夏灯花火</h3>
                   <p className="text-[10px] md:text-xs tracking-widest text-solne-dark/50 mt-2 font-light mb-4 italic">Summer Lantern Fireworks</p>
                   <div className="w-6 h-[1px] bg-solne-gold/30 mb-4 hidden md:block"></div>
-                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/40 flex items-center gap-2">
-                    <FileText className="w-3 h-3" /> Coming Soon
+                  <span className="text-[10px] md:text-xs tracking-widest text-solne-dark/60 group-hover:text-solne-gold transition-colors flex items-center gap-2">
+                    <FileText className="w-3 h-3" /> mucomeで購入 <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
-              </div>
+              </a>
 
               {/* Sheet Music Card: 碧に包まれて */}
               <a 
