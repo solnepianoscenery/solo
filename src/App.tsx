@@ -778,7 +778,7 @@ export default function App() {
             viewport={{ once: true, margin: "-50px" }}
             className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-x-4 gap-y-12 md:gap-20 max-w-sm md:max-w-none mx-auto"
           >
-            <motion.a variants={popInItem} href="https://x.com/solnepiano" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+            <motion.a variants={popInItem} href="https://x.com/piano_solne?s=11" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
