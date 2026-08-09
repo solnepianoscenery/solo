@@ -235,6 +235,37 @@ export default function App() {
                   MVを視聴する (YouTube)
                 </a>
               </div>
+
+              {/* Secondary Promo */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.8 }}
+                className="mt-12 max-w-lg mx-auto w-full group"
+              >
+                <a 
+                  href="https://youtu.be/gF1A2e0RqsE" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="relative flex items-center justify-between overflow-hidden rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-4 transition-all duration-500 hover:bg-white/20 hover:border-white/40 hover:-translate-y-1 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-solne-gold/0 via-solne-gold/10 to-solne-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                  
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300 shrink-0">
+                      <Youtube className="w-6 h-6 text-white group-hover:text-red-500 transition-colors duration-300" />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="text-[10px] tracking-[0.2em] text-solne-gold mb-1">NEW VIDEO</span>
+                      <span className="text-sm md:text-base text-white tracking-widest font-light">
+                        「碧に包まれて」本人演奏動画公開
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <ArrowRight className="w-5 h-5 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all duration-300 relative z-10" />
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         </section>
@@ -271,6 +302,24 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
+              {/* News Item: 碧に包まれて Performance Video */}
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.08.09</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    <span className="font-sans">2</span>nd. Original 作品「碧に包まれて」の本人演奏動画をYouTubeにて公開しました。
+                  </p>
+                  <a 
+                    href="https://youtu.be/gF1A2e0RqsE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-solne-gold border border-solne-gold/30 px-3 py-1 rounded-full hover:bg-solne-gold hover:text-white transition-all"
+                  >
+                    <Youtube className="w-3.5 h-3.5" /> 演奏動画を視聴する
+                  </a>
+                </div>
+              </motion.div>
+
               {/* News Item: 3rd Original Sheet Release */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.07.17</time>
@@ -778,7 +827,7 @@ export default function App() {
             viewport={{ once: true, margin: "-50px" }}
             className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-x-4 gap-y-12 md:gap-20 max-w-sm md:max-w-none mx-auto"
           >
-            <motion.a variants={popInItem} href="https://x.com/piano_solne?s=11" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+            <motion.a variants={popInItem} href="https://x.com/solnepiano?s=11" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
               <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
