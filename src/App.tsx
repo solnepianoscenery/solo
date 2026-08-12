@@ -235,37 +235,65 @@ export default function App() {
                   MVを視聴する (YouTube)
                 </a>
               </div>
+            </div>
+          </motion.div>
 
-              {/* Secondary Promo */}
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.8 }}
-                className="mt-12 max-w-lg mx-auto w-full group"
-              >
+          {/* Secondary Independent Promo: 碧に包まれて (Performance Video) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 1.8, ease: "easeOut" }}
+            className="w-full max-w-4xl relative rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(15,40,60,0.3)] bg-gradient-to-br from-solne-dark/90 via-[#182a3a]/80 to-solne-dark/90 backdrop-blur-md border border-cyan-200/20 p-6 md:p-10 text-center text-white"
+          >
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/20 text-cyan-200 text-xs md:text-sm tracking-[0.2em] border border-cyan-400/30">
+                <Youtube className="w-4 h-4 text-red-400" />
+                <span>2nd Original ・ 本人演奏動画</span>
+              </div>
+
+              <div>
+                <h3 className="text-xl md:text-3xl tracking-[0.2em] text-white font-medium mb-2">
+                  「碧に包まれて」演奏動画
+                </h3>
+                <p className="text-xs md:text-sm tracking-widest text-cyan-100/70 font-light">
+                  Piano Solo Performance
+                </p>
+              </div>
+
+              {/* YouTube Video Embed */}
+              <div className="w-full max-w-[680px] relative rounded-2xl overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.4)] border border-white/20 bg-black aspect-video">
+                <iframe 
+                  src="https://www.youtube.com/embed/gF1A2e0RqsE" 
+                  title="「碧に包まれて」本人演奏動画" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                ></iframe>
+              </div>
+
+              {/* Action Links */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full justify-center items-center mt-2">
                 <a 
                   href="https://youtu.be/gF1A2e0RqsE" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="relative flex items-center justify-between overflow-hidden rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-4 transition-all duration-500 hover:bg-white/20 hover:border-white/40 hover:-translate-y-1 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-cyan-600/80 hover:bg-cyan-500 text-white tracking-[0.15em] text-xs md:text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-cyan-400/50 shadow-md hover:-translate-y-0.5"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-solne-gold/0 via-solne-gold/10 to-solne-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  
-                  <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300 shrink-0">
-                      <Youtube className="w-6 h-6 text-white group-hover:text-red-500 transition-colors duration-300" />
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className="text-[10px] tracking-[0.2em] text-solne-gold mb-1">NEW VIDEO</span>
-                      <span className="text-sm md:text-base text-white tracking-widest font-light">
-                        「碧に包まれて」本人演奏動画公開
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <ArrowRight className="w-5 h-5 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all duration-300 relative z-10" />
+                  <Youtube className="w-4 h-4 text-red-400" />
+                  YouTubeで視聴する
                 </a>
-              </motion.div>
+                <a 
+                  href="https://mucome.net/work?id=163660" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white tracking-[0.15em] text-xs md:text-sm font-medium border border-white/30 transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-0.5"
+                >
+                  <FileText className="w-4 h-4 text-solne-gold" />
+                  楽譜を購入する (mucome)
+                </a>
+              </div>
             </div>
           </motion.div>
         </section>
