@@ -4,8 +4,9 @@ import CherryBlossom from './components/CherryBlossom';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import topBackground from './assets/images/summer_lantern_fireworks_scenery_1783924938769.jpg';
 import { Section } from './components/Section';
+import { StreamingSection } from './components/StreamingSection';
 import { motion } from 'motion/react';
-import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight } from 'lucide-react';
+import { Instagram, Youtube, Music2, FileText, ArrowUp, Sun, Moon, ExternalLink, ArrowRight, Headphones } from 'lucide-react';
 import { ScrollCarousel } from './components/ScrollCarousel';
 import { useEffect } from 'react';
 import ReactGA from 'react-ga4';
@@ -94,6 +95,12 @@ export default function App() {
             <a href="#about" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
               <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
               <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">About</span>
+            </a>
+          </li>
+          <li>
+            <a href="#streaming" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
+              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
+              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Streaming</span>
             </a>
           </li>
           <li>
@@ -330,6 +337,22 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               className="w-full text-left space-y-4"
             >
+              {/* News Item: Streaming Release */}
+              <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
+                <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.09.01</time>
+                <div className="flex-1 text-solne-dark/70 group-hover:text-solne-dark transition-all duration-300">
+                  <p className="leading-relaxed tracking-wider font-light text-sm md:text-base mb-2">
+                    過去のオリジナル楽曲が各種音楽配信サービス（Apple Music、Spotify、LINE MUSIC、Amazon Musicなど）にて一挙配信開始となりました。
+                  </p>
+                  <a 
+                    href="#streaming" 
+                    className="inline-flex items-center gap-1.5 text-[10px] md:text-xs tracking-widest text-white bg-solne-gold border border-solne-gold px-3 py-1 rounded-full hover:bg-solne-gold/80 transition-all shadow-sm"
+                  >
+                    <Headphones className="w-3.5 h-3.5" /> 配信サービス一覧を見る
+                  </a>
+                </div>
+              </motion.div>
+
               {/* News Item: 碧に包まれて Performance Video */}
               <motion.div variants={popInItem} className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40">
                 <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">2026.08.09</time>
@@ -568,6 +591,9 @@ export default function App() {
             </div>
           </div>
         </Section>
+
+        {/* Streaming / Digital Release Section */}
+        <StreamingSection />
 
         {/* Music Section */}
         <Section id="music">
@@ -876,6 +902,13 @@ export default function App() {
                 </svg>
               </div>
               <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">TikTok</span>
+            </motion.a>
+
+            <motion.a variants={popInItem} href="https://linkco.re/07Pp0aez" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-6 group">
+              <div className="w-20 h-20 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center text-solne-dark/60 group-hover:text-solne-gold group-hover:-translate-y-3 group-hover:shadow-[0_20px_40px_rgba(184,153,117,0.15)] transition-all duration-500">
+                <Headphones className="w-7 h-7" strokeWidth={1.5} />
+              </div>
+              <span className="tracking-[0.2em] text-xs text-solne-dark/50 group-hover:text-solne-dark transition-colors">Streaming</span>
             </motion.a>
           </motion.div>
         </Section>
