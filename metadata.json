@@ -1,6 +1,6 @@
 {
   "name": "Solne Official Site",
-  "description": "",
+  "description": "情景作曲家・ピアニストSolneのオフィシャルサイト。新曲「遠霞」をはじめ、オリジナル楽曲や演奏動画を公開中。",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

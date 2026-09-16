@@ -4,13 +4,14 @@ import { ExternalLink, Headphones, Sparkles, Radio } from 'lucide-react';
 
 interface PlatformLogo {
   name: string;
-  subText?: string;
+  url: string;
   renderIcon: () => ReactNode;
 }
 
 const PLATFORM_LOGOS: PlatformLogo[] = [
   {
     name: 'Apple Music',
+    url: 'https://www.tunecore.co.jp/to/apple_music/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#FC3C44] to-[#F9243C] flex items-center justify-center shadow-md">
         <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-current" viewBox="0 0 24 24">
@@ -21,6 +22,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'Spotify',
+    url: 'https://www.tunecore.co.jp/to/spotify/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#1DB954] flex items-center justify-center shadow-md">
         <svg className="w-6 h-6 sm:w-7 sm:h-7 text-black fill-current" viewBox="0 0 24 24">
@@ -31,6 +33,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'YouTube Music',
+    url: 'https://www.tunecore.co.jp/to/youtube_music_key/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#FF0000] flex items-center justify-center shadow-md">
         <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-current" viewBox="0 0 24 24">
@@ -41,6 +44,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'LINE MUSIC',
+    url: 'https://www.tunecore.co.jp/to/line/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#00C300] flex items-center justify-center shadow-md">
         <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-current" viewBox="0 0 24 24">
@@ -51,6 +55,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'Amazon Music',
+    url: 'https://www.tunecore.co.jp/to/amazon_music_unlimited/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#141B26] border border-[#25D1DA]/30 flex flex-col items-center justify-center shadow-md px-1">
         <span className="text-[9px] font-bold text-white tracking-tighter leading-none mb-0.5">amazon</span>
@@ -60,6 +65,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'AWA',
+    url: 'https://www.tunecore.co.jp/to/awa/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black flex items-center justify-center shadow-md">
         <span className="text-white font-black text-xs sm:text-sm tracking-widest">AWA</span>
@@ -68,6 +74,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'iTunes Store',
+    url: 'https://www.tunecore.co.jp/to/itunes/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-[#EA4CC0] via-[#C33FB8] to-[#6A1B9A] flex items-center justify-center shadow-md">
         <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-current" viewBox="0 0 24 24">
@@ -78,6 +85,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'レコチョク',
+    url: 'https://www.tunecore.co.jp/to/recochoku401/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#E6007E] flex items-center justify-center shadow-md">
         <span className="text-white font-extrabold text-lg sm:text-xl font-sans">レ</span>
@@ -86,6 +94,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'mora',
+    url: 'https://www.tunecore.co.jp/to/mora1701/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#1A1A1A] flex flex-col items-center justify-center shadow-md gap-0.5">
         <div className="flex items-end gap-0.5 h-3">
@@ -99,6 +108,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'Rakuten Music',
+    url: 'https://music.rakuten.co.jp/link/search/result/ALBUM?q=%20%E6%A1%9C%E8%89%B2%E3%81%AE%E5%A4%A2',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#BF0000] flex flex-col items-center justify-center shadow-md px-1">
         <span className="text-[8px] font-bold text-white tracking-tighter leading-none">Rakuten</span>
@@ -108,6 +118,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'Deezer',
+    url: 'https://www.tunecore.co.jp/to/deezer/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#A238FF] flex items-center justify-center shadow-md">
         <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-current" viewBox="0 0 24 24">
@@ -118,6 +129,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'KKBOX',
+    url: 'https://www.kkbox.com/jp/ja/search.php?word=Solne%20Piano%20Scenery%20%E6%A1%9C%E8%89%B2%E3%81%AE%E5%A4%A2',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#00B4D8] flex items-center justify-center shadow-md">
         <span className="text-white font-black text-sm sm:text-base">K</span>
@@ -126,6 +138,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'dヒッツ',
+    url: 'https://dhits.docomo.ne.jp/search/freeword/musics?k_q=Solne%20Piano%20Scenery%20%E6%A1%9C%E8%89%B2%E3%81%AE%E5%A4%A2',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#CC0033] flex items-center justify-center shadow-md">
         <span className="text-white font-bold text-[10px] sm:text-xs">dヒッツ</span>
@@ -134,6 +147,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'au うたパス',
+    url: 'https://www.tunecore.co.jp/to/recochoku402/1890832',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#FF6600] flex flex-col items-center justify-center shadow-md">
         <span className="text-white font-bold text-[8px] leading-tight">au</span>
@@ -143,6 +157,7 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
   },
   {
     name: 'music.jp',
+    url: 'https://music-book.jp/Search?Keyword=Solne%20Piano%20Scenery%20%E6%A1%9C%E8%89%B2%E3%81%AE%E5%A4%A2',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#DC2626] flex items-center justify-center shadow-md">
         <span className="text-white font-bold text-xs sm:text-sm">m.</span>
@@ -150,28 +165,29 @@ const PLATFORM_LOGOS: PlatformLogo[] = [
     ),
   },
   {
-    name: 'ドワンゴ',
+    name: 'OTOTOY',
+    url: 'https://ototoy.jp/find/?q=%20%E6%A1%9C%E8%89%B2%E3%81%AE%E5%A4%A2&search=%E6%A4%9C%E7%B4%A2',
     renderIcon: () => (
-      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#0EA5E9] flex items-center justify-center shadow-md">
-        <span className="text-white font-bold text-[8px] sm:text-[9px] leading-tight text-center">ドワンゴ<br/>JP</span>
+      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#2D3748] flex items-center justify-center shadow-md">
+        <span className="text-white font-bold text-[9px] sm:text-[10px] tracking-tight">OTOTOY</span>
       </div>
     ),
   },
   {
-    name: 'Shazam',
+    name: 'mysound',
+    url: 'https://www.tunecore.co.jp/to/mysound501/1890832',
     renderIcon: () => (
-      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#0088FF] flex items-center justify-center shadow-md">
-        <span className="text-white font-black text-sm sm:text-base italic">S</span>
+      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#0284C7] flex items-center justify-center shadow-md">
+        <span className="text-white font-bold text-[8px] leading-tight text-center">my<br/>sound</span>
       </div>
     ),
   },
   {
-    name: 'TikTok',
+    name: 'TIDAL',
+    url: 'https://listen.tidal.com/search?q=Solne%20Piano%20Scenery%20Dream%20in%20Cherry%20Blossom',
     renderIcon: () => (
       <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black flex items-center justify-center shadow-md">
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-current" viewBox="0 0 24 24">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68a6.34 6.34 0 0 0 6.33 6.32 6.33 6.33 0 0 0 6.34-6.32V8a8.3 8.3 0 0 0 4.92 1.6V6.15a4.83 4.83 0 0 1-1-.46z"/>
-        </svg>
+        <span className="text-white font-black text-xs tracking-wider">TIDAL</span>
       </div>
     ),
   },
@@ -263,7 +279,7 @@ export function StreamingSection() {
               <p className="text-xs sm:text-sm md:text-base leading-relaxed tracking-wider text-solne-dark/75 font-light mb-8 max-w-xl">
                 Apple Music、Spotify、LINE MUSIC、YouTube Music、Amazon Musicをはじめとする主要な定額制聴き放題サービスおよびダウンロードストアにて、Solneの楽曲をお楽しみいただけます。
                 <br className="hidden md:inline" />
-                お使いのミュージックアプリでぜひライブラリ登録やプレイリスト追加をしてお聴きください。
+                お使いのミュージックアプリをタップして、ぜひライブラリ追加やプレイリスト登録をしてお聴きください。
               </p>
 
               {/* Primary Call to Action Button */}
@@ -275,40 +291,46 @@ export function StreamingSection() {
                   className="w-full sm:w-auto px-8 py-4 rounded-full bg-solne-gold text-white tracking-[0.2em] font-medium hover:bg-solne-gold/90 transition-all duration-300 shadow-[0_4px_20px_rgba(219,157,100,0.35)] hover:shadow-[0_6px_25px_rgba(219,157,100,0.5)] hover:-translate-y-0.5 flex items-center justify-center gap-3 border border-solne-gold"
                 >
                   <Sparkles className="w-4 h-4 text-amber-100" />
-                  <span>配信サービス一覧を開く (LinkCore)</span>
+                  <span>全配信サービス一覧を開く (LinkCore)</span>
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
 
-              {/* Clean Visual Service Logos Grid (No Redundant Links) */}
+              {/* Interactive Direct Platform Logos Grid */}
               <div className="w-full pt-6 border-t border-solne-gold/20">
                 <div className="flex items-center justify-between gap-2 mb-5">
                   <span className="text-[11px] sm:text-xs tracking-[0.2em] text-solne-dark/70 font-medium flex items-center gap-1.5">
                     <Radio className="w-3.5 h-3.5 text-solne-gold" />
-                    配信プラットフォーム一覧（35サービス以上）
+                    各アプリ・ストアへ直接アクセス
                   </span>
-                  <span className="text-[10px] tracking-wider text-solne-gold font-light">全サービス対応</span>
+                  <span className="text-[10px] tracking-wider text-solne-gold font-light">タップで各アプリ起動</span>
                 </div>
 
-                {/* Clean Logo Grid */}
+                {/* Direct Link Logo Grid */}
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 w-full">
                   {PLATFORM_LOGOS.map((platform, index) => (
-                    <div
+                    <a
                       key={index}
-                      className="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white/60 border border-white/80 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(219,157,100,0.18)] hover:bg-white/90 hover:-translate-y-0.5 transition-all duration-300 group select-none"
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white/60 border border-white/80 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_20px_rgba(219,157,100,0.25)] hover:bg-white hover:border-solne-gold/40 hover:-translate-y-1 active:translate-y-0 transition-all duration-300 group cursor-pointer"
                     >
-                      <div className="transform group-hover:scale-105 transition-transform duration-300">
+                      <div className="transform group-hover:scale-105 transition-transform duration-300 relative">
                         {platform.renderIcon()}
+                        <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-solne-gold/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </div>
                       </div>
                       <span className="text-[10px] sm:text-[11px] tracking-wider text-solne-dark/70 font-medium mt-2 text-center truncate max-w-full group-hover:text-solne-dark transition-colors">
                         {platform.name}
                       </span>
-                    </div>
+                    </a>
                   ))}
                 </div>
 
                 <p className="mt-4 text-[10px] sm:text-[11px] tracking-wider text-solne-dark/50 text-center lg:text-left font-light">
-                  ※ 各アプリ内にてアーティスト名「Solne」で検索してもご視聴いただけます。
+                  ※ 各ロゴをタップすると、対応アプリまたは配信ページが直接開きます。
                 </p>
               </div>
 
