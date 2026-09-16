@@ -208,10 +208,9 @@ function ActionIcon({ icon }: { icon?: string }) {
   }
 }
 
-function NewsCard({ item, popInItem }: { item: NewsItem; popInItem?: any; key?: string | number }) {
+function NewsCard({ item }: { item: NewsItem; key?: string | number }) {
   return (
-    <motion.div 
-      variants={popInItem}
+    <div 
       className="group flex flex-col md:flex-row gap-2 md:gap-12 border-b border-solne-gold/10 pb-4 transition-all duration-500 hover:border-solne-gold/40"
     >
       <time className="text-solne-gold tracking-widest shrink-0 w-32 font-light text-sm md:text-base">
@@ -242,7 +241,7 @@ function NewsCard({ item, popInItem }: { item: NewsItem; popInItem?: any; key?: 
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -266,13 +265,6 @@ export function NewsSection({ staggerContainer, popInItem }: NewsSectionProps) {
     }
   };
 
-  const defaultPopIn = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-  };
-
-  const activePopIn = popInItem || defaultPopIn;
-
   return (
     <Section id="news" className="bg-white/30 backdrop-blur-md w-full max-w-none py-16 md:py-24 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
       <div className="max-w-3xl mx-auto w-full px-6 flex flex-col items-center">
@@ -292,21 +284,21 @@ export function NewsSection({ staggerContainer, popInItem }: NewsSectionProps) {
         >
           {/* Always Visible Top Items */}
           {initialNews.map((item) => (
-            <NewsCard key={item.id} item={item} popInItem={activePopIn} />
+            <NewsCard key={item.id} item={item} />
           ))}
 
           {/* Expandable Extra Items */}
-          <AnimatePresence>
+          <AnimatePresence initial={false}>
             {isExpanded && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="space-y-4 overflow-hidden"
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="space-y-4 overflow-hidden pt-2"
               >
                 {extraNews.map((item) => (
-                  <NewsCard key={item.id} item={item} popInItem={activePopIn} />
+                  <NewsCard key={item.id} item={item} />
                 ))}
               </motion.div>
             )}
@@ -317,11 +309,13 @@ export function NewsSection({ staggerContainer, popInItem }: NewsSectionProps) {
         {remainingCount > 0 && (
           <div className="mt-8 flex flex-col items-center">
             <button
-              onClick={() => setIsExpanded(!isExpanded)}
+              type="button"
+              aria-expanded={isExpanded}
+              onClick={() => setIsExpanded(prev => !prev)}
               className="group relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-white/70 hover:bg-white border border-solne-gold/30 hover:border-solne-gold text-xs md:text-sm tracking-[0.2em] text-solne-dark/80 hover:text-solne-dark shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
             >
               <span className="font-light">
-                {isExpanded ? '過去のお知らせを閉じる' : `過去のお知らせをもっと見る (+${remainingCount}件)`}
+                {isExpanded ? '過去のお知らせを閉じる' : `過去のお知らせをさらに表示 (+${remainingCount}件)`}
               </span>
               <div className="w-5 h-5 rounded-full bg-solne-gold/10 group-hover:bg-solne-gold/20 flex items-center justify-center text-solne-gold transition-colors">
                 {isExpanded ? (

@@ -3,6 +3,7 @@ import FireworksBackground from './components/FireworksBackground';
 import CherryBlossom from './components/CherryBlossom';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import topBackground from './assets/images/summer_lantern_fireworks_scenery_1783924938769.jpg';
+import mobileTopBackground from './assets/images/mobile_fireworks_bg_1782608794136.jpg';
 import { Section } from './components/Section';
 import { NewsSection } from './components/NewsSection';
 import { StreamingSection } from './components/StreamingSection';
@@ -90,66 +91,77 @@ export default function App() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, delay: 1, ease: "easeOut" }}
-        className="fixed top-6 right-6 md:top-10 md:right-12 z-50"
+        className="fixed top-3 right-3 sm:top-5 sm:right-6 md:top-8 md:right-12 z-50"
       >
-        <ul className="flex flex-col md:flex-row items-end gap-4 md:gap-8 text-xs md:text-sm tracking-[0.2em] font-light">
-          <li>
-            <a href="#news" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
-              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">News</span>
-            </a>
-          </li>
-          <li>
-            <a href="#about" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
-              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">About</span>
-            </a>
-          </li>
-          <li>
-            <a href="#streaming" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
-              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Streaming</span>
-            </a>
-          </li>
-          <li>
-            <a href="#music-latest" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
-              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Music</span>
-            </a>
-          </li>
-          <li>
-            <a href="#sheet-latest" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
-              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Sheet</span>
-            </a>
-          </li>
-          <li>
-            <a href="#link" className="text-solne-dark/60 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-2">
-              <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-4 opacity-0 group-hover:opacity-100"></span>
-              <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block">Link</span>
-            </a>
-          </li>
-        </ul>
+        <div className="bg-white/90 backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 rounded-full border border-white/70 shadow-[0_4px_25px_rgba(0,0,0,0.12)]">
+          <ul className="flex flex-row items-center gap-2 sm:gap-3.5 md:gap-7 text-[11px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.16em] md:tracking-[0.2em] font-light">
+            <li>
+              <a href="#news" className="text-solne-dark/70 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-1">
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-3 opacity-0 group-hover:opacity-100 hidden md:inline-block"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block font-normal">News</span>
+              </a>
+            </li>
+            <li>
+              <a href="#about" className="text-solne-dark/70 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-1">
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-3 opacity-0 group-hover:opacity-100 hidden md:inline-block"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block font-normal">About</span>
+              </a>
+            </li>
+            <li>
+              <a href="#streaming" className="text-solne-dark/70 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-1">
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-3 opacity-0 group-hover:opacity-100 hidden md:inline-block"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block font-normal">Streaming</span>
+              </a>
+            </li>
+            <li>
+              <a href="#music-latest" className="text-solne-dark/70 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-1">
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-3 opacity-0 group-hover:opacity-100 hidden md:inline-block"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block font-normal">Music</span>
+              </a>
+            </li>
+            <li>
+              <a href="#sheet-latest" className="text-solne-dark/70 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-1">
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-3 opacity-0 group-hover:opacity-100 hidden md:inline-block"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block font-normal">Sheet</span>
+              </a>
+            </li>
+            <li>
+              <a href="#link" className="text-solne-dark/70 hover:text-solne-dark transition-all duration-300 relative group flex items-center gap-1">
+                <span className="w-0 h-[1px] bg-solne-gold transition-all duration-300 group-hover:w-3 opacity-0 group-hover:opacity-100 hidden md:inline-block"></span>
+                <span className="group-hover:-translate-y-0.5 transition-transform duration-300 inline-block font-normal">Link</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </motion.nav>
 
-      <main className="pt-32 pb-20 flex flex-col items-center relative z-10">
+      <main className="pt-0 pb-20 flex flex-col items-center relative z-10">
         
         {/* Hero Section */}
-        <section className="w-full min-h-[90vh] flex flex-col items-center justify-start relative px-4 sm:px-6 pt-10 pb-20 overflow-hidden bg-solne-dark/95">
+        <section className="w-full min-h-screen flex flex-col items-center justify-start relative px-4 sm:px-6 pt-20 sm:pt-24 md:pt-32 pb-20 overflow-hidden bg-solne-dark">
           
-          {/* Hero Background Atmosphere - 遠霞 Twilight Theme */}
-          <div className="absolute inset-x-0 top-0 h-[130vh] pointer-events-none z-0 -mt-20 overflow-hidden">
+          {/* Hero Background Atmosphere */}
+          <div className="absolute inset-x-0 top-0 h-full max-h-[1400px] pointer-events-none z-0 overflow-hidden">
+            {/* Dedicated Mobile Portrait Background (768x1376) */}
             <div 
-              className="w-full h-full opacity-30 bg-cover bg-center object-cover scale-105 filter blur-[3px]"
+              className="md:hidden w-full h-full opacity-40 bg-cover bg-top object-cover scale-100"
               style={{ 
-                backgroundImage: `url(${TOGASUMI_THUMBNAIL})`
+                backgroundImage: `url(${mobileTopBackground})`
               }}
             ></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/40 via-solne-dark/85 to-solne-dark"></div>
+            {/* Dedicated Desktop Landscape Background (1408x768) */}
+            <div 
+              className="hidden md:block w-full h-full opacity-45 bg-cover bg-center object-cover scale-100"
+              style={{ 
+                backgroundImage: `url(${topBackground})`
+              }}
+            ></div>
+            {/* Smooth gradient blend into solne-dark */}
+            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/20 via-solne-dark/70 to-solne-dark"></div>
           </div>
 
           {/* Fireworks Effects */}
-          <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-x-0 top-0 h-screen max-h-[900px] pointer-events-none z-0 overflow-hidden">
             <FireworksBackground />
           </div>
 

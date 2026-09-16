@@ -15,8 +15,11 @@ const FireworksBackground: React.FC = () => {
     let hue = 120;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const parent = canvas.parentElement;
+      const width = parent ? parent.clientWidth : window.innerWidth;
+      const height = parent ? parent.clientHeight : window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
     };
     window.addEventListener('resize', resize);
     resize();
