@@ -2,8 +2,8 @@ import ParticleBackground from './components/ParticleBackground';
 import FireworksBackground from './components/FireworksBackground';
 import CherryBlossom from './components/CherryBlossom';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
-import topBackground from './assets/images/summer_lantern_fireworks_scenery_1783924938769.jpg';
-import mobileTopBackground from './assets/images/mobile_fireworks_bg_1782608794136.jpg';
+import togasumiBgPc from './assets/images/togasumi_bg_pc_1789603753279.jpg';
+import togasumiBgMobile from './assets/images/togasumi_bg_mobile_1789603770262.jpg';
 import { Section } from './components/Section';
 import { NewsSection } from './components/NewsSection';
 import { StreamingSection } from './components/StreamingSection';
@@ -140,24 +140,24 @@ export default function App() {
         {/* Hero Section */}
         <section className="w-full min-h-screen flex flex-col items-center justify-start relative px-4 sm:px-6 pt-20 sm:pt-24 md:pt-32 pb-20 overflow-hidden bg-solne-dark">
           
-          {/* Hero Background Atmosphere */}
+          {/* Hero Background Atmosphere - 遠霞 Twilight Sky Theme */}
           <div className="absolute inset-x-0 top-0 h-full max-h-[1400px] pointer-events-none z-0 overflow-hidden">
-            {/* Dedicated Mobile Portrait Background (768x1376) */}
+            {/* Dedicated Mobile Portrait Background (遠霞 9:16) */}
             <div 
-              className="md:hidden w-full h-full opacity-40 bg-cover bg-top object-cover scale-100"
+              className="md:hidden w-full h-full opacity-65 bg-cover bg-top object-cover scale-100"
               style={{ 
-                backgroundImage: `url(${mobileTopBackground})`
+                backgroundImage: `url(${togasumiBgMobile})`
               }}
             ></div>
-            {/* Dedicated Desktop Landscape Background (1408x768) */}
+            {/* Dedicated Desktop Landscape Background (遠霞 16:9) */}
             <div 
-              className="hidden md:block w-full h-full opacity-45 bg-cover bg-center object-cover scale-100"
+              className="hidden md:block w-full h-full opacity-60 bg-cover bg-center object-cover scale-100"
               style={{ 
-                backgroundImage: `url(${topBackground})`
+                backgroundImage: `url(${togasumiBgPc})`
               }}
             ></div>
             {/* Smooth gradient blend into solne-dark */}
-            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/20 via-solne-dark/70 to-solne-dark"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-solne-dark/15 via-solne-dark/50 to-solne-dark"></div>
           </div>
 
           {/* Fireworks Effects */}
