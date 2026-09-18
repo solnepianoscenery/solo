@@ -3,7 +3,7 @@ import FireworksBackground from './components/FireworksBackground';
 import CherryBlossom from './components/CherryBlossom';
 import TikTokProfileEmbed from './components/TikTokProfileEmbed';
 import togasumiBgPc from './assets/images/togasumi_bg_pc_1789603753279.jpg';
-import togasumiBgMobile from './assets/images/togasumi_bg_mobile_1789603770262.jpg';
+import togasumiBgMobile from './assets/images/togasumi_mobile_sky_1789702398089.jpg';
 import { Section } from './components/Section';
 import { NewsSection } from './components/NewsSection';
 import { StreamingSection } from './components/StreamingSection';
